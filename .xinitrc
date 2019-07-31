@@ -1,0 +1,29 @@
+#!/bin/sh
+
+userresources=$HOME/.Xresources
+usermodmap=$HOME/.Xmodmap
+sysresources=/etc/X11/xinit/.Xresources
+sysmodmap=/etc/X11/xinit/.Xmodmap
+
+# Merge in defaults and keymaps
+[ -f $sysresources ] && /usr/bin/xrdb -merge $sysresources
+[ -f $sysmodmap ] && /usr/bin/xmodmap $sysmodmap
+[ -f $userresources ] && /usr/bin/xrdb -merge $userresources
+[ -f $usermodmap ] && /usr/bin/xmodmap $usermodmap
+
+# internet
+nm-applet &
+# screen filter
+redshift-gtk &
+# panel (only needed because of xmobar/i3status
+stalonetray &
+# save energy
+xautolock -time 5 -locker "xlock & sleep 5 ; pm-suspend-hybrid" &
+
+if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
+  exec ck-launch-session dbus-launch --exit-with-session /usr/bin/xmonad
+else
+  exec /usr/bin/xmonad
+fi
+
+

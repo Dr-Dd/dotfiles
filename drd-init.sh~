@@ -34,7 +34,8 @@
 #    * keepassxc
 #    * MEGA
 #    * Inconsolata font
-#    * SLiM (discontinued)
+#    * SLiM (unmantained)
+#      - optionally install slim themes
 #    * urxvt
 #    * dunst (difficult to manage)   
 #    * caffeine

@@ -87,6 +87,26 @@ install-packages {
 }
 
 ## "Main"
+echo 'Run this script only if you have already stowed some needed pacman dotfiles'
+echo 'You have 5 seconds to stop the init process'
+sleep 1
+echo '.'
+sleep 1
+echo '.'
+sleep 1
+echo '.'
+sleep 1
+echo '.'
+sleep 1
+echo '.'
+echo 'Installing pacman packages...'
 install-packages
-echo 'You should now stow the needed dotfiles'
-echo 'Remember that some dotfiles need the \"-t /\" target (EG systemd)'
+echo '
+Other things you should do:
+  * Configure rclone to work with MEGA
+  * Add data partitions to fstab
+  * Stow needed dotfiles (remember that some dotfiles need the \"-t /\" target)
+  * Start needed systemd services
+  * Edit boot parameters
+  * Configure gtk-greeter
+'

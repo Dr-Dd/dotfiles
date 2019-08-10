@@ -59,13 +59,8 @@ There are two things you can do about this warning:
 (use-package haskell-interactive-mode)
 (use-package haskell-process)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-(add-hook 'haskell-mode-hook
-	  (lambda ()
-	    set (make-local-variable 'company-backends)
-	    (append '((company-capf company-dabbrev-code)
-		      company-backends))))
 (add-hook 'haskell-mode-hook 'flyspell-prog-mode)
-;; == end of haskell coding
+;; == end of haskell coding ==
 
 ;; enable show paren mode
 (add-hook 'after-init-hook 'show-paren-mode)

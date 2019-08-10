@@ -15,6 +15,7 @@
 packages=(
   alsa-utils
   arc-solid-gtk-theme
+  aspell-en
   bash-completion
   bbswitch # remember to be part of the group bumblebee
   bumblebee 

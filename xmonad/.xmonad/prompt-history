@@ -1,0 +1,1 @@
+fromList [("Confirm exit (esc/ENTER)",["","","","","","",""]),("Confirm logout? (esc/ENTER)",["","","","","",""]),("Run: ",["dmenu_run"])]

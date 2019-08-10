@@ -1,0 +1,4 @@
+! Swap Caps_Lock with Escape
+! keycode  66 = Caps_Lock NoSymbol Caps_Lock
+clear Lock
+keycode 66 = Escape

@@ -12,18 +12,20 @@
 #
 # In reality, i tend to only use a single root partition since i rely on dotfiles
 
+# Some of these packages are commented since i'm not sure of what system config you might have, add and remove them according 
+# to what you need
 packages=(
   alsa-utils
   arc-solid-gtk-theme
   aspell-en
   bash-completion
-  bbswitch # remember to be part of the group bumblebee
-  bumblebee 
+ # bbswitch # remember to be part of the group bumblebee
+ # bumblebee 
   cantata
   dmenu
   dunst
   eclipse-jee
-  efibootmgr
+ # efibootmgr
   emacs
   evolution
   feh
@@ -34,12 +36,13 @@ packages=(
   htop
   jdk8-openjdk
   keepassxc
-  lib32-nvidia-utils
-  lib32-virtualgls
+ # lib32-nvidia-utils
+ # lib32-virtualgls
   lightdm # remember to enable ligthdm.service, add acpi_osi='!Windows 2015' to kernel params
   lightdm-gtk-greeter
   lightdm-gtk-greeter-settings
   maven
+ # mesa
   mpc
   mpd 
   mpv
@@ -47,8 +50,8 @@ packages=(
   networkmanager
   nm-connection-editor
   ntfs-3g
-  nvidia
-  nvidia-settings
+ # nvidia
+ # nvidia-settings
   os-prober
   qbittorrent
   ranger
@@ -58,7 +61,7 @@ packages=(
   stalonetray
   stow
   terminus-font
-  tlp
+ # tlp
   ttf-dejavu
   ttf-inconsolata
   vim
@@ -66,7 +69,7 @@ packages=(
   wget
   xarchiver
   xautolock
-  xf86-video-intel
+ # xf86-video-intel
   xmobar
   xmonad
   xmonad-contrib
@@ -110,4 +113,5 @@ Other things you should do:
   * Start needed systemd services
   * Edit boot parameters
   * Configure gtk-greeter
+  * install graphic drivers (see arch-wiki)
 '

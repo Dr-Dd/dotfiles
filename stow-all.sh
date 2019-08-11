@@ -32,8 +32,9 @@ do
   stow "$i"
 done
 
+# Uncomment this only if you know what you're doing
 # Update root folder files
-for i in "${rootfiles[@]}"
-do
-  stow -t / "$i"
-done
+#for i in "${rootfiles[@]}"
+#do
+  #stow -t / "$i"
+#done

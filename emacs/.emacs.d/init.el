@@ -79,8 +79,20 @@ There are two things you can do about this warning:
 ;; set default font
 (add-to-list 'default-frame-alist
 	     '(font . "Inconsolata-20:bold"))
-(set-face-attribute 'mode-line nil :font "xos4 Terminus-14:bold") ; set modeline default font
+(let ((faces '(mode-line
+               mode-line-buffer-id
+               mode-line-emphasis
+               mode-line-highlight
+               mode-line-inactive)))
+     (mapc
+      (lambda (face) (set-face-attribute face nil :font "xos4 Terminus-14:bold"))
+      faces))
 ;; == end of default font ==
+
+;; default window splitting preferences
+(setq split-height-threshold nil)
+(setq split-width-threshold 1)
+;; == end of default window splitting ==
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

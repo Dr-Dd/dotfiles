@@ -79,7 +79,7 @@ packages=(
   zathura-pdf-mupdf
 )
 
-function install-packages {
+function installpackages {
   ## One command per package since it 'ignores' failed installs
   for i in "${packages[@]}"
   do
@@ -101,7 +101,7 @@ echo '.'
 sleep 1
 echo '.'
 echo 'Installing pacman packages...'
-install-packages
+installpackages
 echo '
 Other things you should do:
   * Configure rclone to work with MEGA

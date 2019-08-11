@@ -79,11 +79,11 @@ packages=(
   zathura-pdf-mupdf
 )
 
-install-packages {
+function install-packages {
   ## One command per package since it 'ignores' failed installs
   for i in "${packages[@]}"
   do
-    sudo pacman -S --noconfirm "${i}"
+    sudo pacman -S --noconfirm --needed  "${i}"
   done
 }
 

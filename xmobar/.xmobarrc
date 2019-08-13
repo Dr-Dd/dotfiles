@@ -24,9 +24,7 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
                                      "-l","lightblue","-n","lightblue","-h","red"] 60
                     , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                     , Run UnsafeStdinReader
-                    , Run BatteryP ["BAT0"] 
-                                   ["-t","Batt: <left>%",
-                                    "-L","15","-H","60",
+                    , Run Battery ["-t","Batt: <watts>W, <left>%",
                                     "--","-l","red","-m","blue","-h","green"] 600
                     ]
        , sepChar = "%"

@@ -38,6 +38,7 @@ packages=(
   keepassxc
  # lib32-nvidia-utils
  # lib32-virtualgls
+ # libva-mesa-driver
   lightdm # remember to enable ligthdm.service, add acpi_osi='!Windows 2015' to kernel params
   lightdm-gtk-greeter
   lightdm-gtk-greeter-settings

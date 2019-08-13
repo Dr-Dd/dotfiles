@@ -80,6 +80,7 @@ packages=(
   xorg
   xorg-server
   xorg-apps
+  xorg-xinit
   xscreensaver
   zathura
   zathura-djvu

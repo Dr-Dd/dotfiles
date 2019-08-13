@@ -65,6 +65,9 @@ packages=(
   ttf-dejavu
   ttf-inconsolata
   vim
+  virtualbox
+  virtualbox-host-modules-arch
+  virtualbox-guest-iso
   w3m
   wget
   xarchiver

@@ -53,6 +53,7 @@ packages=(
  # nvidia
  # nvidia-settings
   os-prober
+  p7zip
   qbittorrent
   ranger
   rclone

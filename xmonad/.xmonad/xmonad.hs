@@ -95,11 +95,12 @@ myXPConfig = def
 -- Use the `xprop' tool to get the info you need for these matches.
 -- For className, use the second value that xprop gives you.
 myManageHook = composeOne
-  [ className =? "Pidgin" -?> doFloat
-  , className =? "XCalc"  -?> doFloat
-  , className =? "mpv"    -?> doFloat
-  , isDialog              -?> doCenterFloat
-  , isFullscreen          -?> doFullFloat 
+  [ className =? "Pidgin"    -?> doFloat
+  , className =? "XCalc"     -?> doFloat
+  , className =? "mpv"       -?> doFloat
+  , className =? "keepassxc" -?> doFloat
+  , isDialog                 -?> doCenterFloat
+  , isFullscreen             -?> doFullFloat 
     -- Move transient windows to their parent:
   , transience
   ]

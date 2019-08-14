@@ -61,6 +61,7 @@ packages=(
   rclone
   redshift
   rxvt-unicode
+  speedcrunch
   stalonetray
   stow
   terminus-font

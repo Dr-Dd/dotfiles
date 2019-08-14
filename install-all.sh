@@ -89,36 +89,22 @@ packages=(
   zathura-pdf-mupdf
 )
 
-function installpackages {
-  ## One command per package since it 'ignores' failed installs
-  for i in "${packages[@]}"
-  do
-    sudo pacman -S --noconfirm --needed  "${i}"
-  done
-}
-
 ## "Main"
-echo 'Run this script only if you have already stowed some needed pacman dotfiles'
-echo 'You have 5 seconds to stop the init process'
-sleep 1
-echo '.'
-sleep 1
-echo '.'
-sleep 1
-echo '.'
-sleep 1
-echo '.'
-sleep 1
-echo '.'
-echo 'Installing pacman packages...'
-installpackages
-echo '
+echo "== IT'S SUGGESTED (although not necessary) TO RUN THIS SCRIPT AS ROOT =="
+echo "Starting countdown"
+for i in {5..1}
+do
+  echo "$i.."
+  sleep 1
+done
+echo ".."
+echo "Installing pacman packages..."
+pacman -S --noconfirm --needed ${myarray[@]}
+echo "
 Other things you should do:
-  * Configure rclone to work with MEGA
+  * Configure rclone to work with preferred cloud provider
   * Add data partitions to fstab
-  * Stow needed dotfiles (remember that some dotfiles need the \"-t /\" target)
-  * Start needed systemd services
   * Edit boot parameters
-  * Configure gtk-greeter
   * install graphic drivers (see arch-wiki)
-'
+  * stow needed dotfiles (see README)
+"

@@ -50,6 +50,8 @@ function nonzero_return() {
 	[ $RETVAL -ne 0 ] && echo "[$RETVAL]"
 }
 
+export QT_QPA_PLATFORMTHEME=gtk2
+
 export PS1="\n┏\[\e[31m\]\`nonzero_return\`\[\e[m\]\[\e[32m\][\w]\[\e[m\]\[\e[33m\]\`parse_git_branch\`\[\e[m\]\n┗\[\e[34m\][λ]\[\e[m\] "
 
 alias shutdown="sudo /sbin/shutdown"

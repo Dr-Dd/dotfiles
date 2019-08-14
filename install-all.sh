@@ -56,6 +56,7 @@ packages=(
   os-prober
   p7zip
   qbittorrent
+  qt5-styleplugin
   ranger
   rclone
   redshift

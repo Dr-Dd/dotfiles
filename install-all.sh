@@ -39,7 +39,7 @@ packages=(
  # lib32-nvidia-utils
  # lib32-virtualgls
  # libva-mesa-driver
-  lightdm # remember to enable ligthdm.service, add acpi_osi='!Windows 2015' to kernel params
+  lightdm # remember to enable ligthdm.service, add `acpi_osi='!Windows 2015'` to kernel params if needed
   lightdm-gtk-greeter
   lightdm-gtk-greeter-settings
   maven
@@ -56,7 +56,7 @@ packages=(
   os-prober
   p7zip
   qbittorrent
-  qt5-styleplugin
+  qt5-styleplugins
   ranger
   rclone
   redshift
@@ -90,7 +90,7 @@ packages=(
 )
 
 ## "Main"
-echo "== IT'S SUGGESTED (although not necessary) TO RUN THIS SCRIPT AS ROOT =="
+echo "== RUN THIS SCRIPT AS ROOT =="
 echo "Starting countdown"
 for i in {5..1}
 do
@@ -99,12 +99,19 @@ do
 done
 echo ".."
 echo "Installing pacman packages..."
-pacman -S --noconfirm --needed ${myarray[@]}
+pacman -S --noconfirm --needed "${packages[@]}"
+systemctl enable lightdm.service
 echo "
 Other things you should do:
+  * Setup grub bootloader
   * Configure rclone to work with preferred cloud provider
   * Add data partitions to fstab
   * Edit boot parameters
-  * install graphic drivers (see arch-wiki)
-  * stow needed dotfiles (see README)
+  * Install gpu drivers (see arch-wiki)
+  * Stow needed dotfiles (see README)
 "
+printf "Reboot now? (Y/n) "
+read ans
+case "$ans" in
+ y|Y) shutdown -r now ;;
+esac

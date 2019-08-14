@@ -1,0 +1,11 @@
+[Trigger]
+Type = File
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Target = *
+
+[Action]
+Description = Adding new package to your personal dotfiles...
+When = PostTransaction
+Exec = *script to update the installed packages array in my dotfiles*

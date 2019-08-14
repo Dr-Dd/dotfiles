@@ -50,7 +50,7 @@ main = do
     `additionalKeysP` -- Add some extra key bindings:
       [ ("M-S-q",   spawn "$HOME/.scripts/dmenu-shutdown.sh")
       , ("M-S-l",   confirmPrompt myXPConfig "logout?" (io exitSuccess))
-      , ("M-p",     spawn "dmenu_run -fn 'Monospace-10:antialias=false' -sb '#AB4642'")
+      , ("M-p",     spawn "QT_QPA_PLATFORMTHEME=gtk2 dmenu_run -fn 'Monospace-10:antialias=false' -sb '#AB4642'")
       , ("M-<Esc>", sendMessage (Toggle "Full"))
       , ("M-S-<Esc>", sendMessage ToggleStruts)
       , ("M-b", spawn "firefox")

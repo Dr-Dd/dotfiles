@@ -53,7 +53,7 @@ main = do
       , ("M-p",     spawn "QT_QPA_PLATFORMTHEME=gtk2 dmenu_run -fn 'Monospace-10:antialias=false' -sb '#AB4642'")
       , ("M-<Esc>", sendMessage (Toggle "Full"))
       , ("M-S-<Esc>", sendMessage ToggleStruts)
-      , ("M-b", spawn "firefox")
+      , ("M-b", spawn "chromium") -- would like to use firefox 68 but video playback stutters
       , ("M-e", spawn "urxvt -e ranger")
       , ("M-c", spawn "emacs")
       ]

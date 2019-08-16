@@ -34,6 +34,7 @@ packages=(
   grub
   gucharmap
   htop
+  imagemagick
   jdk8-openjdk
   keepassxc
  # lib32-nvidia-utils
@@ -85,9 +86,11 @@ packages=(
   xorg-apps
   xorg-xinit
   xscreensaver
+  xterm
   zathura
   zathura-djvu
   zathura-pdf-mupdf
+  #EOArray
 )
 
 ## "Main"

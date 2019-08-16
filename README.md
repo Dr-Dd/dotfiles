@@ -8,6 +8,6 @@ To symlink all the needed config files use stow: i've divided stow-able config f
 * All root files are marked with the prefix "root-", and need to be stowed with a different target. So, to install them all, just run 
   * `stow root-*`
 * Home files are marked with the prefix "home-" so, just as before, to stow them all run 
-  * `stow home-*` 
+  * `stow -t / home-*` 
 
 If you find any conflicts, consider deleting the already existing files or just adopting them. Remember that these dotfiles satisfy MY preferences.

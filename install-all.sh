@@ -90,7 +90,6 @@ packages=(
   zathura
   zathura-djvu
   zathura-pdf-mupdf
-  #EOArray
 )
 
 ## "Main"

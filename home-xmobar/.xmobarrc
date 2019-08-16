@@ -26,10 +26,9 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
                     , Run UnsafeStdinReader
                     , Run Battery ["-t","Batt: <watts>W, <left>%",
                                     "--","-l","red","-m","blue","-h","green"] 600
-                    , Run Com ".scripts/check-updates.sh" [] "updates" 600
                     ]
        , sepChar = "%"
        , alignSep = "}{"
        , template = "%UnsafeStdinReader% }\
-                    \{ %updates% | %battery% | %coretemp% | <fc=#ee9a00>%date%</fc> | "
+                    \{ %battery% | %coretemp% | <fc=#ee9a00>%date%</fc> | "
        }

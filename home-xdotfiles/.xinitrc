@@ -34,6 +34,7 @@ fi
 
 [ ! -s ~/.config/mpd/pid ] && mpd &
 ~/.scripts/battery-notify-daemon.sh &
+~/.scripts/check-updates-daemon.sh &
 stalonetray &
 redshift-gtk &
 nm-applet &

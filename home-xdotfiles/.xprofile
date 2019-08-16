@@ -9,5 +9,6 @@ redshift-gtk &
 nm-applet &
 caffeine &
 ~/.scripts/battery-notify-daemon.sh &
+~/.scripts/check-updates-daemon.sh &
 xautolock -time 5 -locker "systemctl suspend" &
 sleep 5 && xscreensaver -no-splash &

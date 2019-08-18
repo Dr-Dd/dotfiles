@@ -55,6 +55,7 @@ packages=(
  # nvidia
  # nvidia-settings
   os-prober
+  pacman-contrib
   p7zip
   qbittorrent
   qt5-styleplugins

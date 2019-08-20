@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>README.html</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+
+</head>
+
+<body>
+
+<h1>drd&rsquo;s dotfiles</h1>
+
+<p>Small dotfiles collection for quickly bootstrapping a fresh arch install.
+To install all the needed packages run <code>install-all.sh</code>, i&rsquo;ve included some comments in the install script (i suggest you to take a look at them).</p>
+
+<p>To symlink all the needed config files use stow: i&rsquo;ve divided stow-able config files in home <code>(~)</code> files and root <code>(/)</code> files.</p>
+
+<ul>
+<li>All root files are marked with the prefix <code>root-</code>, and need to be stowed with a different target (and as root). So, to install them all, just run</li>
+<li><code>sudo stow -t / root-*</code></li>
+<li>Home files are marked with the prefix <code>home-</code> so, just as before, to stow them all run (make sure to run stow from the repo dir)</li>
+<li><code>stow home-*</code></li>
+</ul>
+
+
+<p>If you find any conflicts, consider deleting the already existing files or just adopting them. Remember that these dotfiles satisfy MY preferences.</p>
+
+<p>NOTE: There seems to usually be a problem in symlinking system files, so, until futher testing is done, root files are unusable</p>
+
+</body>
+</html>

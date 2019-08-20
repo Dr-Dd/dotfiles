@@ -62,6 +62,16 @@ There are two things you can do about this warning:
 (add-hook 'haskell-mode-hook 'flyspell-prog-mode)
 ;; == end of haskell coding ==
 
+;; markdown mode
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "markdown"))
+;; == end of markdown mode == 
+
 ;; enable show paren mode
 (add-hook 'after-init-hook 'show-paren-mode)
 ;; == end of show paren mode ==
@@ -89,6 +99,14 @@ There are two things you can do about this warning:
       faces))
 ;; == end of default font ==
 
+;; set default empty line fringe
+(setq-default indicate-empty-lines t)
+(progn
+  (define-fringe-bitmap 'tilde [0 0 0 113 219 142 0 0] nil nil 'center)
+  (setcdr (assq 'empty-line fringe-indicator-alist) 'tilde))
+(set-fringe-bitmap-face 'tilde 'font-lock-function-name-face)
+;; == end of default empty line ==
+
 ;; default window splitting preferences
 (setq split-height-threshold nil)
 (setq split-width-threshold 1)
@@ -101,7 +119,7 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (company haskell-mode evil use-package doom-modeline))))
+    (markdown-mode company haskell-mode evil use-package doom-modeline))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

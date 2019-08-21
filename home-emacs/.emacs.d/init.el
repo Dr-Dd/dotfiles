@@ -23,6 +23,8 @@ There are two things you can do about this warning:
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 ;; == end of BUG FIX ==
 
+;; == IN CASE OF A PACKAGE NOT INSTALLING, TRY TO RUN <M-x>`package-refresh-contents`<RET> BEFORE DOING ANYTHING STUPID ==
+
 ;; use-package first install
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -38,7 +40,6 @@ There are two things you can do about this warning:
 (setq magit-refresh-status-buffer nil)
 ;; == end of Magit ==
 
-  
 ;; EVIL MODE!
 (use-package evil
 	     :ensure t

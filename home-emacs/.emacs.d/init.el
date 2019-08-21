@@ -32,6 +32,13 @@ There are two things you can do about this warning:
   (require 'use-package))
 ;; == end of use-package ==
 
+;; Magit git front-end
+(use-package magit
+  :ensure t)
+(setq magit-refresh-status-buffer nil)
+;; == end of Magit ==
+
+  
 ;; EVIL MODE!
 (use-package evil
 	     :ensure t
@@ -42,20 +49,20 @@ There are two things you can do about this warning:
 (use-package all-the-icons
 	     :ensure t) ; REMEMBER to RUN "all-the-icons-install-fonts" after installation 
 (use-package doom-modeline
-      :ensure t
-      :hook (after-init . doom-modeline-mode)
-      :config (setq doom-modeline-height 25))
+             :ensure t
+             :hook (after-init . doom-modeline-mode)
+             :config (setq doom-modeline-height 25))
 ;; == end of doom modeline ==
 
 ;; company-mode autocompletion
 (use-package company
-  :ensure t
-  :config (add-hook 'after-init-hook  'global-company-mode))
+             :ensure t
+             :config (add-hook 'after-init-hook  'global-company-mode))
 ;; == end of autocompletion ==
 
 ;; haskell development
 (use-package haskell-mode
-  :ensure t)
+             :ensure t)
 (use-package haskell-interactive-mode)
 (use-package haskell-process)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
@@ -64,12 +71,12 @@ There are two things you can do about this warning:
 
 ;; markdown mode
 (use-package markdown-mode
-  :ensure t
-  :commands (markdown-mode gfm-mode)
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "markdown"))
+             :ensure t
+             :commands (markdown-mode gfm-mode)
+             :mode (("README\\.md\\'" . gfm-mode)
+                   ("\\.md\\'" . markdown-mode)
+                   ("\\.markdown\\'" . markdown-mode))
+             :init (setq markdown-command "markdown"))
 ;; == end of markdown mode == 
 
 ;; enable show paren mode
@@ -119,7 +126,7 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (markdown-mode company haskell-mode evil use-package doom-modeline))))
+    (magit markdown-mode company haskell-mode evil use-package doom-modeline))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

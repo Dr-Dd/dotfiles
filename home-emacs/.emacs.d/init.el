@@ -124,7 +124,7 @@ There are two things you can do about this warning:
 (when (version<= "26.0.50" emacs-version )
   (global-display-line-numbers-mode))
 (setq display-line-numbers 'relative)
-;; == end of default window splitting ==
+;; == end of line numbers ==
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

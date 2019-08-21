@@ -120,6 +120,12 @@ There are two things you can do about this warning:
 (setq split-width-threshold 1)
 ;; == end of default window splitting ==
 
+;; Emacs 26 line-numbers
+(when (version<= "26.0.50" emacs-version )
+  (global-display-line-numbers-mode))
+(setq display-line-numbers 'relative)
+;; == end of default window splitting ==
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -24,6 +24,16 @@ There are two things you can do about this warning:
 ;; == end of BUG FIX ==
 
 ;; == IN CASE OF A PACKAGE NOT INSTALLING, TRY TO RUN <M-x>`package-refresh-contents`<RET> BEFORE DOING ANYTHING STUPID ==
+;; == USEFUL EMACS KEYBINDINGS: ==
+;;    * <C-h> i       : read the emacs manuals
+;;    * <C-h> k <COM> : gives COMPLETE info about inputted command
+;;    * <C-h> c <COM> : gives short info about inputted command
+;;    * <C-h> ?       : display help menu
+;;    * <C-h> m       : gives info about current major mode
+;;    * <C-x> 2       : spawns a window below
+;;    * <C-M-v>       : scrolls down the other window
+;;    * <C-M-S-v>     : scrolls up the other window
+;; == end of emacs keybindings == 
 
 ;; use-package first install
 (unless (package-installed-p 'use-package)
@@ -42,13 +52,13 @@ There are two things you can do about this warning:
 
 ;; EVIL MODE!
 (use-package evil
-	     :ensure t
-	     :config (evil-mode 1))
+             :ensure t
+             :config (evil-mode 1))
 ;; == end of evil mode ==
 
 ;; doom modeline (+ all-the-icons dependency)
 (use-package all-the-icons
-	     :ensure t) ; REMEMBER to RUN "all-the-icons-install-fonts" after installation 
+             :ensure t) ; REMEMBER to RUN "all-the-icons-install-fonts" after installation 
 (use-package doom-modeline
              :ensure t
              :hook (after-init . doom-modeline-mode)
@@ -96,7 +106,7 @@ There are two things you can do about this warning:
 
 ;; set default font
 (add-to-list 'default-frame-alist
-	     '(font . "Inconsolata-20:bold"))
+             '(font . "Inconsolata-20:bold"))
 (let ((faces '(mode-line
                mode-line-buffer-id
                mode-line-emphasis
@@ -125,6 +135,10 @@ There are two things you can do about this warning:
   (global-display-line-numbers-mode))
 (setq display-line-numbers 'relative)
 ;; == end of line numbers ==
+
+;; replace tabs with spaces
+(setq-default indent-tabs-mode nil)
+;; == end of no-tabs == 
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

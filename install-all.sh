@@ -15,70 +15,38 @@
 # Some of these packages are commented since i'm not sure of what system config you might have, add and remove them according 
 # to what you need
 packages=(
+  # [CAT] audio
   alsa-utils
-  arc-solid-gtk-theme
-  aspell-en
-  bash-completion
- # bbswitch # remember to be part of the group bumblebee
- # bumblebee 
   cantata
-  dmenu
-  dunst
-  eclipse-jee
- # efibootmgr
-  emacs
-  evolution
-  feh
-  firefox
-  gcolor3
+  mpc
+  mpd 
+
+  # [CAT] drivers/system utils
   grub
-  gucharmap
-  htop
-  imagemagick
-  jdk8-openjdk
-  keepassxc
- # lib32-nvidia-utils
- # lib32-virtualgls
- # libva-mesa-driver
+  os-prober
+  pacman-contrib
+  efibootmgr
+  ntfs-3g
+  p7zip
+##  nvidia
+##  nvidia-settings
+##  bbswitch # remember to be part of the group bumblebee
+##  bumblebee 
+##  lib32-nvidia-utils
+##  lib32-virtualgls
+##  libva-mesa-driver
+##  xf86-video-intel
+##  mesa
+##  tlp
+
+  # [CAT] GUI
+  arc-solid-gtk-theme
+  qt5-styleplugins
   lightdm # remember to enable ligthdm.service, add `acpi_osi='!Windows 2015'` to kernel params if needed
   lightdm-gtk-greeter
   lightdm-gtk-greeter-settings
-  maven
- # mesa
-  mpc
-  mpd 
-  mpv
-  network-manager-applet
-  networkmanager
-  nm-connection-editor
-  ntfs-3g
- # nvidia
- # nvidia-settings
-  os-prober
-  pacman-contrib
-  p7zip
-  qbittorrent
-  qt5-styleplugins
-  ranger
-  rclone
   redshift
-  rxvt-unicode
-  speedcrunch
   stalonetray
-  stow
-  terminus-font
- # tlp
-  ttf-dejavu
-  ttf-inconsolata
-  vim
-  virtualbox
-  virtualbox-host-modules-arch
-  virtualbox-guest-iso
-  w3m
-  wget
-  xarchiver
-  xautolock
- # xf86-video-intel
   xmobar
   xmonad
   xmonad-contrib
@@ -87,13 +55,77 @@ packages=(
   xorg-apps
   xorg-xinit
   xscreensaver
+
+  # [CAT] tty utils
+  aspell-en
+  bash-completion
+  dmenu
+  htop
+  ranger
+  rxvt-unicode
+  rclone
+  stow
   xterm
+  vim
+  w3m
+  wget
+  xautolock
+
+  # [CAT] misc utils 
+  gcolor3
+  gucharmap
+  speedcrunch
+  xarchiver
+# [AUR] caffeine-ng
+
+  # [CAT] notification
+  dunst
+  
+  # [CAT] development
+  eclipse-jee
+  emacs
+  jdk8-openjdk
+  maven
+  virtualbox
+  virtualbox-host-modules-arch
+  virtualbox-guest-iso
+# [AUR] eclipse-vrapper
+# [AUR] spring-tool-suite
+
+  # [CAT] mail
+  evolution
+
+  # [CAT] pictures
+  feh
+  imagemagick
+
+  # [CAT] internet
+  firefox
+  network-manager-applet
+  networkmanager
+  nm-connection-editor
+  qbittorrent
+
+  # [CAT] security
+  keepassxc
+  tor
+# [AUR] tor-browser
+
+  # [CAT] video
+  mpv
+
+  # [CAT] fonts
+  terminus-font
+  ttf-dejavu
+  ttf-inconsolata
+
+  # [CAT] documents
   zathura
   zathura-djvu
   zathura-pdf-mupdf
 )
 
-## "Main"
+## [MAIN]
 echo "== RUN THIS SCRIPT AS ROOT =="
 echo "Starting countdown"
 for i in {5..1}

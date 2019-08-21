@@ -52,28 +52,28 @@ There are two things you can do about this warning:
 
 ;; EVIL MODE!
 (use-package evil
-             :ensure t
-             :config (evil-mode 1))
+  :ensure t
+  :config (evil-mode 1))
 ;; == end of evil mode ==
 
 ;; doom modeline (+ all-the-icons dependency)
 (use-package all-the-icons
-             :ensure t) ; REMEMBER to RUN "all-the-icons-install-fonts" after installation 
+  :ensure t) ; REMEMBER to RUN "all-the-icons-install-fonts" after installation 
 (use-package doom-modeline
-             :ensure t
-             :hook (after-init . doom-modeline-mode)
-             :config (setq doom-modeline-height 25))
+  :ensure t
+  :hook (after-init . doom-modeline-mode)
+  :config (setq doom-modeline-height 25))
 ;; == end of doom modeline ==
 
 ;; company-mode autocompletion
 (use-package company
-             :ensure t
-             :config (add-hook 'after-init-hook  'global-company-mode))
+  :ensure t
+  :config (add-hook 'after-init-hook  'global-company-mode))
 ;; == end of autocompletion ==
 
 ;; haskell development
 (use-package haskell-mode
-             :ensure t)
+  :ensure t)
 (use-package haskell-interactive-mode)
 (use-package haskell-process)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
@@ -82,12 +82,12 @@ There are two things you can do about this warning:
 
 ;; markdown mode
 (use-package markdown-mode
-             :ensure t
-             :commands (markdown-mode gfm-mode)
-             :mode (("README\\.md\\'" . gfm-mode)
-                   ("\\.md\\'" . markdown-mode)
-                   ("\\.markdown\\'" . markdown-mode))
-             :init (setq markdown-command "markdown"))
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "markdown"))
 ;; == end of markdown mode == 
 
 ;; enable show paren mode
@@ -112,9 +112,9 @@ There are two things you can do about this warning:
                mode-line-emphasis
                mode-line-highlight
                mode-line-inactive)))
-     (mapc
-      (lambda (face) (set-face-attribute face nil :font "xos4 Terminus-14:bold"))
-      faces))
+  (mapc
+   (lambda (face) (set-face-attribute face nil :font "xos4 Terminus-14:bold"))
+   faces))
 ;; == end of default font ==
 
 ;; set default empty line fringe

@@ -15,13 +15,13 @@
 # Some of these packages are commented since i'm not sure of what system config you might have, add and remove them according 
 # to what you need
 packages=(
-  # [CAT] audio
+  # audio
   alsa-utils
   cantata
   mpc
   mpd 
 
-  # [CAT] drivers/system utils
+  # drivers/system utils
   grub
   os-prober
   pacman-contrib
@@ -39,7 +39,7 @@ packages=(
 ##  mesa
 ##  tlp
 
-  # [CAT] GUI
+  # GUI
   arc-solid-gtk-theme
   qt5-styleplugins
   lightdm # remember to enable ligthdm.service, add `acpi_osi='!Windows 2015'` to kernel params if needed
@@ -56,7 +56,7 @@ packages=(
   xorg-xinit
   xscreensaver
 
-  # [CAT] tty utils
+  # tty utils
   aspell-en
   bash-completion
   dmenu
@@ -71,17 +71,17 @@ packages=(
   wget
   xautolock
 
-  # [CAT] misc utils 
+  # misc utils 
   gcolor3
   gucharmap
   speedcrunch
   xarchiver
 # [AUR] caffeine-ng
 
-  # [CAT] notification
+  # notification
   dunst
   
-  # [CAT] development
+  # development
   eclipse-jee
   emacs
   jdk8-openjdk
@@ -92,41 +92,52 @@ packages=(
 # [AUR] eclipse-vrapper
 # [AUR] spring-tool-suite
 
-  # [CAT] mail
+  # mail
   evolution
 
-  # [CAT] pictures
+  # pictures
   feh
   imagemagick
 
-  # [CAT] internet
+  # internet
   firefox
   network-manager-applet
   networkmanager
   nm-connection-editor
   qbittorrent
 
-  # [CAT] security
+  # security
   keepassxc
   tor
 # [AUR] tor-browser
 
-  # [CAT] video
+  # video
   mpv
 
-  # [CAT] fonts
+  # fonts
   terminus-font
   ttf-dejavu
   ttf-inconsolata
 
-  # [CAT] documents
+  # documents
   zathura
   zathura-djvu
   zathura-pdf-mupdf
 )
 
+aur_url=""
+
+aur=(
+  chromium-widevine
+  tor-browser
+  eclipse-vrapper
+  spring-tool-suite
+  caffeine-ng
+)
+
 ## [MAIN]
 echo "== RUN THIS SCRIPT AS ROOT =="
+
 echo "Starting countdown"
 for i in {5..1}
 do
@@ -134,9 +145,26 @@ do
   sleep 1
 done
 echo ".."
+
 echo "Installing pacman packages..."
 pacman -S --noconfirm --needed "${packages[@]}"
+
+echo "Activating needed services..."
 systemctl enable lightdm.service
+
+echo "Downloading aur packages..."
+for p in "${aur[@]}" 
+do
+  git clone "https://aur.archlinux.org/${p}.git" ~/.aur/
+done
+
+echo "Installing aur packages..."
+for p in "${aur[@]}" 
+do
+  runuser -l drd -c "cd ~/.aur/${p}"
+  runuser -l drd -c "makepkg -si"
+done
+
 echo "
 Other things you should do:
   * Setup grub bootloader

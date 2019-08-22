@@ -1,9 +1,9 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-demo 5.43 for drd on Wed Aug 14 15:16:44 2019.
+# Written by xscreensaver-demo 5.43 for drd on Thu Aug 22 15:21:04 2019.
 # https://www.jwz.org/xscreensaver/
 
 timeout:	0:01:00
-cycle:		0:02:00
+cycle:		0:01:00
 lock:		True
 lockTimeout:	0:01:00
 passwdTimeout:	0:00:30
@@ -24,13 +24,13 @@ fadeTicks:	20
 captureStderr:	True
 ignoreUninstalledPrograms:False
 font:		*-medium-r-*-140-*-m-*
-dpmsEnabled:	False
+dpmsEnabled:	True
 dpmsQuickOff:	False
-dpmsStandby:	2:00:00
-dpmsSuspend:	2:00:00
-dpmsOff:	4:00:00
+dpmsStandby:	0:00:00
+dpmsSuspend:	0:00:00
+dpmsOff:	0:02:00
 grabDesktopImages:  True
-grabVideoFrames:    False
+grabVideoFrames:    True
 chooseRandomImages: False
 imageDirectory:	
 

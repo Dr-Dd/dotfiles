@@ -3,12 +3,5 @@
 # 
 # Also note that .Xresources, .Xkbmap and .Xmodmap get sourced by LXDM, LightDM (some of the display manager i could be currently using)
 # ** REMEMBER TO CHECK IF OTHER DISPLAY MANAGERS DO THE SAME THING TOO! **
-[ ! -s ~/.config/mpd/pid ] && mpd &
-stalonetray &
-redshift-gtk &
-nm-applet &
-caffeine &
-~/.scripts/battery-notify-daemon.sh &
-~/.scripts/check-updates-daemon.sh &
-xautolock -time 5 -locker "systemctl suspend" &
-sleep 5 && xscreensaver -no-splash &
+
+. ~/.initdrd

@@ -32,13 +32,16 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-[ ! -s ~/.config/mpd/pid ] && mpd &
-~/.scripts/battery-notify-daemon.sh &
-~/.scripts/check-updates-daemon.sh &
-stalonetray &
-redshift-gtk &
-nm-applet &
-caffeine &
-xautolock -time 5 -locker "systemctl suspend" &
-sleep 5 && xscreensaver -no-splash &
+. ~/.initdrd
+
+# [ ! -s ~/.config/mpd/pid ] && mpd &
+# ~/.scripts/battery-notify-daemon.sh &
+# ~/.scripts/check-updates-daemon.sh &
+# stalonetray &
+# redshift-gtk &
+# nm-applet &
+# caffeine &
+# xautolock -time 5 -locker "systemctl suspend" &
+# sleep 5 && xscreensaver -no-splash &
+
 exec xmonad

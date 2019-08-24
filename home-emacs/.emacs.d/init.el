@@ -115,6 +115,12 @@ There are two things you can do about this warning:
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 ;; == end of custom splash screen ==
 
+;; sensible window switching with ace-window
+(use-package ace-window
+  :ensure t)
+(global-set-key (kbd "M-o") 'ace-window)
+;; == end of ace-window ==
+
 ;; enable show paren mode
 (add-hook 'after-init-hook 'show-paren-mode)
 ;; == end of show paren mode ==
@@ -140,6 +146,8 @@ There are two things you can do about this warning:
   (mapc
    (lambda (face) (set-face-attribute face nil :font "xos4 Terminus-14:bold"))
    faces))
+;; fallback unicode font
+(set-fontset-font "fontset-default" 'unicode "DejaVu Sans Mono-20:bold")
 ;; == end of default font ==
 
 ;; set default empty line fringe
@@ -150,9 +158,9 @@ There are two things you can do about this warning:
 (set-fringe-bitmap-face 'tilde 'font-lock-function-name-face)
 ;; == end of default empty line ==
 
-;; default window splitting preferences
-(setq split-height-threshold nil)
-(setq split-width-threshold 1)
+;; default window splitting preferences (max size on my screen is 62*33)
+(setq split-height-threshold 33) 
+(setq split-width-threshold 62)
 ;; == end of default window splitting ==
 
 ;; Emacs 26.2 line-numbers
@@ -179,7 +187,7 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))))
+    (ace-window dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

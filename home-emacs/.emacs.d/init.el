@@ -118,7 +118,6 @@ There are two things you can do about this warning:
 ;; sensible window switching with ace-window
 (use-package ace-window
   :ensure t)
-(global-set-key (kbd "M-o") 'ace-window)
 ;; == end of ace-window ==
 
 ;; enable show paren mode
@@ -178,6 +177,8 @@ There are two things you can do about this warning:
 ;; custom key-bindings
 ;; company-mode 
 (global-set-key (kbd "C-<SPC>" ) 'company-complete)
+;; ace-window
+(global-set-key (kbd "M-o") 'ace-window)
 ;; == end of custom key-bindings == 
 
 (custom-set-variables

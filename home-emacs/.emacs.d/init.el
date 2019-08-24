@@ -90,6 +90,27 @@ There are two things you can do about this warning:
   :init (setq markdown-command "markdown"))
 ;; == end of markdown mode == 
 
+;; custom splash screen with emacs-dashboard
+(use-package page-break-lines
+  :ensure t)
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook))
+;; customization
+(setq dashboard-startup-banner 'logo)
+(setq dashboard-center-content t)
+(setq dashboard-items '((recents  . 5)))
+(setq dashboard-set-heading-icons t)
+(setq dashboard-set-file-icons t)
+(setq dashboard-set-navigator t)
+(setq dashboard-navigator-buttons
+      `(;; line1
+        (("" "init.el" "Open init.el config file" (lambda (&rest _) (find-file "~/.emacs.d/init.el"))))))
+;; enable for emacs --daemon
+(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+;; == end of custom splash screen ==
+
 ;; enable show paren mode
 (add-hook 'after-init-hook 'show-paren-mode)
 ;; == end of show paren mode ==
@@ -132,12 +153,20 @@ There are two things you can do about this warning:
 
 ;; Emacs 26 line-numbers
 (setq display-line-numbers-type 'relative)
-(global-display-line-numbers-mode)
+;; enable only for programming major modes
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+;; enable globally
+;; (global-display-line-numbers-mode)
 ;; == end of line numbers ==
 
 ;; replace tabs with spaces
 (setq-default indent-tabs-mode nil)
 ;; == end of no-tabs == 
+
+;; custom key-bindings
+;; company-mode 
+(global-set-key (kbd "C-<SPC>" ) 'company-complete)
+;; == end of custom key-bindings == 
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -146,7 +175,7 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (magit markdown-mode company haskell-mode evil use-package doom-modeline))))
+    (dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

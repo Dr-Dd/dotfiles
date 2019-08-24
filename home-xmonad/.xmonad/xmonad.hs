@@ -56,6 +56,8 @@ main = do
       , ("M-b", spawn "chromium") -- would like to use firefox 68 but video playback stutters
       , ("M-e", spawn "urxvt -e ranger")
       , ("M-c", spawn "emacs")
+      , ("M-C-c", spawn "emacsclient -nc") -- for debugging purposes, i have to fix my init.el for GUI
+      , ("M-s", spawn "sleep 0.2 ; scrot -s /tmp/screen.png") -- sleep solves a race condition
       ]
 
     `additionalKeys` -- fn keys

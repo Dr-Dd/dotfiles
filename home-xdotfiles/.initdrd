@@ -2,7 +2,8 @@
 
 [ ! -s ~/.config/mpd/pid ] && mpd & 
 ~/.scripts/battery-notify-daemon.sh &
-~/.scripts/check-updates-dameon.sh &
+~/.scripts/check-updates-daemon.sh &
+emacs --daemon &
 stalonetray &
 redshift-gtk &
 nm-applet &

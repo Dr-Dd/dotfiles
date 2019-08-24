@@ -98,6 +98,7 @@ packages=(
   # pictures
   feh
   imagemagick
+  scrot
 
   # internet
   firefox

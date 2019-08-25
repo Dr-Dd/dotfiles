@@ -57,8 +57,26 @@ There are two things you can do about this warning:
 ;; EVIL MODE!
 (use-package evil
   :ensure t
-  :config (evil-mode 1))
+  :config
+  (evil-set-initial-state 'dashboard-mode 'emacs)
+  (evil-set-initial-state 'haskell-interactive-mode 'emacs)
+  (evil-set-initial-state 'shell-mode 'emacs)
+  (evil-mode 1))
 ;; == end of evil mode ==
+
+;; company-mode autocompletion
+(use-package company
+  :ensure t
+  :config (add-hook 'after-init-hook  'global-company-mode))
+;; == end of autocompletion ==
+
+;; snippets expansion via yasnippet
+(use-package yasnippet
+  :ensure t
+  :config (yas-global-mode 1))
+(use-package yasnippet-snippets
+  :ensure t)
+;; == end of yasnippet == 
 
 ;; doom modeline (+ all-the-icons dependency)
 (use-package all-the-icons
@@ -68,12 +86,6 @@ There are two things you can do about this warning:
   :hook (after-init . doom-modeline-mode)
   :config (setq doom-modeline-height 25))
 ;; == end of doom modeline ==
-
-;; company-mode autocompletion
-(use-package company
-  :ensure t
-  :config (add-hook 'after-init-hook  'global-company-mode))
-;; == end of autocompletion ==
 
 ;; haskell development
 (use-package haskell-mode
@@ -174,11 +186,16 @@ There are two things you can do about this warning:
 (setq-default indent-tabs-mode nil)
 ;; == end of no-tabs == 
 
-;; custom key-bindings
+;; custom keybindings
 ;; company-mode 
 (global-set-key (kbd "C-<SPC>" ) 'company-complete)
+(global-set-key (kbd "S-<SPC>" ) 'company-yasnippet)
 ;; ace-window
 (global-set-key (kbd "M-o") 'ace-window)
+;; yasnippet
+(define-key yas-minor-mode-map (kbd "<tab>") nil)
+(define-key yas-minor-mode-map (kbd "TAB") nil)
+(define-key yas-minor-mode-map (kbd "<C-tab>") 'yas-expand)
 ;; == end of custom key-bindings == 
 
 (custom-set-variables
@@ -188,7 +205,7 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ace-window dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))))
+    (yasnippet-snippets yasnippet ace-window dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

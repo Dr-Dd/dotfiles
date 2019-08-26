@@ -90,6 +90,7 @@ packages=(
   virtualbox-host-modules-arch
   virtualbox-guest-iso
   opam
+  clang
 # [AUR] eclipse-vrapper
 # [AUR] spring-tool-suite
 

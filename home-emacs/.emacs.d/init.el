@@ -80,7 +80,10 @@ There are two things you can do about this warning:
 
 ;; doom modeline (+ all-the-icons dependency)
 (use-package all-the-icons
-  :ensure t) ; REMEMBER to RUN "all-the-icons-install-fonts" after installation
+  :ensure t
+  :config
+  (unless (file-exists-p "~/.local/share/fonts/all-the-icons.ttf")
+    (all-the-icons-install-fonts)))
 (use-package doom-modeline
   :ensure t
   :hook (after-init . doom-modeline-mode)
@@ -99,11 +102,9 @@ There are two things you can do about this warning:
 ;; OCaml development
 (use-package tuareg
   :ensure t)
-;; merlin setup
-;;(push ".opam/default/share/emacs/site-lisp" load-path) ; directory containing merlin.el
-;;(autoload 'merlin-mode "merlin" "Merlin mode" t)
-;;(add-hook 'tuareg-mode-hook 'merlin-mode)
-;;(add-hook 'caml-mode-hook 'merlin-mode)
+;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
+(require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
+;; ## end of OPAM user-setup addition for emacs / base ## keep this line
 ;; == end of OCaml coding ==
 
 ;; markdown mode
@@ -172,6 +173,12 @@ There are two things you can do about this warning:
 ;; set default theme
 (load-theme 'adwaita)
 ;; == end of default theme ==
+
+;; highlight line
+(global-hl-line-mode 1)
+(set-face-background 'hl-line "#ccdae9")
+(set-face-foreground 'highlight nil)
+;; == end of highlight ==
 
 ;; set default font
 (add-to-list 'default-frame-alist
@@ -244,6 +251,3 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
-(require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
-;; ## end of OPAM user-setup addition for emacs / base ## keep this line

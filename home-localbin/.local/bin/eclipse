@@ -1,0 +1,3 @@
+#!/bin/bash
+
+GTK_THEME=adwaita /bin/eclipse

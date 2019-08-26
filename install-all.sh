@@ -89,6 +89,7 @@ packages=(
   virtualbox
   virtualbox-host-modules-arch
   virtualbox-guest-iso
+  opam
 # [AUR] eclipse-vrapper
 # [AUR] spring-tool-suite
 
@@ -139,7 +140,7 @@ aur=(
 ## [MAIN]
 echo "== RUN THIS SCRIPT AS ROOT =="
 
-echo "Starting countdown"
+echo "==> Starting countdown"
 for i in {5..1}
 do
   echo "$i.."
@@ -147,19 +148,25 @@ do
 done
 echo ".."
 
-echo "Installing pacman packages..."
+echo "==> Installing pacman packages..."
 pacman -S --noconfirm --needed "${packages[@]}"
 
-echo "Activating needed services..."
+echo "==> Activating needed services..."
 systemctl enable lightdm.service
 
-echo "Downloading aur packages..."
+echo "==> Updating and upgrading opam..."
+runuser -l drd opam update
+runuser -l drd opam upgrade
+runuser -l drd opam install merlin
+runuser -l drd opam user-setup install
+
+echo "==> Downloading aur packages..."
 for p in "${aur[@]}" 
 do
   git clone "https://aur.archlinux.org/${p}.git" ~/.aur/
 done
 
-echo "Installing aur packages..."
+echo "==> Installing aur packages..."
 for p in "${aur[@]}" 
 do
   runuser -l drd -c "cd ~/.aur/${p}"
@@ -167,7 +174,7 @@ do
 done
 
 echo "
-Other things you should do:
+==> Other things you should do:
   * Setup grub bootloader
   * Configure rclone to work with preferred cloud provider
   * Add data partitions to fstab
@@ -175,7 +182,7 @@ Other things you should do:
   * Install gpu drivers (see arch-wiki)
   * Stow needed dotfiles (see README)
 "
-printf "Reboot now? (Y/n) "
+printf "==> Reboot now? (Y/n) "
 read ans
 case "$ans" in
  y|Y) shutdown -r now ;;

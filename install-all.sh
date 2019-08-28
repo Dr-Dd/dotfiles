@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # == PARTITIONING SCHEME ==
-# 
+#
 # Mount | Size            | Type | Primary
 # /     | (23 + sqrt 23)G | ext4 | yes
 # /home | (62 + sqrt 62)G | ext4 | yes
@@ -12,47 +12,47 @@
 #
 # In reality, i tend to only use a single root partition since i rely on dotfiles
 
-# Some of these packages are commented since i'm not sure of what system config you might have, add and remove them according 
+# Some of these packages are commented since i'm not sure of what system config you might have, add and remove them according
 # to what you need
 packages=(
   # audio
   alsa-utils
   cantata
   mpc
-  mpd 
+  mpd
 
   # drivers/system utils
-  grub
-  os-prober
-  pacman-contrib
   efibootmgr
+  grub
   ntfs-3g
+  os-prober
   p7zip
-##  nvidia
-##  nvidia-settings
+  pacman-contrib
 ##  bbswitch # remember to be part of the group bumblebee
-##  bumblebee 
+##  bumblebee
 ##  lib32-nvidia-utils
 ##  lib32-virtualgls
 ##  libva-mesa-driver
-##  xf86-video-intel
 ##  mesa
+##  nvidia
+##  nvidia-settings
 ##  tlp
+##  xf86-video-intel
 
   # GUI
   arc-solid-gtk-theme
-  qt5-styleplugins
   lightdm # remember to enable ligthdm.service, add `acpi_osi='!Windows 2015'` to kernel params if needed
   lightdm-gtk-greeter
   lightdm-gtk-greeter-settings
+  qt5-styleplugins
   redshift
   stalonetray
   xmobar
   xmonad
   xmonad-contrib
   xorg
-  xorg-server
   xorg-apps
+  xorg-server
   xorg-xinit
   xscreensaver
 
@@ -62,16 +62,17 @@ packages=(
   dmenu
   htop
   ranger
-  rxvt-unicode
   rclone
+  rxvt-unicode
   stow
-  xterm
+  thefuck
   vim
   w3m
   wget
   xautolock
+  xterm
 
-  # misc utils 
+  # misc utils
   gcolor3
   gucharmap
   speedcrunch
@@ -80,17 +81,17 @@ packages=(
 
   # notification
   dunst
-  
+
   # development
+  clang
   eclipse-jee
   emacs
   jdk8-openjdk
   maven
-  virtualbox
-  virtualbox-host-modules-arch
-  virtualbox-guest-iso
   opam
-  clang
+  virtualbox
+  virtualbox-guest-iso
+  virtualbox-host-modules-arch
 # [AUR] eclipse-vrapper
 # [AUR] spring-tool-suite
 
@@ -128,14 +129,12 @@ packages=(
   zathura-pdf-mupdf
 )
 
-aur_url=""
-
 aur=(
+  caffeine-ng
   chromium-widevine
-  tor-browser
   eclipse-vrapper
   spring-tool-suite
-  caffeine-ng
+  tor-browser
 )
 
 ## [MAIN]
@@ -162,13 +161,13 @@ runuser -l drd opam install merlin
 runuser -l drd opam user-setup install
 
 echo "==> Downloading aur packages..."
-for p in "${aur[@]}" 
+for p in "${aur[@]}"
 do
-  git clone "https://aur.archlinux.org/${p}.git" ~/.aur/
+  runuser -l drd git clone "https://aur.archlinux.org/${p}.git" ~/.aur/
 done
 
 echo "==> Installing aur packages..."
-for p in "${aur[@]}" 
+for p in "${aur[@]}"
 do
   runuser -l drd -c "cd ~/.aur/${p}"
   runuser -l drd -c "makepkg -si"

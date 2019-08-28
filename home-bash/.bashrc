@@ -60,3 +60,5 @@ alias shutdown="sudo /sbin/shutdown"
 alias pm-hibernate="sudo /usr/sbin/pm-hibernate"
 alias pm-suspend="sudo /usr/sbin/pm-suspend"
 alias pm-suspend-hybrid="sudo /usr/sbin/pm-suspend-hybrid"
+
+eval "$(thefuck --alias)"

@@ -1,8 +1,11 @@
 #!/bin/bash
 
+# Shared init script for startup programs, call this instead of single programs when possible
+
 [ ! -s ~/.config/mpd/pid ] && mpd & 
 ~/.scripts/battery-notify-daemon.sh &
 ~/.scripts/check-updates-daemon.sh &
+~/.scripts/rclone-megasync-daemon.sh &
 emacs --daemon &
 stalonetray &
 redshift-gtk &

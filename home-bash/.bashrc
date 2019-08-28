@@ -50,6 +50,11 @@ function nonzero_return() {
 	[ $RETVAL -ne 0 ] && echo "[$RETVAL]"
 }
 
+red=$(tput setaf 1)
+yellow=$(tput setaf 3)
+blue=$(tput setaf 4)
+off=$(tput sgr0)
+
 export QT_QPA_PLATFORMTHEME=gtk2
 
 export PS1="\n┏\[\e[31m\]\`nonzero_return\`\[\e[m\]\[\e[32m\][\w]\[\e[m\]\[\e[33m\]\`parse_git_branch\`\[\e[m\]\n┗\[\e[34m\][λ]\[\e[m\] "

@@ -42,7 +42,6 @@ URxvt.color15:      #fdf6e3
 xscreensaver.splash: false
 
 !font settings
-
 xscreensaver.Dialog.headingFont: -misc-fixed-medium-r-semicondensed--10-72-100-100-c-0-iso8859-1 
 xscreensaver.Dialog.bodyFont: -misc-fixed-medium-r-semicondensed--10-72-100-100-c-0-iso8859-1
 xscreensaver.Dialog.labelFont: -misc-fixed-medium-r-semicondensed--10-72-100-100-c-0-iso8859-1
@@ -71,3 +70,6 @@ xscreensaver.passwd.thermometer.width:       8
 
 !datestamp format--see the strftime(3) manual page for details
 xscreensaver.dateFormat:    %I:%M%P %a %b %d, %Y
+
+!remove new login button
+xscreensaver.newLoginCommand:

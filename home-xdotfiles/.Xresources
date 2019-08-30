@@ -69,7 +69,8 @@ xscreensaver.passwd.thermometer.background:  #000000
 xscreensaver.passwd.thermometer.width:       8
 
 !datestamp format--see the strftime(3) manual page for details
-xscreensaver.dateFormat:    %I:%M%P %a %b %d, %Y
+!xscreensaver.dateFormat:    %I:%M%P %a %b %d, %Y
+xscreensaver.dateFormat:
 
 !remove new login button
 xscreensaver.newLoginCommand:

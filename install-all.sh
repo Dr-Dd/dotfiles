@@ -77,7 +77,7 @@ packages=(
   gucharmap
   speedcrunch
   xarchiver
-# [AUR] caffeine-ng
+# caffeine-ng [AUR] 
 
   # notification
   dunst
@@ -92,8 +92,8 @@ packages=(
   virtualbox
   virtualbox-guest-iso
   virtualbox-host-modules-arch
-# [AUR] eclipse-vrapper
-# [AUR] spring-tool-suite
+# eclipse-vrapper [AUR] 
+# spring-tool-suite [AUR] 
 
   # mail
   evolution
@@ -113,12 +113,13 @@ packages=(
   # security
   keepassxc
   tor
-# [AUR] tor-browser
+# tor-browser [AUR] 
 
   # video
   mpv
 
   # fonts
+  adobe-source-han-sans-otc-fonts
   terminus-font
   ttf-dejavu
   ttf-inconsolata

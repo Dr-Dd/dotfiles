@@ -62,6 +62,11 @@ There are two things you can do about this warning:
   (evil-set-initial-state 'haskell-interactive-mode 'emacs)
   (evil-set-initial-state 'shell-mode 'emacs)
   (evil-mode 1))
+;; evil-surround
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
 ;; == end of evil mode ==
 
 ;; company-mode autocompletion
@@ -78,6 +83,12 @@ There are two things you can do about this warning:
   :ensure t)
 ;; == end of yasnippet ==
 
+;; syntax checking with flycheck
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+;; == end of flycheck ==
+
 ;; doom modeline (+ all-the-icons dependency)
 (use-package all-the-icons
   :ensure t
@@ -87,7 +98,9 @@ There are two things you can do about this warning:
 (use-package doom-modeline
   :ensure t
   :hook (after-init . doom-modeline-mode)
-  :config (setq doom-modeline-height 25))
+  :config
+  (setq doom-modeline-height 25)
+  (column-number-mode 1))
 ;; == end of doom modeline ==
 
 ;; haskell development
@@ -97,6 +110,10 @@ There are two things you can do about this warning:
 (use-package haskell-process)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (add-hook 'haskell-mode-hook 'flyspell-prog-mode)
+(use-package flycheck-haskell
+  :ensure t
+  :config
+  (add-hook 'haskell-mode-hook #'flycheck-haskell-setup))
 ;; == end of haskell coding ==
 
 ;; OCaml development
@@ -150,7 +167,7 @@ There are two things you can do about this warning:
   (set-face-background 'highlight-indentation-face "#CCCCCC")
   (set-face-background 'highlight-indentation-current-column-face "#999999")
   (add-hook 'prog-mode-hook 'highlight-indentation-current-column-mode))
-;; == end of ace-window ==
+;; == end of highlight indent ==
 
 ;; enable show paren mode
 (add-hook 'after-init-hook 'show-paren-mode)
@@ -174,11 +191,15 @@ There are two things you can do about this warning:
 (load-theme 'adwaita)
 ;; == end of default theme ==
 
-;; highlight line
+;; selected line color
 (global-hl-line-mode 1)
 (set-face-background 'hl-line "#ccdae9")
 (set-face-foreground 'highlight nil)
-;; == end of highlight ==
+;; == end of line color ==
+
+;; highligt color
+(set-face-attribute 'region nil :background "#4A90D9" :foreground "#FFFFFF")
+;; == end of line color ==
 
 ;; set default font
 (add-to-list 'default-frame-alist
@@ -244,7 +265,7 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (tuareg highlight-indentation yasnippet-snippets yasnippet ace-window dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))))
+    (flycheck-haskell flycheck evil-surround tuareg highlight-indentation yasnippet-snippets yasnippet ace-window dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

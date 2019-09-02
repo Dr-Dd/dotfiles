@@ -86,6 +86,7 @@ packages=(
   clang
   eclipse-jee
   emacs
+  ghc-static
   jdk8-openjdk
   maven
   opam

@@ -169,6 +169,10 @@ There are two things you can do about this warning:
   (add-hook 'prog-mode-hook 'highlight-indentation-current-column-mode))
 ;; == end of highlight indent ==
 
+;; electric indent
+(electric-indent-mode 1)
+;; == end of electric indent ==
+
 ;; enable show paren mode
 (add-hook 'after-init-hook 'show-paren-mode)
 ;; == end of show paren mode ==

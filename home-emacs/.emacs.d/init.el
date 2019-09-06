@@ -103,7 +103,7 @@ There are two things you can do about this warning:
   (column-number-mode 1))
 ;; == end of doom modeline ==
 
-;; python mod
+;; python mode
 (use-package anaconda-mode
   :ensure t)
 (add-hook 'python-mode-hook 'anaconda-mode)

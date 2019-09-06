@@ -28,6 +28,7 @@ packages=(
   os-prober
   p7zip
   pacman-contrib
+  zip
 ##  bbswitch # remember to be part of the group bumblebee
 ##  bumblebee
 ##  lib32-nvidia-utils
@@ -89,12 +90,17 @@ packages=(
   ghc-static
   jdk8-openjdk
   maven
+  npm
   opam
+  python-pip
   virtualbox
   virtualbox-guest-iso
   virtualbox-host-modules-arch
+  android-tools
+  libmtp
 # eclipse-vrapper [AUR] 
 # spring-tool-suite [AUR] 
+# sleekxmpp [PIP]
 
   # mail
   evolution
@@ -139,10 +145,30 @@ aur=(
   tor-browser
 )
 
-## [MAIN]
-echo "== RUN THIS SCRIPT AS ROOT =="
+pip=(
+  sleekxmpp
+)
 
-echo "==> Starting countdown"
+## [MAIN]
+echo "${red}== RUN THIS SCRIPT AS ROOT ==${off}"
+
+# colors
+red=$(tput setaf 1)
+off=$(tput sgr0)
+
+valid=false
+while [ valid = false ] ; do
+echo "${red}==>${off} For what user do you want to install local packages?"
+printf "${red}==>${off} User: "
+read usr
+printf "${red}==>${off} Confirm user: "
+read confirm
+if [ "${usr}" = "${confirm}" ] ; then
+  valid=true
+fi
+done
+
+echo "${red}==>${off} Starting countdown"
 for i in {5..1}
 do
   echo "$i.."
@@ -150,42 +176,50 @@ do
 done
 echo ".."
 
-echo "==> Installing pacman packages..."
+echo "${red}==>${off} Installing pacman packages..."
 pacman -S --noconfirm --needed "${packages[@]}"
 
-echo "==> Activating needed services..."
+echo "${red}==>${off} Activating needed services..."
 systemctl enable lightdm.service
 
-echo "==> Updating and upgrading opam..."
-runuser -l drd opam update
-runuser -l drd opam upgrade
-runuser -l drd opam install merlin
-runuser -l drd opam user-setup install
+echo "${red}==>${off} Updating and upgrading opam..."
+runuser -l "${usr}" opam update
+runuser -l "${usr}" opam upgrade
+runuser -l "${usr}" opam install merlin
+runuser -l "${usr}" opam user-setup install
 
-echo "==> Downloading aur packages..."
+echo "${red}==>${off} Downloading aur packages..."
 for p in "${aur[@]}"
 do
-  runuser -l drd git clone "https://aur.archlinux.org/${p}.git" ~/.aur/
+  runuser -l "${usr}" git clone "https://aur.archlinux.org/${p}.git" ~/.aur/
 done
 
-echo "==> Installing aur packages..."
+echo "${red}==>${off} Installing aur packages..."
 for p in "${aur[@]}"
 do
-  runuser -l drd -c "cd ~/.aur/${p}"
-  runuser -l drd -c "makepkg -si"
+  runuser -l "${usr}" -c "cd ~/.aur/${p}"
+  runuser -l "${usr}" -c "makepkg -si"
+done
+
+echo "${red}==>${off} Installing python packages via pip..."
+for p in "${pip[@]}"
+do
+  runuser -l "${usr}" -c "pip install --user ${p}"
 done
 
 echo "
-==> Other things you should do:
-  * Setup grub bootloader
-  * Configure rclone to work with preferred cloud provider
-  * Add data partitions to fstab
-  * Edit boot parameters
-  * Install gpu drivers (see arch-wiki)
-  * Stow needed dotfiles (see README)
+${red}==>${off} Other things you should do:
+  ${red}*${off} Setup grub bootloader
+  ${red}*${off} Configure rclone to work with preferred cloud provider
+  ${red}*${off} Add data partitions to fstab
+  ${red}*${off} Edit boot parameters
+  ${red}*${off} Install gpu drivers (see arch-wiki)
+  ${red}*${off} Stow needed dotfiles (see README)
 "
-printf "==> Reboot now? (Y/n) "
+printf "${red}==>${off} Reboot now? (Y/n) "
 read ans
 case "$ans" in
  y|Y) shutdown -r now ;;
+ n|N) ;;
+ *) echo "Please select a valid option" ;;
 esac

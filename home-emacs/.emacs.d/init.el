@@ -103,6 +103,16 @@ There are two things you can do about this warning:
   (column-number-mode 1))
 ;; == end of doom modeline ==
 
+;; python mod
+(use-package anaconda-mode
+  :ensure t)
+(add-hook 'python-mode-hook 'anaconda-mode)
+(use-package company-anaconda
+  :ensure t)
+(eval-after-load "company"
+  '(add-to-list 'company-backends 'company-anaconda))
+;; == end of python ==
+
 ;; haskell development
 (use-package haskell-mode
   :ensure t)
@@ -269,7 +279,7 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (flycheck-haskell flycheck evil-surround tuareg highlight-indentation yasnippet-snippets yasnippet ace-window dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))))
+    (company-anaconda anaconda-mode flycheck-haskell flycheck evil-surround tuareg highlight-indentation yasnippet-snippets yasnippet ace-window dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

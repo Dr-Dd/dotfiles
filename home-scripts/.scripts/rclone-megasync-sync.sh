@@ -18,8 +18,8 @@ then
         case "$ans" in
             yes) hasChosen=true && rclone sync ~/MEGA remote: -P --max-age 1d ;;
             no) hasChosen=true && echo "${red}==>${off} Aborting operation..." ;;
-	    Delete) hasChosen=true && rclone sync remote: ~/MEGA -P --max-age 1d;;
-            *) echo "ERROR: Please select a valid option"
+	    Delete) hasChosen=true && rclone sync remote: ~/MEGA -P --max-age 1d ;;
+            *) echo "ERROR: Please select a valid option" ;;
         esac
     done
 fi

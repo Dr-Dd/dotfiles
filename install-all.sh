@@ -92,6 +92,7 @@ packages=(
   maven
   npm
   opam
+  postgresql
   python-pip
   virtualbox
   virtualbox-guest-iso

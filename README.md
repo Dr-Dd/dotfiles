@@ -5,11 +5,9 @@ To install all the needed packages run `install-all.sh`, i've included some comm
 
 To symlink all the needed config files use stow: i've divided stow-able config files in home `(~)` files and root `(/)` files.
 
-* All root files are marked with the prefix `root-`, and need to be stowed with a different target (and as root). So, to install them all, just run 
-* `sudo stow -t / root-*`
-* Home files are marked with the prefix `home-` so, just as before, to stow them all run (make sure to run stow from the repo dir)
+* All root files are marked with the prefix `cp-`, and need to be copied, not stowed (as root). So, to install them all, just run the utility script drdcp.sh for each: 
+* `sudo ./drdcp.sh cp-<FILE-TO-COPY>`
+* Home files are marked with the prefix `home-` so, to stow them all run (make sure to run stow from the repo dir)
 * `stow home-*` 
 
 If you find any conflicts, consider deleting the already existing files or just adopting them. Remember that these dotfiles satisfy MY preferences.
-
-NOTE: There seems to usually be a problem in symlinking system files, so, until futher testing is done, root files are unusable

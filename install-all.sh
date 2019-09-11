@@ -15,198 +15,231 @@
 # Some of these packages are commented since i'm not sure of what system config you might have, add and remove them according
 # to what you need
 packages=(
-  # audio
-  alsa-utils
-  cantata
-  mpc
-  mpd
+    # audio
+    alsa-utils
+    cantata
+    mpc
+    mpd
 
-  # drivers/system utils
-  efibootmgr
-  grub
-  ntfs-3g
-  os-prober
-  p7zip
-  pacman-contrib
-  zip
-##  bbswitch # remember to be part of the group bumblebee
-##  bumblebee
-##  lib32-nvidia-utils
-##  lib32-virtualgls
-##  libva-mesa-driver
-##  mesa
-##  nvidia
-##  nvidia-settings
-##  tlp
-##  xf86-video-intel
+    # drivers/system utils
+    efibootmgr
+    grub
+    ntfs-3g
+    os-prober
+    p7zip
+    pacman-contrib
+    zip
+    ##bbswitch # remember to be part of the group bumblebee
+    ##bumblebee
+    ##lib32-nvidia-utils
+    ##lib32-virtualgls
+    ##libva-mesa-driver
+    ##mesa
+    ##nvidia
+    ##nvidia-settings
+    ##tlp
+    ##xf86-video-intel
 
-  # GUI
-  arc-solid-gtk-theme
-  lightdm # remember to enable ligthdm.service, add `acpi_osi='!Windows 2015'` to kernel params if needed
-  lightdm-gtk-greeter
-  lightdm-gtk-greeter-settings
-  qt5-styleplugins
-  redshift
-  stalonetray
-  xmobar
-  xmonad
-  xmonad-contrib
-  xorg
-  xorg-apps
-  xorg-server
-  xorg-xinit
-  xscreensaver
+    # GUI
+    arc-solid-gtk-theme
+    lightdm # remember to enable ligthdm.service, add `acpi_osi='!Windows 2015'` to kernel params if needed
+    lightdm-gtk-greeter
+    lightdm-gtk-greeter-settings
+    qt5-styleplugins
+    redshift
+    stalonetray
+    xmobar
+    xmonad
+    xmonad-contrib
+    xorg
+    xorg-apps
+    xorg-server
+    xorg-xinit
+    xscreensaver
 
-  # tty utils
-  aspell-en
-  bash-completion
-  dmenu
-  htop
-  ranger
-  rclone
-  rxvt-unicode
-  stow
-  thefuck
-  vim
-  w3m
-  wget
-  xautolock
-  xterm
+    # tty utils
+    aspell-en
+    bash-completion
+    dmenu
+    htop
+    ranger
+    rclone
+    rxvt-unicode
+    stow
+    thefuck
+    vim
+    w3m
+    wget
+    xautolock
+    xterm
 
-  # misc utils
-  gcolor3
-  gucharmap
-  speedcrunch
-  xarchiver
-# caffeine-ng [AUR] 
+    # misc utils
+    gcolor3
+    gucharmap
+    speedcrunch
+    xarchiver
+    #caffeine-ng [AUR]
 
-  # notification
-  dunst
+    # notification
+    dunst
 
-  # development
-  clang
-  eclipse-jee
-  emacs
-  ghc-static
-  jdk8-openjdk
-  maven
-  npm
-  opam
-  postgresql
-  python-pip
-  virtualbox
-  virtualbox-guest-iso
-  virtualbox-host-modules-arch
-  android-tools
-  libmtp
-# eclipse-vrapper [AUR] 
-# spring-tool-suite [AUR] 
-# sleekxmpp [PIP]
+    # development
+    clang
+    eclipse-jee
+    emacs
+    ghc-static
+    jdk8-openjdk
+    maven
+    npm
+    opam
+    postgresql
+    python-pip
+    virtualbox
+    virtualbox-guest-iso
+    virtualbox-host-modules-arch
+    android-tools
+    libmtp
+    #eclipse-vrapper [AUR]
+    #spring-tool-suite [AUR]
+    #merlin [OPAM]
+    #sleekxmpp [PIP]
 
-  # mail
-  evolution
+    # mail
+    evolution
 
-  # pictures
-  feh
-  imagemagick
-  scrot
+    # pictures
+    feh
+    imagemagick
+    scrot
 
-  # internet
-  firefox
-  network-manager-applet
-  networkmanager
-  nm-connection-editor
-  qbittorrent
+    # internet
+    #firefox # Unfortunately Chromium has severe problems with bumblebee on my machine
+    chromium
+    network-manager-applet
+    networkmanager
+    nm-connection-editor
+    qbittorrent
 
-  # security
-  keepassxc
-  tor
-# tor-browser [AUR] 
+    # security
+    keepassxc
+    tor
+    #tor-browser [AUR]
 
-  # video
-  mpv
+    # video
+    mpv
 
-  # fonts
-  adobe-source-han-sans-otc-fonts
-  terminus-font
-  ttf-dejavu
-  ttf-inconsolata
+    # fonts
+    adobe-source-han-sans-otc-fonts
+    terminus-font
+    ttf-dejavu
+    ttf-inconsolata
 
-  # documents
-  zathura
-  zathura-djvu
-  zathura-pdf-mupdf
+    # documents
+    zathura
+    zathura-djvu
+    zathura-pdf-mupdf
 )
 
 aur=(
-  caffeine-ng
-  chromium-widevine
-  eclipse-vrapper
-  spring-tool-suite
-  tor-browser
+    caffeine-ng
+    chromium-widevine
+    eclipse-vrapper
+    spring-tool-suite
+    tor-browser
 )
 
 pip=(
-  sleekxmpp
+    sleekxmpp
+)
+
+opam=(
+    merlin
 )
 
 ## [MAIN]
-echo "${red}== RUN THIS SCRIPT AS ROOT ==${off}"
 
 # colors
 red=$(tput setaf 1)
 off=$(tput sgr0)
 
+echo "${red}== RUN THIS SCRIPT AS ROOT ==${off}"
+
+########
+# USER #
+########
 valid=false
 while [ valid = false ] ; do
-echo "${red}==>${off} For what user do you want to install local packages?"
-printf "${red}==>${off} User: "
-read usr
-printf "${red}==>${off} Confirm user: "
-read confirm
-if [ "${usr}" = "${confirm}" ] ; then
-  valid=true
-fi
+    echo "${red}==>${off} For what user do you want to install local packages?"
+    printf "${red}==>${off} User: "
+    read usr
+    printf "${red}==>${off} Confirm user: "
+    read confirm
+    if [ "${usr}" = "${confirm}" ] ; then
+        valid=true
+    fi
 done
 
 echo "${red}==>${off} Starting countdown"
-for i in {5..1}
-do
-  echo "$i.."
-  sleep 1
+for i in {5..1}; do
+    echo "$i.."
+    sleep 1
 done
 echo ".."
 
+##########
+# PACMAN #
+##########
 echo "${red}==>${off} Installing pacman packages..."
 pacman -S --noconfirm --needed "${packages[@]}"
 
+############
+# SERVICES #
+############
 echo "${red}==>${off} Activating needed services..."
 systemctl enable lightdm.service
 
-echo "${red}==>${off} Updating and upgrading opam..."
-runuser -l "${usr}" opam update
-runuser -l "${usr}" opam upgrade
-runuser -l "${usr}" opam install merlin
-runuser -l "${usr}" opam user-setup install
+############
+# DOTFILES #
+############
+printf "${red}==>${off} Stow home-files?"
+read ans
+case "$ans" in
+    y|Y) runuser -l "${usr}" -c "cd /home/${usr}/.dotfiles && stow home-*" ;;
+    n|N) ;;
+    *) echo "Please select a valid option" ;;
+esac
 
+#######
+# AUR #
+#######
 echo "${red}==>${off} Downloading aur packages..."
-for p in "${aur[@]}"
-do
-  runuser -l "${usr}" git clone "https://aur.archlinux.org/${p}.git" ~/.aur/
+for p in "${aur[@]}"; do
+    runuser -l "${usr}" -c "git clone https://aur.archlinux.org/${p}.git /home/${usr}/.aur/"
 done
 
 echo "${red}==>${off} Installing aur packages..."
-for p in "${aur[@]}"
-do
-  runuser -l "${usr}" -c "cd ~/.aur/${p}"
-  runuser -l "${usr}" -c "makepkg -si"
+for p in "${aur[@]}"; do
+    runuser -l "${usr}" -c "cd /home/${usr}/.aur/${p} && makepkg -si"
 done
 
+#######
+# PIP #
+#######
 echo "${red}==>${off} Installing python packages via pip..."
-for p in "${pip[@]}"
-do
-  runuser -l "${usr}" -c "pip install --user ${p}"
+for p in "${pip[@]}"; do
+    runuser -l "${usr}" -c "pip install --user ${p}"
 done
+
+########
+# OPAM #
+########
+echo "${red}==>${off} Updating / upgrading opam and installing needed packages..."
+runuser -l "${usr}" -c "opam update"
+runuser -l "${usr}" -c "opam upgrade"
+for p in "${opam[@]}"; do
+    runuser -l "${usr}" -c "opam install ${p}"
+done
+runuser -l "${usr}" -c "opam user-setup install"
 
 echo "
 ${red}==>${off} Other things you should do:
@@ -217,10 +250,11 @@ ${red}==>${off} Other things you should do:
   ${red}*${off} Install gpu drivers (see arch-wiki)
   ${red}*${off} Stow needed dotfiles (see README)
 "
+
 printf "${red}==>${off} Reboot now? (Y/n) "
 read ans
 case "$ans" in
- y|Y) shutdown -r now ;;
- n|N) ;;
- *) echo "Please select a valid option" ;;
+    y|Y) shutdown -r now ;;
+    n|N) ;;
+    *) echo "Please select a valid option" ;;
 esac

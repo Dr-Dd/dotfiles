@@ -27,7 +27,7 @@ import qualified XMonad.StackSet as W
 
 --------------------------------------------------------------------------------
 main = do
-  xmproc <- spawnPipe "xmobar /home/drd/.xmobarrc" -- Start a task bar such as xmobar.
+  xmproc <- spawnPipe "xmobar /home/drd/.xmobarrc" -- Start a task bar such as xmobar. (REMEMBER TO PUT YOUR USERNAME IN)
   -- Start xmonad using the main desktop configuration with a few
   -- simple overrides:
   xmonad $ desktopConfig
@@ -60,12 +60,14 @@ main = do
       , ("M-s", spawn "sleep 0.2 ; scrot -s /tmp/screen.png") -- sleep solves a race condition
       ]
 
+    -- IMPORTANT
+    -- The fn keys have different keybindings for each computer, so substitute them to make them work with your own
     `additionalKeys` -- fn keys
-      [ ( (0, 0x1008ff11), spawn "amixer -q sset Master 5%- && ~/.scripts/notify-volume.sh")
-      , ( (0, 0x1008ff13), spawn "amixer -q sset Master 5%+ && ~/.scripts/notify-volume.sh")
-      , ( (0, 0x1008ff12), spawn "amixer -q sset Master toggle && ~/.scripts/notify-volume.sh")
-      , ( (0, 0x1008ff03), spawn "xbacklight -dec 5 && ~/.scripts/notify-brightness.sh")
-      , ( (0, 0x1008ff02), spawn "xbacklight -inc 5 && ~/.scripts/notify-brightness.sh")
+      [ ( (0, 0x1008ff11), spawn "amixer -q sset Master 5%- && ~/.scripts/notify-volume.sh") -- increase volume
+      , ( (0, 0x1008ff13), spawn "amixer -q sset Master 5%+ && ~/.scripts/notify-volume.sh") -- increase volume
+      , ( (0, 0x1008ff12), spawn "amixer -q sset Master toggle && ~/.scripts/notify-volume.sh") -- (un)mute volume
+      , ( (0, 0x1008ff03), spawn "xbacklight -dec 5 && ~/.scripts/notify-brightness.sh") -- decrease brightness
+      , ( (0, 0x1008ff02), spawn "xbacklight -inc 5 && ~/.scripts/notify-brightness.sh") -- increase brightness
       ]
 
 --------------------------------------------------------------------------------
@@ -102,7 +104,7 @@ myManageHook = composeOne
   , className =? "mpv"       -?> doFloat
   , className =? "keepassxc" -?> doFloat
   , isDialog                 -?> doCenterFloat
-  , isFullscreen             -?> doFullFloat 
+  , isFullscreen             -?> doFullFloat
     -- Move transient windows to their parent:
   , transience
   ]

@@ -133,6 +133,7 @@ packages=(
     terminus-font
     ttf-dejavu
     ttf-inconsolata
+    ttf-joypixels
 
     # documents
     zathura
@@ -168,7 +169,7 @@ echo "${red}== RUN THIS SCRIPT AS ROOT ==${off}"
 # USER #
 ########
 valid=false
-while [ valid = false ] ; do
+while [ $valid = false ] ; do
     echo "${red}==>${off} For what user do you want to install local packages?"
     printf "${red}==>${off} User: "
     read usr

@@ -105,7 +105,7 @@ packages=(
     #sleekxmpp [PIP]
 
     # mail
-    evolution
+    thunderbird
 
     # pictures
     feh

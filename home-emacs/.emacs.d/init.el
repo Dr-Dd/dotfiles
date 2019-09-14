@@ -258,7 +258,7 @@ There are two things you can do about this warning:
 ;; custom keybindings
 ;; company-mode
 (global-set-key (kbd "C-<SPC>" ) 'company-complete)
-(global-set-key (kbd "S-<SPC>" ) 'company-yasnippet)
+(global-set-key (kbd "M-<SPC>" ) 'company-yasnippet)
 ;; ace-window (to move windows around, just use `<M-o> M`)
 (global-set-key (kbd "M-o") 'ace-window)
 ;; yasnippet

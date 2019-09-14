@@ -32,6 +32,7 @@ main = do
   -- simple overrides:
   xmonad $ desktopConfig
     { modMask    = mod4Mask -- Use the "Win" key for the mod key
+    , workspaces = ["1", "2", "3", "4", "5" ,"6", "7", "8", "9", "0", "Mail"]
     , manageHook = myManageHook <+> manageHook desktopConfig
     , layoutHook = lessBorders OnlyScreenFloat $ desktopLayoutModifiers $ myLayouts
     , logHook    = dynamicLogWithPP xmobarPP
@@ -68,6 +69,8 @@ main = do
       , ( (0, 0x1008ff12), spawn "amixer -q sset Master toggle && ~/.scripts/notify-volume.sh") -- (un)mute volume
       , ( (0, 0x1008ff03), spawn "xbacklight -dec 5 && ~/.scripts/notify-brightness.sh") -- decrease brightness
       , ( (0, 0x1008ff02), spawn "xbacklight -inc 5 && ~/.scripts/notify-brightness.sh") -- increase brightness
+      , ( (mod4Mask, xK_m ), windows $ W.greedyView "Mail") -- M-m goes to workspace "Mail"
+      , ( (shiftMask .|. mod4Mask, xK_m), windows $ W.shift "Mail") -- M-S-m moves window to workspace "Mail"
       ]
 
 --------------------------------------------------------------------------------
@@ -99,12 +102,13 @@ myXPConfig = def
 -- Use the `xprop' tool to get the info you need for these matches.
 -- For className, use the second value that xprop gives you.
 myManageHook = composeOne
-  [ className =? "Pidgin"    -?> doFloat
-  , className =? "XCalc"     -?> doFloat
-  , className =? "mpv"       -?> doFloat
-  , className =? "keepassxc" -?> doFloat
-  , isDialog                 -?> doCenterFloat
-  , isFullscreen             -?> doFullFloat
+  [ className =? "Pidgin"      -?> doFloat
+  , className =? "XCalc"       -?> doFloat
+  , className =? "mpv"         -?> doFloat
+  , className =? "keepassxc"   -?> doFloat
+  , className =? "Thunderbird" -?> doShift "Mail"
+  , isDialog                   -?> doCenterFloat
+  , isFullscreen               -?> doFullFloat
     -- Move transient windows to their parent:
   , transience
   ]

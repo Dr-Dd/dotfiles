@@ -11,5 +11,6 @@ stalonetray &
 redshift-gtk &
 nm-applet &
 caffeine &
+thunderbird &
 xautolock -time 5 -locker "systemctl suspend-then-hibernate" &
 sleep 5 && xscreensaver -no-splash &

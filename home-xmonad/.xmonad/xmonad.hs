@@ -69,6 +69,9 @@ main = do
       , ( (0, 0x1008ff12), spawn "amixer -q sset Master toggle && ~/.scripts/notify-volume.sh") -- (un)mute volume
       , ( (0, 0x1008ff03), spawn "xbacklight -dec 5 && ~/.scripts/notify-brightness.sh") -- decrease brightness
       , ( (0, 0x1008ff02), spawn "xbacklight -inc 5 && ~/.scripts/notify-brightness.sh") -- increase brightness
+      , ( (0, 0x1008ff14), spawn "~/.scripts/mpc_toggle_cantata.sh") -- play music
+      , ( (0, 0x1008ff16), spawn "~/.scripts/mpc_prev_cantata.sh") -- previous track
+      , ( (0, 0x1008ff17), spawn "~/.scripts/mpc_next_cantata.sh") -- next track
       , ( (mod4Mask, xK_m ), windows $ W.greedyView "Mail") -- M-m goes to workspace "Mail"
       , ( (shiftMask .|. mod4Mask, xK_m), windows $ W.shift "Mail") -- M-S-m moves window to workspace "Mail"
       ]

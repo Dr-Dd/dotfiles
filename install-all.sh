@@ -181,7 +181,7 @@ while [ $valid = false ] ; do
 done
 
 echo "${red}==>${off} Starting countdown"
-for i in {5..1}; do
+for i in {5..1} ; do
     echo "$i.."
     sleep 1
 done
@@ -205,7 +205,7 @@ systemctl enable lightdm.service
 printf "${red}==>${off} Stow home-files?"
 read ans
 case "$ans" in
-    y|Y) runuser -l "${usr}" -c "cd /home/${usr}/.dotfiles && stow home-*" ;;
+    y|Y) sudo -u "${usr}" -H bash -c "cd /home/${usr}/.dotfiles && stow home-*" ;;
     n|N) ;;
     *) echo "Please select a valid option" ;;
 esac
@@ -215,12 +215,12 @@ esac
 #######
 echo "${red}==>${off} Downloading aur packages..."
 for p in "${aur[@]}"; do
-    runuser -l "${usr}" -c "git clone https://aur.archlinux.org/${p}.git /home/${usr}/.aur/"
+    sudo -u "${usr}" -H bash -c "git clone https://aur.archlinux.org/${p}.git /home/${usr}/.aur/"
 done
 
 echo "${red}==>${off} Installing aur packages..."
 for p in "${aur[@]}"; do
-    runuser -l "${usr}" -c "cd /home/${usr}/.aur/${p} && makepkg -si"
+    sudo -u "${usr}" -H bash -c "cd /home/${usr}/.aur/${p} && makepkg -si" 
 done
 
 #######
@@ -228,19 +228,20 @@ done
 #######
 echo "${red}==>${off} Installing python packages via pip..."
 for p in "${pip[@]}"; do
-    runuser -l "${usr}" -c "pip install --user ${p}"
+    sudo -u "${usr}" -H bash -c "pip install --user ${p}"
 done
 
 ########
 # OPAM #
 ########
 echo "${red}==>${off} Updating / upgrading opam and installing needed packages..."
-runuser -l "${usr}" -c "opam update"
-runuser -l "${usr}" -c "opam upgrade"
+sudo -u "${usr}" -H bash -c "opam init"
+sudo -u "${usr}" -H bash -c "opam update"
+sudo -u "${usr}" -H bash -c "opam upgrade"
 for p in "${opam[@]}"; do
-    runuser -l "${usr}" -c "opam install ${p}"
+    sudo -u "${usr}" -H bash -c "opam install ${p}"
 done
-runuser -l "${usr}" -c "opam user-setup install"
+sudo -u "${usr}" -H bash -c "opam user-setup install"
 
 echo "
 ${red}==>${off} Other things you should do:

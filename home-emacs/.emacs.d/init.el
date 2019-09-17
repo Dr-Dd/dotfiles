@@ -19,6 +19,23 @@ There are two things you can do about this warning:
 (package-initialize)
 ;; == end of MELPA ==
 
+;; use-package first install
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+;; This is only needed once, near the top of the file
+(eval-when-compile
+  (require 'use-package))
+;; == end of use-package ==
+
+;; benchmark init
+(use-package benchmark-init
+  :ensure t
+  :config
+  ;; To disable collection of benchmark data after init is done.
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+;; == end of benchmark init ==
+
 ;; external libs dir
 (add-to-list 'load-path "~/.emacs.d/extlib")
 ;; == end of external libs ==
@@ -38,15 +55,6 @@ There are two things you can do about this warning:
 ;;    * <C-M-v>       : scrolls down the other window
 ;;    * <C-M-S-v>     : scrolls up the other window
 ;; == end of emacs keybindings ==
-
-;; use-package first install
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-;; This is only needed once, near the top of the file
-(eval-when-compile
-  (require 'use-package))
-;; == end of use-package ==
 
 ;; Magit git front-end
 (use-package magit
@@ -279,7 +287,7 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (company-anaconda anaconda-mode flycheck-haskell flycheck evil-surround tuareg highlight-indentation yasnippet-snippets yasnippet ace-window dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))))
+    (esup company-anaconda anaconda-mode flycheck-haskell flycheck evil-surround tuareg highlight-indentation yasnippet-snippets yasnippet ace-window dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

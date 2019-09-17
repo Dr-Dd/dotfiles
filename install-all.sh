@@ -20,6 +20,9 @@ packages=(
     cantata
     mpc
     mpd
+    pavucontrol
+    pulseaudio
+    pulseaudio-alsa
 
     # drivers/system utils
     efibootmgr

@@ -69,6 +69,7 @@ There are two things you can do about this warning:
   (evil-set-initial-state 'dashboard-mode 'emacs)
   (evil-set-initial-state 'haskell-interactive-mode 'emacs)
   (evil-set-initial-state 'shell-mode 'emacs)
+  (evil-set-initial-state 'tuareg-interactive-mode 'emacs)
   (evil-mode 1))
 ;; evil-surround
 (use-package evil-surround

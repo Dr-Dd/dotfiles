@@ -70,6 +70,7 @@ There are two things you can do about this warning:
   (evil-set-initial-state 'haskell-interactive-mode 'emacs)
   (evil-set-initial-state 'shell-mode 'emacs)
   (evil-set-initial-state 'tuareg-interactive-mode 'emacs)
+  (evil-set-initial-state 'inferior-python-mode 'emacs)
   (evil-mode 1))
 ;; evil-surround
 (use-package evil-surround

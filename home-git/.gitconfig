@@ -3,3 +3,9 @@
 	name = Leonardo Idone
 [credential]
 	helper = cache --timeout 7200
+[filesystem "Oracle Corporation|1.8.0_222|/dev/sda3"]
+	timestampResolution = 1001 microseconds
+	minRacyThreshold = 5227 microseconds
+[filesystem "Oracle Corporation|1.8.0_232|/dev/sda3"]
+	timestampResolution = 1001 microseconds
+	minRacyThreshold = 17510 microseconds

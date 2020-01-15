@@ -2,15 +2,19 @@
 
 # Shared init script for startup programs, call this instead of single programs when possible
 
-[ ! -s ~/.config/mpd/pid ] && mpd & 
-~/.scripts/battery-notify-daemon.sh &
-~/.scripts/check-updates-daemon.sh &
-~/.scripts/rclone-megasync-daemon.sh &
-emacs --daemon &
-stalonetray &
-redshift-gtk &
-nm-applet &
-caffeine &
-thunderbird &
-xautolock -time 5 -locker "systemctl suspend-then-hibernate" &
-sleep 5 && xscreensaver -no-splash &
+if [ $DESKTOP_SESSION != "mate" ] ; then
+  [ ! -s ~/.config/mpd/pid ] && mpd & 
+  ~/.scripts/battery-notify-daemon.sh &
+  ~/.scripts/check-updates-daemon.sh &
+  ~/.scripts/rclone-megasync-daemon.sh &
+  emacs --daemon &
+  stalonetray &
+  redshift-gtk &
+  nm-applet &
+  caffeine &
+  thunderbird &
+  xautolock -time 5 -locker "systemctl suspend-then-hibernate" &
+  sleep 5 && xscreensaver -no-splash &
+fi
+
+ 

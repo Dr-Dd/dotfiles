@@ -57,7 +57,7 @@ off=$(tput sgr0)
 
 export QT_QPA_PLATFORMTHEME=gtk2
 
-export PS1="\n┏\[\e[31m\]\`nonzero_return\`\[\e[m\]\[\e[32m\][\w]\[\e[m\]\[\e[33m\]\`parse_git_branch\`\[\e[m\]\n┗\[\e[34m\][λ]\[\e[m\] "
+export PS1="\n┏\[\e[31m\]\`nonzero_return\`\[\e[m\]\[\e[32m\][\u@\h:\w]\[\e[m\]\[\e[33m\]\`parse_git_branch\`\[\e[m\]\n┗\[\e[34m\][λ]\[\e[m\] "
 
 # NOTE: these aliases should be used for cli-ONLY commands, since all user-level commands will be run from dmenu, which only reads the 
 #       $PATH (which is set with .local/bin in the front)

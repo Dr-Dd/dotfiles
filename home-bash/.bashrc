@@ -56,16 +56,12 @@ blue=$(tput setaf 4)
 off=$(tput sgr0)
 
 export QT_QPA_PLATFORMTHEME=gtk2
+export CHROOT=$HOME/chroot
 
 export PS1="\n┏\[\e[31m\]\`nonzero_return\`\[\e[m\]\[\e[32m\][\u@\h:\[\e[34m\]\w\[\e[32m\]]\[\e[m\]\[\e[33m\]\`parse_git_branch\`\[\e[m\]\n┗\[\e[34m\][λ]\[\e[m\] "
 
-# NOTE: these aliases should be used for cli-ONLY commands, since all user-level commands will be run from dmenu, which only reads the 
-#       $PATH (which is set with .local/bin in the front)
-alias shutdown="sudo /sbin/shutdown"
-alias pm-hibernate="sudo /usr/sbin/pm-hibernate"
-alias pm-suspend="sudo /usr/sbin/pm-suspend"
-alias pm-suspend-hybrid="sudo /usr/sbin/pm-suspend-hybrid"
-
 alias cdma="cd /media/data/Music/Music\ Crate/Artists"
+alias ls="ls --color"
+alias prime-offload-drd="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME='nvidia' __VK_LAYER_NV_optimus='NVIDIA_only'"
 
 eval "$(thefuck --alias)"

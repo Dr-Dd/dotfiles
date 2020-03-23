@@ -142,6 +142,7 @@ There are two things you can do about this warning:
 ;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
 (require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
 ;; ## end of OPAM user-setup addition for emacs / base ## keep this line
+;; == Note how this package usually takes around 30 or more secs to starts on a cold run as of 13 Mar 2020 ==
 ;; == end of OCaml coding ==
 
 ;; markdown mode
@@ -173,6 +174,7 @@ There are two things you can do about this warning:
         (("" "init.el" "Open init.el config file" (lambda (&rest _) (find-file "~/.emacs.d/init.el"))))))
 ;; enable for emacs --daemon
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+(setq dashboard-footer (shell-command-to-string "fortune -as -n 110 | tr -s '\n' ' ' | tr -s '\t' ' '"))
 ;; == end of custom splash screen ==
 
 ;; sensible window switching and moving with ace-window
@@ -227,7 +229,7 @@ There are two things you can do about this warning:
 
 ;; set default font
 (add-to-list 'default-frame-alist
-             '(font . "Inconsolata-20:bold"))
+             '(font . "Inconsolata-20"))
 (let ((faces '(mode-line
                mode-line-buffer-id
                mode-line-emphasis
@@ -237,7 +239,7 @@ There are two things you can do about this warning:
    (lambda (face) (set-face-attribute face nil :font "xos4 Terminus-14:bold"))
    faces))
 ;; fallback unicode font
-(set-fontset-font "fontset-default" 'unicode "DejaVu Sans Mono-20:bold")
+(set-fontset-font "fontset-default" 'unicode "DejaVu Sans Mono-20")
 ;; == end of default font ==
 
 ;; set default empty line fringe
@@ -265,6 +267,11 @@ There are two things you can do about this warning:
 (setq-default indent-tabs-mode nil)
 ;; == end of no-tabs ==
 
+;; Horizontal scrolling
+(global-set-key (kbd "<mouse-6>") 'scroll-right)
+(global-set-key (kbd "<mouse-7>") 'scroll-left)
+;; == end of horizontal scrolling ==
+
 ;; custom keybindings
 ;; company-mode
 (global-set-key (kbd "C-<SPC>" ) 'company-complete)
@@ -280,6 +287,11 @@ There are two things you can do about this warning:
 (global-set-key (kbd "C-S-j") 'shrink-window)
 (global-set-key (kbd "C-S-k") 'enlarge-window)
 (global-set-key (kbd "C-S-l") 'enlarge-window-horizontally)
+;; evil-mode
+(define-key evil-replace-state-map (kbd "C-c") 'evil-normal-state)
+(define-key evil-insert-state-map (kbd "C-c") 'evil-normal-state)
+(define-key evil-visual-state-map (kbd "C-c") 'evil-normal-state)
+(define-key evil-command-window-mode-map (kbd "C-c") 'evil-normal-state)
 ;; == end of custom key-bindings ==
 
 (custom-set-variables
@@ -289,10 +301,11 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (esup company-anaconda anaconda-mode flycheck-haskell flycheck evil-surround tuareg highlight-indentation yasnippet-snippets yasnippet ace-window dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))))
+    (emojify esup company-anaconda anaconda-mode flycheck-haskell flycheck evil-surround tuareg highlight-indentation yasnippet-snippets yasnippet ace-window dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'scroll-left 'disabled nil)

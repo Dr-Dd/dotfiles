@@ -10,7 +10,6 @@ which is unsafe because it allows man-in-the-middle attacks.
 There are two things you can do about this warning:
 1. Install an Emacs version that does support SSL and be safe.
 2. Remove this warning from your init file so you won't see it again."))
-  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
   (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
   ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
   (when (< emacs-major-version 24)
@@ -174,6 +173,7 @@ There are two things you can do about this warning:
         (("" "init.el" "Open init.el config file" (lambda (&rest _) (find-file "~/.emacs.d/init.el"))))))
 ;; enable for emacs --daemon
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+;; as of 24 Mar 2020, the dashboard footer variable has no effect
 (setq dashboard-footer (shell-command-to-string "fortune -as -n 110 | tr -s '\n' ' ' | tr -s '\t' ' '"))
 ;; == end of custom splash screen ==
 
@@ -213,34 +213,85 @@ There are two things you can do about this warning:
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; == end of trailing whitespace ==
 
-;; set default theme
-(load-theme 'adwaita)
-;; == end of default theme ==
-
-;; selected line color
-(global-hl-line-mode 1)
-(set-face-background 'hl-line "#ccdae9")
-(set-face-foreground 'highlight nil)
-;; == end of line color ==
-
-;; highligt color
-(set-face-attribute 'region nil :background "#4A90D9" :foreground "#FFFFFF")
-;; == end of line color ==
 
 ;; set default font
 (add-to-list 'default-frame-alist
              '(font . "Inconsolata-20"))
-(let ((faces '(mode-line
-               mode-line-buffer-id
-               mode-line-emphasis
-               mode-line-highlight
-               mode-line-inactive)))
-  (mapc
-   (lambda (face) (set-face-attribute face nil :font "xos4 Terminus-14:bold"))
-   faces))
+(defun refresh-mode-line-font ()
+  (interactive)
+  (let ((faces '(mode-line
+                 mode-line-buffer-id
+                 mode-line-emphasis
+                 mode-line-highlight
+                 mode-line-inactive)))
+    (mapc
+     (lambda (face) (set-face-attribute face nil :font "xos4 Terminus-14:bold"))
+     faces))
+    )
 ;; fallback unicode font
 (set-fontset-font "fontset-default" 'unicode "DejaVu Sans Mono-20")
 ;; == end of default font ==
+
+;; == COLORS AND THEME ==
+(package-install 'zenburn-theme)
+
+(defun light-theme ()
+  (interactive)
+  ;; == light theme function ==
+  ;; set default light theme
+  (disable-theme 'zenburn)
+  (load-theme 'adwaita t)
+  ;; == end of default theme ==
+  ;; selected line light color
+  (global-hl-line-mode 1)
+  (set-face-background 'hl-line "#ccdae9")
+  (set-face-foreground 'highlight nil)
+  ;; == end of line color ==
+
+  ;; highlight light color
+  (set-face-attribute 'region nil :background "#4A90D9" :foreground "#FFFFFF")
+
+  (refresh-mode-line-font)
+  (redraw-display)
+  ;; == end of line color ==
+  ;; == end of light theme function ==
+  )
+
+(defun dark-theme ()
+  (interactive)
+  ;; == dark theme function ==
+  ;; set default dark theme
+  (disable-theme 'adwaita)
+  (load-theme 'zenburn t)
+  ;; == end of default theme ==
+
+  ;; selected line dark color
+  ;;(global-hl-line-mode 1)
+  ;;(set-face-background 'hl-line "#ccdae9")
+  ;;(set-face-foreground 'highdark nil)
+
+  ;; == end of line color ==
+
+  ;; highlight dark color
+  ;;(set-face-attribute 'region nil :background "#4A90D9" :foreground "#FFFFFF")
+
+  (refresh-mode-line-font)
+  (redraw-display)
+  ;; == end of line color ==
+  ;; == end of dark theme function ==
+  )
+
+;; switches from one theme to the other
+(defun switch-theme ()
+  (interactive)
+  (if (equal (face-attribute 'default :background) "#EDEDED") (dark-theme)
+    (light-theme)))
+
+;; set theme as dark if hh >= 19
+(if (>= (string-to-number (shell-command-to-string "date +%H")) 19)
+  (dark-theme)
+  (light-theme))
+;; == END OF COLORS AND THEME ==
 
 ;; set default empty line fringe
 (setq-default indicate-empty-lines t)
@@ -283,15 +334,17 @@ There are two things you can do about this warning:
 (define-key yas-minor-mode-map (kbd "TAB") nil)
 (define-key yas-minor-mode-map (kbd "<C-tab>") 'yas-expand)
 ;; window management
-(global-set-key (kbd "C-S-h") 'shrink-window-horizontally)
-(global-set-key (kbd "C-S-j") 'shrink-window)
-(global-set-key (kbd "C-S-k") 'enlarge-window)
-(global-set-key (kbd "C-S-l") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-s-h") 'shrink-window-horizontally)
+(global-set-key (kbd "C-s-j") 'shrink-window)
+(global-set-key (kbd "C-s-k") 'enlarge-window)
+(global-set-key (kbd "C-s-l") 'enlarge-window-horizontally)
 ;; evil-mode
 (define-key evil-replace-state-map (kbd "C-c") 'evil-normal-state)
 (define-key evil-insert-state-map (kbd "C-c") 'evil-normal-state)
 (define-key evil-visual-state-map (kbd "C-c") 'evil-normal-state)
 (define-key evil-command-window-mode-map (kbd "C-c") 'evil-normal-state)
+;; switch theme
+(global-set-key (kbd "s-t") 'switch-theme)
 ;; == end of custom key-bindings ==
 
 (custom-set-variables
@@ -299,9 +352,43 @@ There are two things you can do about this warning:
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
+ '(company-quickhelp-color-background "#4F4F4F")
+ '(company-quickhelp-color-foreground "#DCDCCC")
+ '(custom-safe-themes
+   (quote
+    ("76c5b2592c62f6b48923c00f97f74bcb7ddb741618283bdb2be35f3c0e1030e3" default)))
+ '(fci-rule-color "#383838")
+ '(nrepl-message-colors
+   (quote
+    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (emojify esup company-anaconda anaconda-mode flycheck-haskell flycheck evil-surround tuareg highlight-indentation yasnippet-snippets yasnippet ace-window dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))))
+    (zenburn-theme emojify esup company-anaconda anaconda-mode flycheck-haskell flycheck evil-surround tuareg highlight-indentation yasnippet-snippets yasnippet ace-window dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline)))
+ '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+ '(vc-annotate-background "#2B2B2B")
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#BC8383")
+     (40 . "#CC9393")
+     (60 . "#DFAF8F")
+     (80 . "#D0BF8F")
+     (100 . "#E0CF9F")
+     (120 . "#F0DFAF")
+     (140 . "#5F7F5F")
+     (160 . "#7F9F7F")
+     (180 . "#8FB28F")
+     (200 . "#9FC59F")
+     (220 . "#AFD8AF")
+     (240 . "#BFEBBF")
+     (260 . "#93E0E3")
+     (280 . "#6CA0A3")
+     (300 . "#7CB8BB")
+     (320 . "#8CD0D3")
+     (340 . "#94BFF3")
+     (360 . "#DC8CC3"))))
+ '(vc-annotate-very-old-color "#DC8CC3"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

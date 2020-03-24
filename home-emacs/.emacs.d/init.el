@@ -233,53 +233,40 @@ There are two things you can do about this warning:
 ;; == end of default font ==
 
 ;; == COLORS AND THEME ==
+;; install custom theme (if missing)
 (package-install 'zenburn-theme)
 
+;; == light theme function ==
 (defun light-theme ()
   (interactive)
-  ;; == light theme function ==
-  ;; set default light theme
+  ;; load new theme
   (disable-theme 'zenburn)
   (load-theme 'adwaita t)
-  ;; == end of default theme ==
   ;; selected line light color
   (global-hl-line-mode 1)
   (set-face-background 'hl-line "#ccdae9")
   (set-face-foreground 'highlight nil)
-  ;; == end of line color ==
-
   ;; highlight light color
   (set-face-attribute 'region nil :background "#4A90D9" :foreground "#FFFFFF")
-
+  ;; refresh screen
   (refresh-mode-line-font)
   (redraw-display)
-  ;; == end of line color ==
-  ;; == end of light theme function ==
   )
+;; == end of light theme function ==
 
+;; == dark theme function ==
 (defun dark-theme ()
   (interactive)
-  ;; == dark theme function ==
-  ;; set default dark theme
+  ;; load dark theme
   (disable-theme 'adwaita)
   (load-theme 'zenburn t)
-  ;; == end of default theme ==
-
-  ;; selected line dark color
-  ;;(global-hl-line-mode 1)
-  ;;(set-face-background 'hl-line "#ccdae9")
-  ;;(set-face-foreground 'highdark nil)
-
-  ;; == end of line color ==
-
-  ;; highlight dark color
-  ;;(set-face-attribute 'region nil :background "#4A90D9" :foreground "#FFFFFF")
-
+  ;; enable hl line
+  (global-hl-line-mode 1)
+  ;; refresh display
   (refresh-mode-line-font)
   (redraw-display)
-  ;; == end of line color ==
-  ;; == end of dark theme function ==
   )
+;; == end of dark theme function ==
 
 ;; switches from one theme to the other
 (defun switch-theme ()
@@ -305,6 +292,11 @@ There are two things you can do about this warning:
 (setq split-height-threshold 33)
 (setq split-width-threshold 62)
 ;; == end of default window splitting ==
+
+;; ido mode
+(setq ido-separator "\n")
+(ido-mode 1)
+;; == end of ido mode ==
 
 ;; Emacs 26.2 line-numbers
 (setq display-line-numbers-type 'relative)

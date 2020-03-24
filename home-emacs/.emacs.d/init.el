@@ -236,6 +236,9 @@ There are two things you can do about this warning:
 ;; install custom theme (if missing)
 (package-install 'zenburn-theme)
 
+;; enable hl line
+(global-hl-line-mode 1)
+
 ;; == light theme function ==
 (defun light-theme ()
   (interactive)
@@ -243,7 +246,6 @@ There are two things you can do about this warning:
   (disable-theme 'zenburn)
   (load-theme 'adwaita t)
   ;; selected line light color
-  (global-hl-line-mode 1)
   (set-face-background 'hl-line "#ccdae9")
   (set-face-foreground 'highlight nil)
   ;; highlight light color
@@ -260,8 +262,8 @@ There are two things you can do about this warning:
   ;; load dark theme
   (disable-theme 'adwaita)
   (load-theme 'zenburn t)
-  ;; enable hl line
-  (global-hl-line-mode 1)
+  ;; highlight light color
+  (set-face-attribute 'region nil :background "#FFFFEF" :foreground "#383838")
   ;; refresh display
   (refresh-mode-line-font)
   (redraw-display)

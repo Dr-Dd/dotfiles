@@ -110,6 +110,10 @@ There are two things you can do about this warning:
   :config
   (setq doom-modeline-height 25)
   (column-number-mode 1))
+(use-package all-the-icons-dired
+  :ensure t
+  :config
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 ;; == end of doom modeline ==
 
 ;; python mode
@@ -162,7 +166,7 @@ There are two things you can do about this warning:
   :config
   (dashboard-setup-startup-hook))
 ;; customization
-(setq dashboard-startup-banner 'logo)
+(setq dashboard-startup-banner 'official)
 (setq dashboard-center-content t)
 (setq dashboard-items '((recents  . 9)))
 (setq dashboard-set-heading-icons t)
@@ -170,11 +174,37 @@ There are two things you can do about this warning:
 (setq dashboard-set-navigator t)
 (setq dashboard-navigator-buttons
       `(;; line1
-        (("" "init.el" "Open init.el config file" (lambda (&rest _) (find-file "~/.emacs.d/init.el"))))))
+        ((,(all-the-icons-fileicon "emacs" :height 0.8 :v-adjust 0.0)
+          "emacs-workspace"
+          "Dired to your Emacs Workspace"
+          (lambda (&rest _) (dired "~/emacs-workspace"))))
+        ;; line2
+        ((,(all-the-icons-alltheicon "git" :height 0.8 :v-adjust 0.0)
+          "git-repos"
+          "Dired to your Git Repos"
+          (lambda (&rest _) (dired "~/.git-repos"))))
+        ;; line3
+        ((,(all-the-icons-octicon "file-symlink-file" :height 0.8 :v-adjust 0.0)
+          "init.el"
+          "Open init.el config file"
+          (lambda (&rest _) (find-file "~/.emacs.d/init.el"))))
+        ;; line4
+        ((,(all-the-icons-octicon "cloud-download" :height 0.8 :v-adjust 0.0)
+          "mega"
+          "Dired to your Mega Cloud"
+          (lambda (&rest _) (dired "~/MEGA"))))
+        ;; line5
+        ((,(all-the-icons-octicon "home" :height 0.8 :v-adjust 0.0)
+          "home"
+          "Dired to your Home"
+          (lambda (&rest _) (dired "~"))))
+        ))
 ;; enable for emacs --daemon
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 ;; as of 24 Mar 2020, the dashboard footer variable has no effect
-(setq dashboard-footer (shell-command-to-string "fortune -as -n 110 | tr -s '\n' ' ' | tr -s '\t' ' '"))
+(setq dashboard-set-footer nil)
+(setq dashboard-banner-logo-title (shell-command-to-string "fortune -as -n 110 | tr -s '\n' ' ' | tr -s '\t' ' '"))
+;;(setq dashboard-init-info (shell-command-to-string "fortune -as -n 110 | tr -s '\n' ' ' | tr -s '\t' ' '"))
 ;; == end of custom splash screen ==
 
 ;; sensible window switching and moving with ace-window
@@ -277,8 +307,9 @@ There are two things you can do about this warning:
     (light-theme)))
 
 ;; set theme as dark if hh >= 19
-(if (>= (string-to-number (shell-command-to-string "date +%H")) 19)
-  (dark-theme)
+(if (or (>= (string-to-number (shell-command-to-string "date +%H")) 19)
+        (< (string-to-number (shell-command-to-string "date +%H")) 7))
+    (dark-theme)
   (light-theme))
 ;; == END OF COLORS AND THEME ==
 
@@ -296,8 +327,8 @@ There are two things you can do about this warning:
 ;; == end of default window splitting ==
 
 ;; ido mode
-(setq ido-separator "\n")
 (ido-mode 1)
+(setq ido-separator "\n")
 ;; == end of ido mode ==
 
 ;; Emacs 26.2 line-numbers

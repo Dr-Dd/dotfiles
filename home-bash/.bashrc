@@ -57,11 +57,12 @@ off=$(tput sgr0)
 
 export QT_QPA_PLATFORMTHEME=gtk2
 export CHROOT=$HOME/chroot
+export STEAM_COMPAT_DATA_PATH=$HOME/proton
 
 export PS1="\n┏\[\e[31m\]\`nonzero_return\`\[\e[m\]\[\e[32m\][\u@\h:\[\e[34m\]\w\[\e[32m\]]\[\e[m\]\[\e[33m\]\`parse_git_branch\`\[\e[m\]\n┗\[\e[34m\][λ]\[\e[m\] "
 
 alias cdma="cd /media/data/Music/Music\ Crate/Artists"
 alias ls="ls --color"
-alias prime-offload-drd="__NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME='nvidia' __VK_LAYER_NV_optimus='NVIDIA_only'"
+alias proton-no-steam="$HOME/.steam/steam/steamapps/common/Proton\ 5.0/proton"
 
 eval "$(thefuck --alias)"

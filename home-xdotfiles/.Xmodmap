@@ -4,4 +4,4 @@ clear Lock
 ! keycode 66 = ISO_Level3_Shift
 remove mod4 = Hyper_L
 add mod3 = Hyper_L
-keycode 66 = Escape
+!keycode 66 = Escape

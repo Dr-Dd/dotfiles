@@ -1,6 +1,33 @@
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintslight
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
+
+! scrollback buffer secondary screen
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+
+! no scrollbar
 URxvt.scrollBar: false
+
+! perl extensions
+URxvt.perl-ext-common: selection-to-clipboard
+
+! font settings
 URxvt.font: xft:Inconsolata:size=20,xft:DejaVu Sans Mono:size=20
 
+! colors
 ! special
 URxvt.foreground:   #586e75
 URxvt.background:   #fdf6e3

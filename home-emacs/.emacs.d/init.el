@@ -55,11 +55,16 @@ There are two things you can do about this warning:
 ;;    * <C-M-S-v>     : scrolls up the other window
 ;; == end of emacs keybindings ==
 
+;; symlink default behaviour
+(setq vc-follow-symlinks t)
+;; == end of symlink ==
 ;; Magit git front-end
 (use-package magit
   :ensure t)
 (setq magit-refresh-status-buffer nil)
 ;; == end of Magit ==
+
+;; lsp-mode
 
 ;; EVIL MODE!
 (use-package evil
@@ -117,45 +122,45 @@ There are two things you can do about this warning:
 ;; == end of doom modeline ==
 
 ;; python mode
-(use-package anaconda-mode
-  :ensure t)
-(add-hook 'python-mode-hook 'anaconda-mode)
-(use-package company-anaconda
-  :ensure t)
-(eval-after-load "company"
-  '(add-to-list 'company-backends 'company-anaconda))
+;;(use-package anaconda-mode
+  ;;:ensure t)
+;;(add-hook 'python-mode-hook 'anaconda-mode)
+;;(use-package company-anaconda
+  ;;:ensure t)
+;;(eval-after-load "company"
+  ;;'(add-to-list 'company-backends 'company-anaconda))
 ;; == end of python ==
 
 ;; haskell development
-(use-package haskell-mode
-  :ensure t)
-(use-package haskell-interactive-mode)
-(use-package haskell-process)
-(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-(add-hook 'haskell-mode-hook 'flyspell-prog-mode)
-(use-package flycheck-haskell
-  :ensure t
-  :config
-  (add-hook 'haskell-mode-hook #'flycheck-haskell-setup))
+;;(use-package haskell-mode
+  ;;;;:ensure t)
+;;;;(use-package haskell-interactive-mode)
+;;(use-package haskell-process)
+;;(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+;;(add-hook 'haskell-mode-hook 'flyspell-prog-mode)
+;;(use-package flycheck-haskell
+  ;;:ensure t
+  ;;:config
+  ;;(add-hook 'haskell-mode-hook #'flycheck-haskell-setup))
 ;; == end of haskell coding ==
 
 ;; OCaml development
-(use-package tuareg
-  :ensure t)
+;;(use-package tuareg
+  ;;:ensure t)
 ;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
-(require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
+;;(require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
 ;; ## end of OPAM user-setup addition for emacs / base ## keep this line
 ;; == Note how this package usually takes around 30 or more secs to starts on a cold run as of 13 Mar 2020 ==
 ;; == end of OCaml coding ==
 
 ;; markdown mode
-(use-package markdown-mode
-  :ensure t
-  :commands (markdown-mode gfm-mode)
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "markdown"))
+;;(use-package markdown-mode
+  ;;:ensure t
+  ;;:commands (markdown-mode gfm-mode)
+  ;;:mode (("README\\.md\\'" . gfm-mode)
+         ;;("\\.md\\'" . markdown-mode)
+         ;;("\\.markdown\\'" . markdown-mode))
+  ;;:init (setq markdown-command "markdown"))
 ;; == end of markdown mode ==
 
 ;; custom splash screen with emacs-dashboard
@@ -327,8 +332,9 @@ There are two things you can do about this warning:
 ;; == end of default window splitting ==
 
 ;; ido mode
+;;(setq ido-separator "\n")
+(setq ido-everywhere t)
 (ido-mode 1)
-(setq ido-separator "\n")
 ;; == end of ido mode ==
 
 ;; Emacs 26.2 line-numbers

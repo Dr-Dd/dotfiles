@@ -1,6 +1,6 @@
 [user]
 	email = idone.leonardo@gmail.com
-	name = Leonardo Idone
+	name = drd
 [credential]
 	helper = cache --timeout 7200
 [filesystem "Oracle Corporation|1.8.0_222|/dev/sda3"]
@@ -9,3 +9,10 @@
 [filesystem "Oracle Corporation|1.8.0_232|/dev/sda3"]
 	timestampResolution = 1001 microseconds
 	minRacyThreshold = 17510 microseconds
+[gui]
+	recentrepo = /home/drd/.git-repos/COVID-19
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

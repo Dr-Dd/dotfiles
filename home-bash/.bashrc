@@ -59,7 +59,7 @@ export QT_QPA_PLATFORMTHEME=gtk2
 export CHROOT=$HOME/chroot
 export STEAM_COMPAT_DATA_PATH=$HOME/proton
 
-export PS1="\n┏\[\e[31m\]\`nonzero_return\`\[\e[m\]\[\e[32m\][\u@\h:\[\e[34m\]\w\[\e[32m\]]\[\e[m\]\[\e[33m\]\`parse_git_branch\`\[\e[m\]\n┗\[\e[34m\][λ]\[\e[m\] "
+export PS1="\n╭\[\e[31m\]\`nonzero_return\`\[\e[m\]\[\e[32m\][\u@\h:\[\e[34m\]\w\[\e[32m\]]\[\e[m\]\[\e[33m\]\`parse_git_branch\`\[\e[m\]\n╰\[\e[34m\][λ]\[\e[m\] "
 
 alias cdma="cd /media/data/Music/Music\ Crate/Artists"
 alias ls="ls --color"

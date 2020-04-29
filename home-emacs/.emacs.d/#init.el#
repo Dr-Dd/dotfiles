@@ -251,7 +251,7 @@ There are two things you can do about this warning:
 
 ;; set default font
 (add-to-list 'default-frame-alist
-             '(font . "Inconsolata-20"))
+             '(font . "Ligconsolata-20"))
 (defun refresh-mode-line-font ()
   (interactive)
   (let ((faces '(mode-line
@@ -266,7 +266,7 @@ There are two things you can do about this warning:
 ;; fallback unicode font
 (set-fontset-font "fontset-default" 'unicode "DejaVu Sans Mono-20")
 ;; == end of default font ==
-
+=> 
 ;; == COLORS AND THEME ==
 ;; install custom theme (if missing)
 (package-install 'zenburn-theme)

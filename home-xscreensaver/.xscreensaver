@@ -1,11 +1,11 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-demo 5.43 for drd on Thu Nov 14 16:44:33 2019.
+# Written by xscreensaver-demo 5.43 for drd on Wed Jan 15 18:52:16 2020.
 # https://www.jwz.org/xscreensaver/
 
-timeout:	0:01:00
-cycle:		0:01:00
+timeout:	0:05:00
+cycle:		0:00:00
 lock:		True
-lockTimeout:	0:01:00
+lockTimeout:	0:20:00
 passwdTimeout:	0:00:30
 visualID:	default
 installColormap:    True
@@ -19,7 +19,7 @@ nice:		10
 memoryLimit:	0
 fade:		True
 unfade:		False
-fadeSeconds:	0:00:01
+fadeSeconds:	0:00:05
 fadeTicks:	20
 captureStderr:	True
 ignoreUninstalledPrograms:False
@@ -34,7 +34,7 @@ grabVideoFrames:    True
 chooseRandomImages: False
 imageDirectory:	
 
-mode:		random
+mode:		blank
 selected:	-1
 
 textMode:	file

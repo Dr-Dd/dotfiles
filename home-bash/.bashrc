@@ -50,19 +50,28 @@ function nonzero_return() {
 	[ $RETVAL -ne 0 ] && echo "[$RETVAL]"
 }
 
+shopt -s expand_aliases
+
 red=$(tput setaf 1)
 yellow=$(tput setaf 3)
 blue=$(tput setaf 4)
 off=$(tput sgr0)
 
+export VISUAL=vim
+export EDITOR=vim
 export QT_QPA_PLATFORMTHEME=gtk2
 export CHROOT=$HOME/chroot
 export STEAM_COMPAT_DATA_PATH=$HOME/proton
 
 export PS1="\n╭\[\e[31m\]\`nonzero_return\`\[\e[m\]\[\e[32m\][\u@\h:\[\e[34m\]\w\[\e[32m\]]\[\e[m\]\[\e[33m\]\`parse_git_branch\`\[\e[m\]\n╰\[\e[34m\][λ]\[\e[m\] "
 
+PRUNEPATHHOME="$HOME/chroot $HOME/gems $HOME/go $HOME/key-tools $HOME/proton $HOME/.cache $HOME/.bundle $HOME/.config $HOME/.dwarffortress $HOME/.eclipse $HOME/.emacs.d/anaconda-mode $HOME/.emacs.d/elpa $HOME/.emacs.d/emojis $HOME/.gem $HOME/.local/lib $HOME/.local/share $HOME/.m2 $HOME/.npm $HOME/.opam"
+
+PRUNEPATHDATA="/media/data/.Trash-1000 /media/data/wine-pc /media/data/System\ Volume\ Information/ /media/data/SteamLibrary /media/data/Recovery /media/data/MSPCache /media/data/msdownld.tmp /media/data/found.000 /media/data/\$RECYCLE.BIN"
+
 alias cdma="cd /media/data/Music/Music\ Crate/Artists"
 alias ls="ls --color"
-alias proton-no-steam="$HOME/.steam/steam/steamapps/common/Proton\ 5.0/proton"
+alias updatedb="updatedb -l 0 -o .locate-home.db -U $HOME -e '$PRUNEPATHHOME' && updatedb -l 0 -o .locate-data.db -U /media/data/ -e '$PRUNEPATHDATA'"
+alias locate="locate -d .locate-home.db -d .locate-data.db"
 
 eval "$(thefuck --alias)"

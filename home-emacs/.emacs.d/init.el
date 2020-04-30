@@ -205,7 +205,11 @@ There are two things you can do about this warning:
           (lambda (&rest _) (dired "~"))))
         ))
 ;; enable for emacs --daemon
-(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+(setq inhibit-startup-screen t)
+(setq inhibit-splash-screen t)
+(setq inhibit-startup-message t)
+(setq initial-scratch-message "")
+(setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
 ;; as of 24 Mar 2020, the dashboard footer variable has no effect
 (setq dashboard-set-footer nil)
 (setq dashboard-banner-logo-title (shell-command-to-string "fortune -as -n 110 | tr -s '\n' ' ' | tr -s '\t' ' '"))

@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Check if internet connection is active
+echo -e "GET http://google.com HTTP/1.0\n\n" | ncat google.com 80 > /dev/null 2>&1
+
+if [ "$?" -ne 0 ]; then
+  echo "ERROR: PC is Offline"
+  exit 126
+fi 
+
+# Check if first argument is a local file
+if [ ! -f "$1" ]; then
+  echo "ERROR: Local file \""$1"\" doesn't exist"
+  exit 126
+fi
+
+# Check if second argument is a remote
+rclone about "$2" -v > /dev/null 2>&1
+
+if [ "$?" -ne 0 ]; then
+  echo "ERROR: Invalid remote \""$2"\" specified"
+  exit 126
+fi
+
+# Get last modification date
+R_MDATE="$( rclone lsl "$2" | awk '{ print $2,$3 }' )"
+L_MDATE="$( stat -c %y "$1" | awk '{ print $1,$2 }' )"
+
+# Convert into epoch format
+E_RMD="$( date -d "$R_MDATE" +%s )"
+E_LMD="$( date -d "$L_MDATE" +%s )"
+
+# Check which file is the newest
+if [ "$E_RMD" -gt "$E_LMD" ]; then
+  echo "$1" | grep "/" > /dev/null 2>&1
+  if [ "$?" -eq 1 ]; then
+    L_PATH="."
+  else
+    L_PATH="$( echo "$1" | awk -F "/" 'BEGIN {ORS="/"} {for(i=1;i<NF;i++){print $i}}' )"
+  fi
+  echo "REMOTE has been MODIFIED"
+  echo "DOWNLOADING newer file FROM remote..."
+  rclone copy "$2" "$L_PATH" -v > /dev/null 2>&1
+  exit 0
+elif [ "$E_RMD" -lt "$E_LMD" ]; then
+  # Check if there is any dir nesting
+  echo "$2" | grep "/" > /dev/null 2>&1
+  if [ "$?" -eq 1 ]; then
+    R_PATH="$( echo "$2" | awk -F ":" '{ print $1 }' ):"
+  else
+    R_PATH="$( echo "$2" | awk -F "/" 'BEGIN {ORS="/"} {for(i=1;i<NF;i++){print $i}}' )"
+  fi
+  echo "LOCAL has been MODIFIED"
+  echo "UPLOADING newer file TO remote..."
+  rclone copy "$1" "$R_PATH" -v > /dev/null 2>&1 
+  exit 0
+elif [ "$E_RMD" -eq "$E_LMD" ]; then
+  echo "WARNING: Files are equal"
+  exit 1
+else
+  echo "ERROR: Operation failed"
+  exit 126
+fi
+

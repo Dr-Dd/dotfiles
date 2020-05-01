@@ -71,8 +71,7 @@ PRUNEPATHDATA="/media/data/.Trash-1000 /media/data/wine-pc /media/data/System\ V
 
 alias cdma="cd /media/data/Music/Music\ Crate/Artists"
 alias ls="ls --color"
-alias updatedb="updatedb -l 0 -o .locate-home.db -U $HOME -e '$PRUNEPATHHOME' && updatedb -l 0 -o .locate-data.db -U /media/data/ -e '$PRUNEPATHDATA'"
-alias locate="locate -d .locate-home.db -d .locate-data.db"
-alias feh="feh --scale-down --auto-zoom"
+#alias updatedb="updatedb -l 0 -o .locate-home.db -U $HOME -e '$PRUNEPATHHOME' && updatedb -l 0 -o .locate-data.db -U /media/data/ -e '$PRUNEPATHDATA'"
+#alias locate="locate -d .locate-home.db -d .locate-data.db"
 
 eval "$(thefuck --alias)"

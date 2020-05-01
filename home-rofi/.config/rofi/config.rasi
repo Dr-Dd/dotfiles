@@ -13,8 +13,8 @@ configuration {
 	terminal: "kitty";
 	width: 100;
 	location: 2;
+	lines: 15;
 /*	matching: "fuzzy";*/
-/*	lines: 15;*/
 /*	columns: 1;*/
 /*	bw: 1;*/
 /*	padding: 5;*/

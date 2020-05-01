@@ -116,8 +116,8 @@ packages=(
     scrot
 
     # internet
-    #firefox # Unfortunately Chromium has severe problems with bumblebee on my machine
-    chromium
+    firefox # Unfortunately Chromium has severe problems with bumblebee on my machine
+    #chromium
     network-manager-applet
     networkmanager
     nm-connection-editor
@@ -166,24 +166,24 @@ opam=(
 red=$(tput setaf 1)
 off=$(tput sgr0)
 
-echo "${red}== RUN THIS SCRIPT AS ROOT ==${off}"
+echo ""$red"== RUN THIS SCRIPT AS ROOT =="$off""
 
 ########
 # USER #
 ########
 valid=false
 while [ $valid = false ] ; do
-    echo "${red}==>${off} For what user do you want to install local packages?"
-    printf "${red}==>${off} User: "
+    echo ""$red"==>"$off" For what user do you want to install local packages?"
+    printf ""$red"==>"$off" User: "
     read usr
-    printf "${red}==>${off} Confirm user: "
+    printf ""$red"==>"$off" Confirm user: "
     read confirm
     if [ "${usr}" = "${confirm}" ] ; then
         valid=true
     fi
 done
 
-echo "${red}==>${off} Starting countdown"
+echo ""$red"==>"$off" Starting countdown"
 for i in {5..1} ; do
     echo "$i.."
     sleep 1
@@ -193,22 +193,22 @@ echo ".."
 ##########
 # PACMAN #
 ##########
-echo "${red}==>${off} Installing pacman packages..."
+echo ""$red"==>"$off" Installing pacman packages..."
 pacman -S --noconfirm --needed "${packages[@]}"
 
 ############
 # SERVICES #
 ############
-echo "${red}==>${off} Activating needed services..."
+echo ""$red"==>"$off" Activating needed services..."
 systemctl enable lightdm.service
 
 ############
 # DOTFILES #
 ############
-printf "${red}==>${off} Stow home-files?"
+printf ""$red"==>"$off" Stow home-files?"
 read ans
 case "$ans" in
-    y|Y) sudo -u "${usr}" -H bash -c "cd /home/${usr}/.dotfiles && stow home-*" ;;
+    y|Y) sudo -u "$usr" -H bash -c "cd /home/"$usr"/.dotfiles && stow home-*" ;;
     n|N) ;;
     *) echo "Please select a valid option" ;;
 esac
@@ -216,47 +216,47 @@ esac
 #######
 # AUR #
 #######
-echo "${red}==>${off} Downloading aur packages..."
+echo ""$red"==>"$off" Downloading aur packages..."
 for p in "${aur[@]}"; do
-    sudo -u "${usr}" -H bash -c "git clone https://aur.archlinux.org/${p}.git /home/${usr}/.aur/"
+    sudo -u "${usr}" -H bash -c "git clone https://aur.archlinux.org/"$p".git /home/"$usr"/.aur/"
 done
 
-echo "${red}==>${off} Installing aur packages..."
+echo ""$red"==>"$off" Installing aur packages..."
 for p in "${aur[@]}"; do
-    sudo -u "${usr}" -H bash -c "cd /home/${usr}/.aur/${p} && makepkg -si" 
+    sudo -u "$usr" -H bash -c "cd /home/"$usr"/.aur/"$p" && makepkg -si" 
 done
 
 #######
 # PIP #
 #######
-echo "${red}==>${off} Installing python packages via pip..."
+echo ""$red"==>"$off" Installing python packages via pip..."
 for p in "${pip[@]}"; do
-    sudo -u "${usr}" -H bash -c "pip install --user ${p}"
+    sudo -u "$usr" -H bash -c "pip install --user "$p""
 done
 
 ########
 # OPAM #
 ########
-echo "${red}==>${off} Updating / upgrading opam and installing needed packages..."
-sudo -u "${usr}" -H bash -c "opam init"
-sudo -u "${usr}" -H bash -c "opam update"
-sudo -u "${usr}" -H bash -c "opam upgrade"
+echo ""$red"==>"$off" Updating / upgrading opam and installing needed packages..."
+sudo -u "$usr" -H bash -c "opam init"
+sudo -u "$usr" -H bash -c "opam update"
+sudo -u "$usr" -H bash -c "opam upgrade"
 for p in "${opam[@]}"; do
-    sudo -u "${usr}" -H bash -c "opam install ${p}"
+    sudo -u "$usr" -H bash -c "opam install "$p""
 done
-sudo -u "${usr}" -H bash -c "opam user-setup install"
+sudo -u "$usr" -H bash -c "opam user-setup install"
 
 echo "
-${red}==>${off} Other things you should do:
-  ${red}*${off} Setup grub bootloader
-  ${red}*${off} Configure rclone to work with preferred cloud provider
-  ${red}*${off} Add data partitions to fstab
-  ${red}*${off} Edit boot parameters
-  ${red}*${off} Install gpu drivers (see arch-wiki)
-  ${red}*${off} Stow needed dotfiles (see README)
+"$red"==>"$off" Other things you should do:
+  "$red"*"$off" Setup grub bootloader
+  "$red"*"$off" Configure rclone to work with preferred cloud provider
+  "$red"*"$off" Add data partitions to fstab
+  "$red"*"$off" Edit boot parameters
+  "$red"*"$off" Install gpu drivers (see arch-wiki)
+  "$red"*"$off" Stow needed dotfiles (see README)
 "
 
-printf "${red}==>${off} Reboot now? (Y/n) "
+printf ""$red"==>"$off" Reboot now? (Y/n) "
 read ans
 case "$ans" in
     y|Y) shutdown -r now ;;

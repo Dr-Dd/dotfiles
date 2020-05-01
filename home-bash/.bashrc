@@ -66,3 +66,10 @@ alias cdma="cd /media/data/Music/Music\ Crate/Artists"
 alias ls="ls --color"
 
 eval "$(thefuck --alias)"
+
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")"
+fi

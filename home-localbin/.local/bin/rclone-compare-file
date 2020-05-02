@@ -15,7 +15,7 @@ if [ ! -f "$1" ]; then
 fi
 
 # Check if second argument is a remote
-rclone about "$2" -v > /dev/null 2>&1
+rclone lsf "$2" > /dev/null 2>&1
 
 if [ "$?" -ne 0 ]; then
   echo "ERROR: Invalid remote \""$2"\" specified"
@@ -26,9 +26,15 @@ fi
 R_MDATE="$( rclone lsl "$2" | awk '{ print $2,$3 }' )"
 L_MDATE="$( stat -c %y "$1" | awk '{ print $1,$2 }' )"
 
+#echo "R_MDATE="$R_MDATE""
+#echo "L_MDATE="$L_MDATE""
+
 # Convert into epoch format
 E_RMD="$( date -d "$R_MDATE" +%s )"
 E_LMD="$( date -d "$L_MDATE" +%s )"
+
+#echo "E_RMD="$E_RMD""
+#echo "E_LMD="$E_LMD""
 
 # Check which file is the newest
 if [ "$E_RMD" -gt "$E_LMD" ]; then
@@ -38,9 +44,10 @@ if [ "$E_RMD" -gt "$E_LMD" ]; then
   else
     L_PATH="$( echo "$1" | awk -F "/" 'BEGIN {ORS="/"} {for(i=1;i<NF;i++){print $i}}' )"
   fi
+  #echo "L_PATH="$L_PATH""
   echo "REMOTE has been MODIFIED"
   echo "DOWNLOADING newer file FROM remote..."
-  rclone copy "$2" "$L_PATH" -v > /dev/null 2>&1
+  rclone copy "$2" "$L_PATH" > /dev/null 2>&1
   exit 0
 elif [ "$E_RMD" -lt "$E_LMD" ]; then
   # Check if there is any dir nesting
@@ -50,9 +57,10 @@ elif [ "$E_RMD" -lt "$E_LMD" ]; then
   else
     R_PATH="$( echo "$2" | awk -F "/" 'BEGIN {ORS="/"} {for(i=1;i<NF;i++){print $i}}' )"
   fi
+  #echo "R_PATH="$R_PATH""
   echo "LOCAL has been MODIFIED"
   echo "UPLOADING newer file TO remote..."
-  rclone copy "$1" "$R_PATH" -v > /dev/null 2>&1 
+  rclone copy "$1" "$R_PATH" > /dev/null 2>&1 
   exit 0
 elif [ "$E_RMD" -eq "$E_LMD" ]; then
   echo "WARNING: Files are equal"

@@ -84,11 +84,12 @@ man() {
 }
 
 alias rclone-keepass-dropbox="rclone-compare-file ~/dropbox/mjrodb.kdbx dropbox:mjrodb.kdbx"
+alias sync-agenda="rclone-compare-file ~/dropbox/agenda.org dropbox:agenda.org"
 
 eval "$(thefuck --alias)"
 
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+    ssh-agent >| "$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
 if [[ ! "$SSH_AUTH_SOCK" ]]; then
     eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")"

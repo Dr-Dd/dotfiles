@@ -5,4 +5,3 @@ export QT_QPA_PLATFORMTHEME="gtk2"
 export CHROOT="$HOME/chroot"
 export STEAM_COMPAT_DATA_PATH="$HOME/proton"
 export LESSHISTFILE="/dev/null"
-

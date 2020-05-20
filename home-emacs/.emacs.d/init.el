@@ -39,10 +39,6 @@ There are two things you can do about this warning:
 (add-to-list 'load-path "~/.emacs.d/extlib")
 ;; == end of external libs ==
 
-;; BAD REQUEST BUG FIX (fixed in later versions)
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-;; == end of BUG FIX ==
-
 ;; == IN CASE OF A PACKAGE NOT INSTALLING, TRY TO RUN <M-x>`package-refresh-contents`<RET> BEFORE DOING ANYTHING STUPID ==
 ;; == USEFUL EMACS KEYBINDINGS: ==
 ;;    * <C-h> i       : read the emacs manuals
@@ -58,13 +54,28 @@ There are two things you can do about this warning:
 ;; symlink default behaviour
 (setq vc-follow-symlinks t)
 ;; == end of symlink ==
+
 ;; Magit git front-end
 (use-package magit
-  :ensure t)
-(setq magit-refresh-status-buffer nil)
+  :ensure t
+  :config
+  (setq magit-refresh-status-buffer nil))
 ;; == end of Magit ==
 
+;; org-mode
+;; custom agenda view
+(setq org-agenda-custom-commands
+      '(("d" "Agenda for urgent stuff and my weekly routine"
+         ((agenda "")
+          (tags-todo "URGENT")))))
+(use-package org-superstar
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
+
 ;; lsp-mode
+;; TODO
+;; == end of lsp ==
 
 ;; EVIL MODE!
 (use-package evil
@@ -75,6 +86,7 @@ There are two things you can do about this warning:
   (evil-set-initial-state 'shell-mode 'emacs)
   (evil-set-initial-state 'tuareg-interactive-mode 'emacs)
   (evil-set-initial-state 'inferior-python-mode 'emacs)
+  (evil-set-initial-state 'org-mode 'emacs)
   (evil-mode 1))
 ;; evil-surround
 (use-package evil-surround
@@ -86,7 +98,8 @@ There are two things you can do about this warning:
 ;; company-mode autocompletion
 (use-package company
   :ensure t
-  :config (add-hook 'after-init-hook  'global-company-mode))
+  :config
+  (add-hook 'after-init-hook  'global-company-mode))
 ;; == end of autocompletion ==
 
 ;; snippets expansion via yasnippet
@@ -162,6 +175,7 @@ There are two things you can do about this warning:
          ;;("\\.markdown\\'" . markdown-mode))
   ;;:init (setq markdown-command "markdown"))
 ;; == end of markdown mode ==
+;; TODO == Substitute with lsp-mode variant if applicable ==
 
 ;; custom splash screen with emacs-dashboard
 (use-package page-break-lines
@@ -169,51 +183,57 @@ There are two things you can do about this warning:
 (use-package dashboard
   :ensure t
   :config
-  (dashboard-setup-startup-hook))
-;; customization
-(setq dashboard-startup-banner 'official)
-(setq dashboard-center-content t)
-(setq dashboard-items '((recents  . 9)))
-(setq dashboard-set-heading-icons t)
-(setq dashboard-set-file-icons t)
-(setq dashboard-set-navigator t)
-(setq dashboard-navigator-buttons
-      `(;; line1
-        ((,(all-the-icons-fileicon "emacs" :height 0.8 :v-adjust 0.0)
-          "emacs-workspace"
-          "Dired to your Emacs Workspace"
-          (lambda (&rest _) (dired "~/emacs-workspace"))))
-        ;; line2
-        ((,(all-the-icons-alltheicon "git" :height 0.8 :v-adjust 0.0)
-          "git-repos"
-          "Dired to your Git Repos"
-          (lambda (&rest _) (dired "~/.git-repos"))))
-        ;; line3
-        ((,(all-the-icons-octicon "file-symlink-file" :height 0.8 :v-adjust 0.0)
-          "init.el"
-          "Open init.el config file"
-          (lambda (&rest _) (find-file "~/.emacs.d/init.el"))))
-        ;; line4
-        ((,(all-the-icons-octicon "cloud-download" :height 0.8 :v-adjust 0.0)
-          "mega"
-          "Dired to your Mega Cloud"
-          (lambda (&rest _) (dired "~/MEGA"))))
-        ;; line5
-        ((,(all-the-icons-octicon "home" :height 0.8 :v-adjust 0.0)
-          "home"
-          "Dired to your Home"
-          (lambda (&rest _) (dired "~"))))
-        ))
-;; enable for emacs --daemon
-(setq inhibit-startup-screen t)
-(setq inhibit-splash-screen t)
-(setq inhibit-startup-message t)
-(setq initial-scratch-message "")
-(setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
-;; as of 24 Mar 2020, the dashboard footer variable has no effect
-(setq dashboard-set-footer nil)
-(setq dashboard-banner-logo-title (shell-command-to-string "fortune -as -n 110 | tr -s '\n' ' ' | tr -s '\t' ' '"))
-;;(setq dashboard-init-info (shell-command-to-string "fortune -as -n 110 | tr -s '\n' ' ' | tr -s '\t' ' '"))
+  (dashboard-setup-startup-hook)
+  ;; customization
+  (setq dashboard-startup-banner 'official)
+  (setq dashboard-center-content nil)
+  (setq dashboard-items '((recents  . 9)))
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-set-navigator t)
+  (setq dashboard-navigator-buttons
+        `(;; line1
+          ((,(all-the-icons-fileicon "emacs" :height 0.8 :v-adjust 0.0)
+            "emacs-workspace"
+            "Dired to your Emacs Workspace"
+            (lambda (&rest _) (dired "~/emacs-workspace"))))
+          ;; line2
+          ((,(all-the-icons-alltheicon "git" :height 0.8 :v-adjust 0.0)
+            "git-repos"
+            "Dired to your Git Repos"
+            (lambda (&rest _) (dired "~/.git-repos"))))
+          ;; line3
+          ((,(all-the-icons-octicon "file-symlink-file" :height 0.8 :v-adjust 0.0)
+            "init.el"
+            "Open init.el config file"
+            (lambda (&rest _) (find-file "~/.emacs.d/init.el"))))
+          ;; line4
+          ((,(all-the-icons-octicon "book" :height 0.8 :v-adjust 0.0)
+            "agenda"
+            "Open your agenda"
+            (lambda (&rest _) (find-file "~/dropbox/agenda.org"))))
+          ;; line5
+          ((,(all-the-icons-octicon "cloud-download" :height 0.8 :v-adjust 0.0)
+            "mega"
+            "Dired to your Mega Cloud"
+            (lambda (&rest _) (dired "~/MEGA"))))
+          ;; line6
+          ((,(all-the-icons-octicon "home" :height 0.8 :v-adjust 0.0)
+            "home"
+            "Dired to your Home"
+            (lambda (&rest _) (dired "~"))))
+          ))
+  ;; enable for emacs --daemon
+  (setq inhibit-startup-screen t)
+  (setq inhibit-splash-screen t)
+  (setq inhibit-startup-message t)
+  (setq initial-scratch-message "")
+  (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
+  ;; as of 24 Mar 2020, the dashboard footer variable has no effect
+  (setq dashboard-set-footer nil)
+  (setq dashboard-banner-logo-title (shell-command-to-string "fortune -as -n 110 | tr -s '\n' ' ' | tr -s '\t' ' '"))
+  ;;(setq dashboard-init-info (shell-command-to-string "fortune -as -n 110 | tr -s '\n' ' ' | tr -s '\t' ' '"))
+  )
 ;; == end of custom splash screen ==
 
 ;; sensible window switching and moving with ace-window
@@ -252,7 +272,6 @@ There are two things you can do about this warning:
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; == end of trailing whitespace ==
 
-
 ;; set default font
 (add-to-list 'default-frame-alist
              '(font . "Inconsolata-20"))
@@ -265,8 +284,7 @@ There are two things you can do about this warning:
                  mode-line-inactive)))
     (mapc
      (lambda (face) (set-face-attribute face nil :font "xos4 Terminus-14:bold"))
-     faces))
-    )
+     faces)))
 ;; fallback unicode font
 (set-fontset-font "fontset-default" 'unicode "DejaVu Sans Mono-20")
 ;; == end of default font ==
@@ -336,7 +354,7 @@ There are two things you can do about this warning:
 ;; == end of default window splitting ==
 
 ;; ido mode
-;;(setq ido-separator "\n")
+(setq ido-separator "\n")
 (setq ido-everywhere t)
 (ido-mode 1)
 ;; == end of ido mode ==
@@ -396,8 +414,9 @@ There are two things you can do about this warning:
  '(fci-rule-color "#383838")
  '(nrepl-message-colors
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
+ '(org-agenda-files '("~/dropbox/agenda.org"))
  '(package-selected-packages
-   '(zenburn-theme emojify esup company-anaconda anaconda-mode flycheck-haskell flycheck evil-surround tuareg highlight-indentation yasnippet-snippets yasnippet ace-window dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))
+   '(org-superstar zenburn-theme emojify esup company-anaconda anaconda-mode flycheck-haskell flycheck evil-surround tuareg highlight-indentation yasnippet-snippets yasnippet ace-window dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map

@@ -64,14 +64,61 @@ There are two things you can do about this warning:
 
 ;; org-mode
 ;; custom agenda view
-(setq org-agenda-custom-commands
-      '(("d" "Agenda for urgent stuff and my weekly routine"
-         ((agenda "")
-          (tags-todo "URGENT")))))
+(setq org-agenda-custom-commands '(
+        ("d" "Weekly routine"
+         ((agenda ""
+                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done)))))
+         ((org-agenda-tag-filter-preset '("-UTILITY"))))
+        ))
+;; org-capture templates
+(setq org-capture-templates
+      '(("r" "Routine di varia natura (TODO + repeating SCHEDULE/DEADLINE/Timestamp)" entry
+         (file+headline "~/dropbox/agenda.org" "Routine")
+         "* TODO %? :ROUTINE:\n %^{Timestamp, SCHEDULE or DEADLINE?||SCHEDULE:|DEADLINE:} %^T\n")
+        ("e" "Eventi di varia importanza (Unset/[#A/B/C] + Timestamp)" entry
+         (file+headline "~/dropbox/agenda.org" "Eventi")
+         "* %^{_ or [#A/B/C]?||[#A]|[#B]|[#C]} %? :EVENT:\n %^T\n")
+        ("u" "Mansioni urgenti da sbrigare (TODO + DEADLINE/SCHEDULED)" entry
+         (file+headline "~/dropbox/agenda.org" "Faccende")
+         "* TODO %? :URGENT:\n %^{SCHEDULED or DEADLINE?|SCHEDULED:|DEADLINE:} %^T\n")
+        ("U" "Cose da fare, utilità (TODO)" entry
+         (file+headline "~/dropbox/agenda.org" "Faccende")
+         "* TODO %? :UTILITY:\n")
+        ("s" "Lista della spesa per cibo mancante (checkbox)" checkitem
+         (file+headline "~/dropbox/agenda.org" "Spesa")
+         "[ ] %?\n")
+        ("f" "Film da vedere (checkbox)" checkitem
+         (file+olp "~/dropbox/agenda.org" "Hobby" "Film")
+         "[ ] %?\n")
+        ("l" "Libri da leggere (checkbox)" checkitem
+         (file+olp "~/dropbox/agenda.org" "Hobby" "Libri")
+         "[ ] %?\n")
+        ("a" "Idee di articoli da scrivere (checkbox)" checkitem
+         (file+olp "~/dropbox/agenda.org" "Hobby" "Articoli (Idee)")
+         "[ ] %?\n")
+        ("i" "Progetti informatici personali (TODO)" entry
+         (file+olp "~/dropbox/agenda.org" "Hobby" "Informatica")
+         "* TODO %? :COMPSCI:\n")
+        ("m" "Album Musicali da ascoltare (checkbox)" checkitem
+         (file+olp "~/dropbox/agenda.org" "Hobby" "Album")
+         "[ ] %?\n")
+        ("M" "Attività sulla Musica da praticare (TODO)" entry
+         (file+olp "~/dropbox/agenda.org" "Hobby" "Musica")
+         "* TODO %? :MUSIC:\n")
+        ("j" "Idee per mix da fare (checkbox)" checkitem
+         (file+olp "~/dropbox/agenda.org" "Hobby" "Mix (Idee)")
+         "[ ] %?\n")
+        ))
+;; set org-mode to memorize done time
+(setq org-log-done 'time)
+;; hide done entries in agenda
+(setq )
+;; use-package for org's appearance
 (use-package org-superstar
   :ensure t
   :config
   (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
+;; == end of org-mode ==
 
 ;; lsp-mode
 ;; TODO
@@ -235,6 +282,31 @@ There are two things you can do about this warning:
   ;;(setq dashboard-init-info (shell-command-to-string "fortune -as -n 110 | tr -s '\n' ' ' | tr -s '\t' ' '"))
   )
 ;; == end of custom splash screen ==
+
+;; remove unwanted buffers
+;; Removes *scratch* from buffer after the mode has been set.
+(defun remove-scratch-buffer ()
+  (if (get-buffer "*scratch*")
+      (kill-buffer "*scratch*")))
+(add-hook 'after-change-major-mode-hook 'remove-scratch-buffer)
+
+;; Removes *messages* from the buffer.
+(setq-default message-log-max nil)
+(kill-buffer "*Messages*")
+
+;; Removes *Completions* from buffer after you've opened a file.
+(add-hook 'minibuffer-exit-hook
+      '(lambda ()
+         (let ((buffer "*Completions*"))
+           (and (get-buffer buffer)
+                (kill-buffer buffer)))))
+
+;; Don't show *Buffer list* when opening multiple files at the same time.
+(setq inhibit-startup-buffer-menu t)
+
+;; Show only one active window when opening multiple files at the same time.
+(add-hook 'window-setup-hook 'delete-other-windows)
+;; == end of unwanted buffers ==
 
 ;; sensible window switching and moving with ace-window
 (use-package ace-window

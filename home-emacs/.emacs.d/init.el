@@ -55,6 +55,17 @@ There are two things you can do about this warning:
 (setq vc-follow-symlinks t)
 ;; == end of symlink ==
 
+;; erc setup
+(setq erc-server "irc.freenode.net")
+(setq erc-port 6667)
+(setq erc-nick "drdee")
+(setq erc-autojoin-channels-alist
+      '(("freenode.net"
+         "#emacs"
+         "#archlinux"
+         "#archlinux-proaudio")))
+;; == end of erc setup ==
+
 ;; Magit git front-end
 (use-package magit
   :ensure t
@@ -63,56 +74,78 @@ There are two things you can do about this warning:
 ;; == end of Magit ==
 
 ;; org-mode
+;; org-modules
+(require 'org-habit)
+(setq org-habit-graph-column 68)
+;; custom workflow keywords
+(setq org-todo-keywords
+      '((sequence "TODO" "|" "DONE")
+        (sequence "|" "CANCELED")))
+(setq org-todo-keyword-faces
+      '(("CANCELED" . "black")
+        ("TOLISTEN" . "gold2")
+        ("TOMIX" . "gold2")))
+;; org-mode agenda files
+(setq org-agenda-files '("~/Sync/org-files"))
 ;; custom agenda view
 (setq org-agenda-custom-commands '(
-        ("d" "Weekly routine"
-         ((agenda ""
-                  ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo 'done)))))
-         ((org-agenda-tag-filter-preset '("-UTILITY"))))
-        ))
+                                   ;; 1° Command
+                                   ("d" "Weekly agenda about urgencies" (
+                                                                         (tags "@urgent")
+                                                                         (agenda "")
+                                                                         (tags "@event")
+                                                                         ))))
 ;; org-capture templates
 (setq org-capture-templates
-      '(("r" "Routine di varia natura (TODO + repeating SCHEDULE/DEADLINE/Timestamp)" entry
-         (file+headline "~/dropbox/agenda.org" "Routine")
-         "* TODO %? :ROUTINE:\n %^{Timestamp, SCHEDULE or DEADLINE?||SCHEDULE:|DEADLINE:} %^T\n")
+      '(
+        ;; 1° Entry
+        ("r" "Routine di varia natura (TODO + repeating SCHEDULE/DEADLINE/Timestamp)" entry
+         (file+headline "~/Sync/org-files/scheduled.org" "Routine")
+         "* TODO %? :@routine:\n %^{Timestamp, SCHEDULE or DEADLINE?||SCHEDULE:|DEADLINE:} %^t\n")
+        ;; 2° Entry
         ("e" "Eventi di varia importanza (Unset/[#A/B/C] + Timestamp)" entry
-         (file+headline "~/dropbox/agenda.org" "Eventi")
-         "* %^{_ or [#A/B/C]?||[#A]|[#B]|[#C]} %? :EVENT:\n %^T\n")
-        ("u" "Mansioni urgenti da sbrigare (TODO + DEADLINE/SCHEDULED)" entry
-         (file+headline "~/dropbox/agenda.org" "Faccende")
-         "* TODO %? :URGENT:\n %^{SCHEDULED or DEADLINE?|SCHEDULED:|DEADLINE:} %^T\n")
-        ("U" "Cose da fare, utilità (TODO)" entry
-         (file+headline "~/dropbox/agenda.org" "Faccende")
-         "* TODO %? :UTILITY:\n")
-        ("s" "Lista della spesa per cibo mancante (checkbox)" checkitem
-         (file+headline "~/dropbox/agenda.org" "Spesa")
-         "[ ] %?\n")
-        ("f" "Film da vedere (checkbox)" checkitem
-         (file+olp "~/dropbox/agenda.org" "Hobby" "Film")
-         "[ ] %?\n")
-        ("l" "Libri da leggere (checkbox)" checkitem
-         (file+olp "~/dropbox/agenda.org" "Hobby" "Libri")
-         "[ ] %?\n")
-        ("a" "Idee di articoli da scrivere (checkbox)" checkitem
-         (file+olp "~/dropbox/agenda.org" "Hobby" "Articoli (Idee)")
-         "[ ] %?\n")
+         (file+headline "~/Sync/org-files/scheduled.org" "Calendar")
+         "* FUTURE %^{_ or [#A/B/C]?||[#A]|[#B]|[#C]} %? :@event:\n %^t\n")
+        ;; 3° Entry
+        ("p" "Progetti da iniziare a ragionare" entry
+         (file "~/Sync/org-files/projects.org")
+         "* TODO %? %^{@urgent or @utility?|:@urgent:|:@utility:}\n")
+        ;; 5° Entry
+        ("s" "Lista della spesa per cibo mancante" entry
+         (file "~/Sync/org-files/lista-spesa.org")
+         "* TOBUY %?\n")
+        ;; 6° Entry
+        ("f" "Film da vedere" entry
+         (file "~/Sync/org-files/movies.org")
+         "* TOWATCH %?\n")
+        ;; 7° Entry
+        ("l" "Libri da leggere" entry
+         (file "~/Sync/org-files/books.org")
+         "* TOREAD %?\n")
+        ;; 9° Entry
         ("i" "Progetti informatici personali (TODO)" entry
-         (file+olp "~/dropbox/agenda.org" "Hobby" "Informatica")
-         "* TODO %? :COMPSCI:\n")
-        ("m" "Album Musicali da ascoltare (checkbox)" checkitem
-         (file+olp "~/dropbox/agenda.org" "Hobby" "Album")
-         "[ ] %?\n")
-        ("M" "Attività sulla Musica da praticare (TODO)" entry
-         (file+olp "~/dropbox/agenda.org" "Hobby" "Musica")
-         "* TODO %? :MUSIC:\n")
-        ("j" "Idee per mix da fare (checkbox)" checkitem
-         (file+olp "~/dropbox/agenda.org" "Hobby" "Mix (Idee)")
-         "[ ] %?\n")
+         (file "~/Sync/org-files/compsci.org")
+         "* TODO %?\n")
+        ;; 10° Entry
+        ("m" "Album Musicali da ascoltare" entry
+         (file+headline "~/Sync/org-files/music.org" "Albums")
+         "* TOBUY %? :@album:\n")
+        ;; 11° Entry
+        ("M" "Bei pezzi da ricordare" entry
+         (file+headline "~/Sync/org-files/music.org" "Mix")
+         "* %? :@mix:\n")
+        ;; 13° Entry
+        ("h" "Passatempo di varia natura" entry
+         (file "~/Sync/org-files/hobbies.org")
+         "* TODO %? :_editme:\n")
+        ;; 14° Entry
+        ("c" "File da riordinare/riorganizzare" entry
+         (file "~/Sync/org-files/to-capture.org")
+         "* TOCAPTURE %?\n")
         ))
 ;; set org-mode to memorize done time
 (setq org-log-done 'time)
-;; hide done entries in agenda
-(setq )
+(setq org-tags-column 0)
 ;; use-package for org's appearance
 (use-package org-superstar
   :ensure t
@@ -133,7 +166,8 @@ There are two things you can do about this warning:
   (evil-set-initial-state 'shell-mode 'emacs)
   (evil-set-initial-state 'tuareg-interactive-mode 'emacs)
   (evil-set-initial-state 'inferior-python-mode 'emacs)
-  (evil-set-initial-state 'org-mode 'emacs)
+  (evil-set-initial-state 'erc-mode 'emacs)
+  ;;(evil-set-initial-state 'org-mode 'emacs)
   (evil-mode 1))
 ;; evil-surround
 (use-package evil-surround
@@ -183,12 +217,12 @@ There are two things you can do about this warning:
 
 ;; python mode
 ;;(use-package anaconda-mode
-  ;;:ensure t)
+;;:ensure t)
 ;;(add-hook 'python-mode-hook 'anaconda-mode)
 ;;(use-package company-anaconda
-  ;;:ensure t)
+;;:ensure t)
 ;;(eval-after-load "company"
-  ;;'(add-to-list 'company-backends 'company-anaconda))
+;;'(add-to-list 'company-backends 'company-anaconda))
 ;; == end of python ==
 
 ;; haskell development
@@ -199,14 +233,14 @@ There are two things you can do about this warning:
 ;;(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 ;;(add-hook 'haskell-mode-hook 'flyspell-prog-mode)
 ;;(use-package flycheck-haskell
-  ;;:ensure t
-  ;;:config
-  ;;(add-hook 'haskell-mode-hook #'flycheck-haskell-setup))
+;;:ensure t
+;;:config
+;;(add-hook 'haskell-mode-hook #'flycheck-haskell-setup))
 ;; == end of haskell coding ==
 
 ;; OCaml development
 ;;(use-package tuareg
-  ;;:ensure t)
+;;:ensure t)
 ;; ## added by OPAM user-setup for emacs / base ## 56ab50dc8996d2bb95e7856a6eddb17b ## you can edit, but keep this line
 ;;(require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
 ;; ## end of OPAM user-setup addition for emacs / base ## keep this line
@@ -215,12 +249,12 @@ There are two things you can do about this warning:
 
 ;; markdown mode
 ;;(use-package markdown-mode
-  ;;:ensure t
-  ;;:commands (markdown-mode gfm-mode)
-  ;;:mode (("README\\.md\\'" . gfm-mode)
-         ;;("\\.md\\'" . markdown-mode)
-         ;;("\\.markdown\\'" . markdown-mode))
-  ;;:init (setq markdown-command "markdown"))
+;;:ensure t
+;;:commands (markdown-mode gfm-mode)
+;;:mode (("README\\.md\\'" . gfm-mode)
+;;("\\.md\\'" . markdown-mode)
+;;("\\.markdown\\'" . markdown-mode))
+;;:init (setq markdown-command "markdown"))
 ;; == end of markdown mode ==
 ;; TODO == Substitute with lsp-mode variant if applicable ==
 
@@ -258,7 +292,7 @@ There are two things you can do about this warning:
           ((,(all-the-icons-octicon "book" :height 0.8 :v-adjust 0.0)
             "agenda"
             "Open your agenda"
-            (lambda (&rest _) (find-file "~/dropbox/agenda.org"))))
+            (lambda (&rest _) (find-file "~/Sync/org-files/to-capture.org"))))
           ;; line5
           ((,(all-the-icons-octicon "cloud-download" :height 0.8 :v-adjust 0.0)
             "mega"
@@ -291,15 +325,15 @@ There are two things you can do about this warning:
 (add-hook 'after-change-major-mode-hook 'remove-scratch-buffer)
 
 ;; Removes *messages* from the buffer.
-(setq-default message-log-max nil)
-(kill-buffer "*Messages*")
+;;(setq-default message-log-max nil)
+;;(kill-buffer "*Messages*")
 
 ;; Removes *Completions* from buffer after you've opened a file.
 (add-hook 'minibuffer-exit-hook
-      '(lambda ()
-         (let ((buffer "*Completions*"))
-           (and (get-buffer buffer)
-                (kill-buffer buffer)))))
+          '(lambda ()
+             (let ((buffer "*Completions*"))
+               (and (get-buffer buffer)
+                    (kill-buffer buffer)))))
 
 ;; Don't show *Buffer list* when opening multiple files at the same time.
 (setq inhibit-startup-buffer-menu t)
@@ -425,6 +459,10 @@ There are two things you can do about this warning:
 (setq split-width-threshold 62)
 ;; == end of default window splitting ==
 
+;; preserve command history between sessions
+(savehist-mode 1)
+;; == end of command history ==
+
 ;; ido mode
 (setq ido-separator "\n")
 (setq ido-everywhere t)
@@ -443,6 +481,15 @@ There are two things you can do about this warning:
 (setq-default indent-tabs-mode nil)
 ;; == end of no-tabs ==
 
+;; backup files handling
+(setq backup-directory-alist `(("." . "~/.saves")))
+(setq backup-by-copying t)
+(setq delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)
+;; == end of backups customization ==
+
 ;; Horizontal scrolling
 (global-set-key (kbd "<mouse-6>") 'scroll-right)
 (global-set-key (kbd "<mouse-7>") 'scroll-left)
@@ -459,10 +506,11 @@ There are two things you can do about this warning:
 (define-key yas-minor-mode-map (kbd "TAB") nil)
 (define-key yas-minor-mode-map (kbd "<C-tab>") 'yas-expand)
 ;; window management
-(global-set-key (kbd "C-s-h") 'shrink-window-horizontally)
-(global-set-key (kbd "C-s-j") 'shrink-window)
-(global-set-key (kbd "C-s-k") 'enlarge-window)
-(global-set-key (kbd "C-s-l") 'enlarge-window-horizontally)
+;; notice how `s` is the windows key, while `S` is Shift
+(global-set-key (kbd "s-h") 'shrink-window-horizontally)
+(global-set-key (kbd "s-j") 'shrink-window)
+(global-set-key (kbd "s-k") 'enlarge-window)
+(global-set-key (kbd "s-l") 'enlarge-window-horizontally)
 ;; evil-mode
 (define-key evil-replace-state-map (kbd "C-c") 'evil-normal-state)
 (define-key evil-insert-state-map (kbd "C-c") 'evil-normal-state)
@@ -470,51 +518,19 @@ There are two things you can do about this warning:
 (define-key evil-command-window-mode-map (kbd "C-c") 'evil-normal-state)
 ;; switch theme
 (global-set-key (kbd "s-t") 'switch-theme)
+;; org-mode
+(global-set-key (kbd "C-c c") 'org-capture)
 ;; == end of custom key-bindings ==
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
- '(company-quickhelp-color-background "#4F4F4F")
- '(company-quickhelp-color-foreground "#DCDCCC")
- '(custom-safe-themes
-   '("76c5b2592c62f6b48923c00f97f74bcb7ddb741618283bdb2be35f3c0e1030e3" default))
- '(fci-rule-color "#383838")
- '(nrepl-message-colors
-   '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
- '(org-agenda-files '("~/dropbox/agenda.org"))
  '(package-selected-packages
-   '(org-superstar zenburn-theme emojify esup company-anaconda anaconda-mode flycheck-haskell flycheck evil-surround tuareg highlight-indentation yasnippet-snippets yasnippet ace-window dashboard page-break-lines magit markdown-mode company haskell-mode evil use-package doom-modeline))
- '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
- '(vc-annotate-background "#2B2B2B")
- '(vc-annotate-color-map
-   '((20 . "#BC8383")
-     (40 . "#CC9393")
-     (60 . "#DFAF8F")
-     (80 . "#D0BF8F")
-     (100 . "#E0CF9F")
-     (120 . "#F0DFAF")
-     (140 . "#5F7F5F")
-     (160 . "#7F9F7F")
-     (180 . "#8FB28F")
-     (200 . "#9FC59F")
-     (220 . "#AFD8AF")
-     (240 . "#BFEBBF")
-     (260 . "#93E0E3")
-     (280 . "#6CA0A3")
-     (300 . "#7CB8BB")
-     (320 . "#8CD0D3")
-     (340 . "#94BFF3")
-     (360 . "#DC8CC3")))
- '(vc-annotate-very-old-color "#DC8CC3"))
+   '(use-package zenburn-theme yasnippet-snippets tuareg org-superstar markdown-mode magit highlight-indentation flycheck-haskell evil-surround esup emojify doom-modeline dashboard company-anaconda bind-key benchmark-init all-the-icons-dired ace-window)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-(put 'scroll-left 'disabled nil)

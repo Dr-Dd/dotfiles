@@ -160,6 +160,10 @@ opam=(
     merlin
 )
 
+git=(
+    deajan/osync
+)
+
 ## [MAIN]
 
 # colors

@@ -83,8 +83,9 @@ man() {
     command man "$@"
 }
 
-alias rclone-keepass-dropbox="rclone-compare-file ~/dropbox/mjrodb.kdbx dropbox:mjrodb.kdbx"
-alias sync-agenda="rclone-compare-file ~/dropbox/agenda.org dropbox:agenda.org"
+#alias rclone-keepass-dropbox="rclone-compare-file ~/dropbox/mjrodb.kdbx dropbox:mjrodb.kdbx"
+#alias sync-agenda="rclone-compare-file ~/dropbox/agenda.org dropbox:agenda.org"
+alias set-performance-governor='sudo cpupower -c all frequency-set -g performance'
 
 eval "$(thefuck --alias)"
 

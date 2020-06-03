@@ -73,6 +73,16 @@ There are two things you can do about this warning:
   (setq magit-refresh-status-buffer nil))
 ;; == end of Magit ==
 
+(defun org-get-entry-time (pom &optional inherit)
+  "Get the time as a time tuple, if there is none
+returns nil."
+  (let
+      ((time (or (org-entry-get pom "TIMESTAMP" inherit)
+                 (org-entry-get pom "SCHEDULED" inherit)
+                 (org-entry-get pom "DEADLINE" inherit))))
+    (when time
+      (org-time-string-to-time time))))
+
 ;; org-mode
 ;; org-modules
 (require 'org-habit)
@@ -85,16 +95,34 @@ There are two things you can do about this warning:
       '(("CANCELED" . "black")
         ("TOLISTEN" . "gold2")
         ("TOMIX" . "gold2")))
+(add-hook 'org-agenda-finalize-hook
+          (lambda () (highlight-regexp "\<[A-z]* [0-9]*\>" 'org-date)))
 ;; org-mode agenda files
-(setq org-agenda-files '("~/Sync/org-files"))
+(setq org-agenda-files '("~/Sync/org-files")) ;; org-agenda-prefix-format customization
+(setq org-agenda-prefix-format '(
+                                 ;; to override default values, comment out the line and edit it
+                                 (agenda . " %i %-12:c%?-12t% s") ;; default
+                                 (todo . " %i %-12:c") ;; default
+                                 ;;(tags . " %i %-12:c") ;; default
+                                 (tags . " %-9(let ((timestamp (org-get-entry-time (point)))) (if timestamp (format-time-string \"<%b %d>\" timestamp) \"\"))" )
+                                 (search . " %i %-12:c") ;; default
+                                 ))
 ;; custom agenda view
+;; (setq org-agenda-sorting-strategy
+;;       '((agenda habit-down time-up priority-down category-keep)
+;;         (todo time-up priority-down category-keep)
+;;         (tags time-up priority-down category-keep)
+;;         (search category-keep)))
 (setq org-agenda-custom-commands '(
                                    ;; 1° Command
                                    ("d" "Weekly agenda about urgencies" (
-                                                                         (tags "@urgent")
+                                                                         (tags "@urgent"
+                                                                               ((org-agenda-sorting-strategy '(timestamp-up))))
                                                                          (agenda "")
-                                                                         (tags "@event")
-                                                                         ))))
+                                                                         (tags "@event"
+                                                                               ((org-agenda-sorting-strategy '(timestamp-up))))
+                                                                         ))
+                                   ))
 ;; org-capture templates
 (setq org-capture-templates
       '(
@@ -527,7 +555,7 @@ There are two things you can do about this warning:
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(use-package zenburn-theme yasnippet-snippets tuareg org-superstar markdown-mode magit highlight-indentation flycheck-haskell evil-surround esup emojify doom-modeline dashboard company-anaconda bind-key benchmark-init all-the-icons-dired ace-window)))
+   '(zenburn-theme yasnippet-snippets use-package tuareg org-superstar markdown-mode magit highlight-indentation flycheck-haskell evil-surround esup emojify doom-modeline dashboard company-anaconda benchmark-init all-the-icons-dired ace-window)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

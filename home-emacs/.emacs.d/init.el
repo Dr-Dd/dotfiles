@@ -84,6 +84,12 @@ returns nil."
       (org-time-string-to-time time))))
 
 ;; org-mode
+;; Knuth shuffle algorithm to use for randomizing the "x" agenda (see below)
+;; -------------------------------------------------------------------------
+;; To shuffle an array a of n elements (indices 0..n-1):
+;; for i from n−1 downto 1 do
+;;      j ← random integer such that 0 ≤ j ≤ i
+;;      exchange a[j] and a[i]
 ;; org-modules
 (require 'org-habit)
 (setq org-habit-graph-column 68)
@@ -96,9 +102,12 @@ returns nil."
         ("TOLISTEN" . "gold2")
         ("TOMIX" . "gold2")))
 (add-hook 'org-agenda-finalize-hook
-          (lambda () (highlight-regexp "\<[A-z]* [0-9]*\>" 'org-date)))
+          (lambda ()
+            (progn (highlight-regexp "\<[A-z]* [0-9]*\>" 'org-date)
+                   (highlight-regexp "Urgenze\\|Eventi" 'org-warning))))
 ;; org-mode agenda files
 (setq org-agenda-files '("~/Sync/org-files")) ;; org-agenda-prefix-format customization
+(setq org-agenda-window-setup 'current-window)
 (setq org-agenda-prefix-format '(
                                  ;; to override default values, comment out the line and edit it
                                  (agenda . " %i %-12:c%?-12t% s") ;; default
@@ -107,22 +116,16 @@ returns nil."
                                  (tags . " %-9(let ((timestamp (org-get-entry-time (point)))) (if timestamp (format-time-string \"<%b %d>\" timestamp) \"\"))" )
                                  (search . " %i %-12:c") ;; default
                                  ))
-;; custom agenda view
-;; (setq org-agenda-sorting-strategy
-;;       '((agenda habit-down time-up priority-down category-keep)
-;;         (todo time-up priority-down category-keep)
-;;         (tags time-up priority-down category-keep)
-;;         (search category-keep)))
-(setq org-agenda-custom-commands '(
-                                   ;; 1° Command
-                                   ("d" "Weekly agenda about urgencies" (
-                                                                         (tags "@urgent"
-                                                                               ((org-agenda-sorting-strategy '(timestamp-up))))
-                                                                         (agenda "")
-                                                                         (tags "@event"
-                                                                               ((org-agenda-sorting-strategy '(timestamp-up))))
-                                                                         ))
-                                   ))
+(setq org-agenda-custom-commands '(("d" "Weekly agenda about urgencies"
+                                    ((tags "@urgent"
+                                           ((org-agenda-sorting-strategy '(timestamp-up))
+                                            (org-agenda-overriding-header "Urgenze da portare a termine")))
+                                     (tags "@event"
+                                           ((org-agenda-sorting-strategy '(timestamp-up))
+                                            (org-agenda-overriding-header "Eventi futuri")))
+                                     (agenda "" ((org-agenda-start-on-weekday nil))))
+                                    ((org-agenda-compact-blocks t))
+                                    )))
 ;; org-capture templates
 (setq org-capture-templates
       '(
@@ -507,6 +510,12 @@ returns nil."
 
 ;; replace tabs with spaces
 (setq-default indent-tabs-mode nil)
+;; require new-lines
+(setq-default require-final-newline t)
+;; load newer bytecode instead of old
+(setq-default load-prefer-newer t)
+;; remember cursor position when saving
+(save-place-mode 1)
 ;; == end of no-tabs ==
 
 ;; backup files handling

@@ -150,6 +150,7 @@ aur=(
     eclipse-vrapper
     spring-tool-suite
     tor-browser
+    i8kutils
 )
 
 pip=(

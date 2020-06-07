@@ -1,0 +1,119 @@
+# ============================
+# = idone.leonardo@gmail.com =
+# ============================
+IMAPAccount idone-dot-leonardo
+Host imap.gmail.com
+User idone.leonardo@gmail.com
+SSLType IMAPS
+PassCmd "gpg2 --quiet --for-your-eyes-only --no-tty --decrypt ~/.idone-dot-leonardo.gpg"
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+#CertificateFile ~/.cert/imap.gmail.com.pem
+#CertificateFile ~/.cert/Equifax_Secure_CA.pem
+
+IMAPStore idone-dot-leonardo-remote
+Account idone-dot-leonardo
+
+MaildirStore idone-dot-leonardo-local
+Path ~/.mail/idone-dot-leonardo/
+Inbox ~/.mail/idone-dot-leonardo/Inbox
+SubFolders Verbatim
+
+Channel idone-dot-leonardo-inbox
+Master :idone-dot-leonardo-remote:
+Slave :idone-dot-leonardo-local:
+Patterns "INBOX"
+
+Channel idone-dot-leonardo-sent
+Master :idone-dot-leonardo-remote:"[Gmail]/Sent Mail"
+Slave :idone-dot-leonardo-local:sent
+Create Slave
+
+Channel idone-dot-leonardo-trash
+Master :idone-dot-leonardo-remote:"[Gmail]/Trash"
+Slave :idone-dot-leonardo-local:trash
+Create Slave
+
+Group idone-dot-leonardo
+Channel idone-dot-leonardo-inbox
+Channel idone-dot-leonardo-sent
+Channel idone-dot-leonardo-trash
+
+# =====================
+# = abubu55@gmail.com =
+# =====================
+IMAPAccount abubu55
+Host imap.gmail.com
+User abubu55@gmail.com
+SSLType IMAPS
+PassCmd "gpg2 --quiet --for-your-eyes-only --no-tty --decrypt ~/.abubu55.gpg"
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+#CertificateFile ~/.cert/imap.gmail.com.pem
+#CertificateFile ~/.cert/Equifax_Secure_CA.pem
+
+IMAPStore abubu55-remote
+Account abubu55
+
+MaildirStore abubu55-local
+Path ~/.mail/abubu55/
+Inbox ~/.mail/abubu55/Inbox
+SubFolders Verbatim
+
+Channel abubu55-inbox
+Master :abubu55-remote:
+Slave :abubu55-local:
+Patterns "INBOX"
+
+Channel abubu55-sent
+Master :abubu55-remote:"[Gmail]/Sent Mail"
+Slave :abubu55-local:sent
+Create Slave
+
+Channel abubu55-trash
+Master :abubu55-remote:"[Gmail]/Trash"
+Slave :abubu55-local:trash
+Create Slave
+
+Group abubu55
+Channel abubu55-inbox
+Channel abubu55-sent
+Channel abubu55-trash
+
+# ==============================
+# = leo.idone@stud.uniroma3.it =
+# ==============================
+IMAPAccount leo-dot-idone
+Host outlook.office365.com
+User leo.idone@stud.uniroma3.it
+SSLType IMAPS
+PassCmd "gpg2 --quiet --for-your-eyes-only --no-tty --decrypt ~/.leo-dot-idone.gpg"
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+#CertificateFile ~/.cert/imap.stud.uniroma3.it.com.pem
+#CertificateFile ~/.cert/Equifax_Secure_CA.pem
+
+IMAPStore leo-dot-idone-remote
+Account leo-dot-idone
+
+MaildirStore leo-dot-idone-local
+Path ~/.mail/leo-dot-idone/
+Inbox ~/.mail/leo-dot-idone/Inbox
+SubFolders Verbatim
+
+Channel leo-dot-idone-inbox
+Master :leo-dot-idone-remote:
+Slave :leo-dot-idone-local:
+Patterns "INBOX"
+
+Channel leo-dot-idone-sent
+Master :leo-dot-idone-remote:"Sent Items"
+Slave :leo-dot-idone-local:sent
+Create Slave
+
+Channel leo-dot-idone-trash
+Master :leo-dot-idone-remote:"Deleted Items"
+Slave :leo-dot-idone-local:trash
+Create Slave
+
+Group leo-dot-idone
+Channel leo-dot-idone-inbox
+Channel leo-dot-idone-sent
+Channel leo-dot-idone-trash

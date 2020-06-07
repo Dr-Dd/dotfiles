@@ -430,6 +430,13 @@ returns nil."
 ;; install custom theme (if missing)
 (package-install 'zenburn-theme)
 
+(require 'notmuch)
+(setq mail-specify-envelope-from t)
+(setq message-sendmail-envelope-from 'header)
+(setq mail-envelope-from 'header)
+(setq message-kill-buffer-on-exit t)
+(setq notmuch-search-oldest-first nil)
+
 ;; enable hl line
 (global-hl-line-mode 1)
 

@@ -1,5 +1,5 @@
 [Default Applications]
-audio/flac=deadbeef.desktop
+audio/flac=cantata.desktop
 text/html=firefox.desktop
 x-scheme-handler/http=firefox.desktop
 x-scheme-handler/https=firefox.desktop
@@ -11,11 +11,11 @@ x-scheme-handler/mailto=thunderbird.desktop
 application/x-extension-eml=thunderbird.desktop
 message/rfc822=thunderbird.desktop
 inode/directory=Caja.desktop
-audio/mpeg=deadbeef.desktop
-audio/x-mpegurl=audacity.desktop
-audio/x-scpls=audacity.desktop
-audio/x-vorbis+ogg=audacity.desktop
-audio/x-wav=clementine.desktop
+audio/mpeg=cantata.desktop
+audio/x-mpegurl=cantata.desktop
+audio/x-scpls=cantata.desktop
+audio/x-vorbis+ogg=cantata.desktop
+audio/x-wav=cantata.desktop
 video/mp4=mpv.desktop
 video/mpeg=mpv.desktop
 video/mp2t=mpv.desktop
@@ -55,17 +55,17 @@ application/x-extension-xht=firefox.desktop
 
 [Added Associations]
 audio/flac=cantata.desktop;clementine.desktop;deadbeef.desktop;
-audio/x-vorbis+ogg=audacity.desktop;
+audio/x-vorbis+ogg=cantata.desktop
 application/epub+zip=xarchiver.desktop;
 text/plain=vim.desktop;
 x-scheme-handler/mailto=thunderbird.desktop;
 application/x-extension-eml=thunderbird.desktop;
 message/rfc822=thunderbird.desktop;
 inode/directory=thunar.desktop;
-audio/mpeg=audacity.desktop;clementine.desktop;deadbeef.desktop;
-audio/x-mpegurl=audacity.desktop;
-audio/x-scpls=audacity.desktop;
-audio/x-wav=audacity.desktop;clementine.desktop;
+audio/mpeg=cantata.desktop;xfmpc.desktop;mpv.desktop;audacity.desktop;clementine.desktop;deadbeef.desktop;
+audio/x-mpegurl=cantata.desktop;audacity.desktop;
+audio/x-scpls=cantata.desktop;audacity.desktop;
+audio/x-wav=cantata.desktop;audacity.desktop;clementine.desktop;
 video/mp4=mpv.desktop;
 video/mpeg=mpv.desktop;
 video/mp2t=mpv.desktop;

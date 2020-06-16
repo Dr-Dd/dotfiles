@@ -11,3 +11,4 @@ export SOUND_CARD_PCI_ID="00:1f.3"
 export COUNTRY="IT"
 export COMP_KNOWN_HOSTS_WITH_HOSTFILE=""
 export HISTCONTROL="ignorespace"
+export PROMPT_DIRTRIM=2

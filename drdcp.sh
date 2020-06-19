@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # This script is an alternative to gnu stow for those sysfiles that cannot be symlinked, but need to be manually copied
 

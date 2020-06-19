@@ -28,42 +28,62 @@ URxvt.perl-ext-common: selection-to-clipboard
 URxvt.font: xft:Inconsolata:size=20,xft:DejaVu Sans Mono:size=20
 
 ! colors
-! special
-URxvt.foreground:   #586e75
-URxvt.background:   #fdf6e3
-URxvt.cursorColor:  #586e75
+#define S_base03        #002b36
+#define S_base02        #073642
+#define S_base01        #586e75
+#define S_base00        #657b83
+#define S_base0         #839496
+#define S_base1         #93a1a1
+#define S_base2         #eee8d5
+#define S_base3         #fdf6e3
+#define S_yellow        #b58900
+#define S_orange        #cb4b16
+#define S_red           #dc322f
+#define S_magenta       #d33682
+#define S_violet        #6c71c4
+#define S_blue          #268bd2
+#define S_cyan          #2aa198
+#define S_green         #859900
 
-! black
-URxvt.color0:       #002b36
-URxvt.color8:       #657b83
+*background:            S_base03
+*foreground:            S_base00
+*fading:                40
+*fadeColor:             S_base03
+*cursorColor:           S_base1
+*pointerColorBackground:S_base01
+*pointerColorForeground:S_base1
 
-! red
-URxvt.color1:       #dc322f
-URxvt.color9:       #dc322f
+!! black dark/light
+*color0:                S_base02
+*color8:                S_base03
 
-! green
-URxvt.color2:       #859900
-URxvt.color10:      #859900
+!! red dark/light
+*color1:                S_red
+*color9:                S_orange
 
-! yellow
-URxvt.color3:       #b58900
-URxvt.color11:      #b58901
+!! green dark/light
+*color2:                S_green
+*color10:               S_base01
 
-! blue
-URxvt.color4:       #268bd2
-URxvt.color12:      #268bd2
+!! yellow dark/light
+*color3:                S_yellow
+*color11:               S_base00
 
-! magenta
-URxvt.color5:       #6c71c4
-URxvt.color13:      #6c71c4
+!! blue dark/light
+*color4:                S_blue
+*color12:               S_base0
 
-! cyan
-URxvt.color6:       #2aa198
-URxvt.color14:      #2aa198
+!! magenta dark/light
+*color5:                S_magenta
+*color13:               S_violet
 
-! white
-URxvt.color7:       #93a1a1
-URxvt.color15:      #fdf6e3
+!! cyan dark/light
+*color6:                S_cyan
+*color14:               S_base1
+
+!! white dark/light
+*color7:                S_base2
+*color15:               S_base3
 
 ! xscreensaver settings
 xscreensaver.splash: false

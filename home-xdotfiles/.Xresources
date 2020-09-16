@@ -25,7 +25,7 @@ URxvt.scrollBar: false
 URxvt.perl-ext-common: selection-to-clipboard
 
 ! font settings
-URxvt.font: xft:Inconsolata:size=20,xft:DejaVu Sans Mono:size=20
+URxvt.font: xft:Inconsolata:size=20,xft:DejaVu Sans Mono:size=20,xft:Noto Color Emoji:size=20
 
 ! colors
 #define S_base03        #002b36

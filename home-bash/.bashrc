@@ -63,6 +63,7 @@ alias ls='ls --color=auto'
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
 alias ip='ip -color=auto'
+alias fetch-mail='mbsync -a && notmuch new'
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink

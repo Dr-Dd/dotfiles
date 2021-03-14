@@ -64,6 +64,8 @@ alias diff='diff --color=auto'
 alias grep='grep --color=auto'
 alias ip='ip -color=auto'
 alias fetch-mail='mbsync -a; notmuch new'
+alias button-down='systemctl --user stop emacs.service syncthing.service'
+
 
 export LESS=-R
 export LESS_TERMCAP_mb=$'\E[1;31m'     # begin blink

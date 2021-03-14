@@ -1,3 +1,3 @@
 #!/bin/bash
 
-/bin/feh --scale-down --auto-zoom --auto-rotate --geometry 1280x720+320+180 "$@"
+/bin/feh --scale-down --auto-zoom --auto-rotate --geometry 1280x720+320+180 --conversion-timeout 1 "$@"

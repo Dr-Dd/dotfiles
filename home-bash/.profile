@@ -14,3 +14,6 @@ export HISTCONTROL="erasedups:ignorespace"
 export PROMPT_DIRTRIM=2
 export BROWSER="firefox"
 export PKG_CONFIG_PATH="/usr/lib/pkgconfig/"
+export VK_ICD_FILENAMES="/usr/share/vulkan/icd.d/nvidia_icd.json"
+export LIBVA_DRIVER_NAME="vdpau"
+export VDPAU_DRIVER="nvidia"

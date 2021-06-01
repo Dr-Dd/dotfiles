@@ -18,6 +18,17 @@ Path ~/.mail/idone-dot-leonardo/
 Inbox ~/.mail/idone-dot-leonardo/Inbox
 SubFolders Verbatim
 
+# GMAIL Folders
+# * LIST (\HasNoChildren)            "/" "INBOX"
+# * LIST (\HasChildren \Noselect)    "/" "[Gmail]"
+# * LIST (\All \HasNoChildren)       "/" "[Gmail]/All Mail"
+# * LIST (\Drafts \HasNoChildren)    "/" "[Gmail]/Drafts"
+# * LIST (\HasNoChildren \Important) "/" "[Gmail]/Important"
+# * LIST (\HasNoChildren \Sent)      "/" "[Gmail]/Sent Mail"
+# * LIST (\HasNoChildren \Junk)      "/" "[Gmail]/Spam"
+# * LIST (\Flagged \HasNoChildren)   "/" "[Gmail]/Starred"
+# * LIST (\HasNoChildren \Trash)     "/" "[Gmail]/Trash"
+
 Channel idone-dot-leonardo-inbox
 Master :idone-dot-leonardo-remote:
 Slave :idone-dot-leonardo-local:
@@ -33,10 +44,16 @@ Master :idone-dot-leonardo-remote:"[Gmail]/Trash"
 Slave :idone-dot-leonardo-local:trash
 Create Slave
 
+Channel idone-dot-leonardo-spam
+Master :idone-dot-leonardo-remote:"[Gmail]/Spam"
+Slave :idone-dot-leonardo-local:spam
+Create Slave
+
 Group idone-dot-leonardo
 Channel idone-dot-leonardo-inbox
 Channel idone-dot-leonardo-sent
 Channel idone-dot-leonardo-trash
+Channel idone-dot-leonardo-spam
 
 # =====================
 # = abubu55@gmail.com =
@@ -63,6 +80,17 @@ Master :abubu55-remote:
 Slave :abubu55-local:
 Patterns "INBOX"
 
+# GMAIL Folders
+# * LIST (\HasNoChildren)            "/" "INBOX"
+# * LIST (\HasChildren \Noselect)    "/" "[Gmail]"
+# * LIST (\All \HasNoChildren)       "/" "[Gmail]/All Mail"
+# * LIST (\Drafts \HasNoChildren)    "/" "[Gmail]/Drafts"
+# * LIST (\HasNoChildren \Important) "/" "[Gmail]/Important"
+# * LIST (\HasNoChildren \Sent)      "/" "[Gmail]/Sent Mail"
+# * LIST (\HasNoChildren \Junk)      "/" "[Gmail]/Spam"
+# * LIST (\Flagged \HasNoChildren)   "/" "[Gmail]/Starred"
+# * LIST (\HasNoChildren \Trash)     "/" "[Gmail]/Trash"
+
 Channel abubu55-sent
 Master :abubu55-remote:"[Gmail]/Sent Mail"
 Slave :abubu55-local:sent
@@ -73,10 +101,16 @@ Master :abubu55-remote:"[Gmail]/Trash"
 Slave :abubu55-local:trash
 Create Slave
 
+Channel abubu55-spam
+Master :abubu55-remote:"[Gmail]/Spam"
+Slave :abubu55-local:spam
+Create Slave
+
 Group abubu55
 Channel abubu55-inbox
 Channel abubu55-sent
 Channel abubu55-trash
+Channel abubu55-spam
 
 # ==============================
 # = leo.idone@stud.uniroma3.it =
@@ -98,6 +132,25 @@ Path ~/.mail/leo-dot-idone/
 Inbox ~/.mail/leo-dot-idone/Inbox
 SubFolders Verbatim
 
+# OUTLOOK folders
+# * LIST (\HasNoChildren)         "/" Archive
+# * LIST (\HasNoChildren)         "/" Calendar
+# * LIST (\HasChildren)           "/" Contacts
+# * LIST (\HasChildren)           "/" "Conversation History"
+# * LIST (\HasNoChildren \Trash)  "/" "Deleted Items"
+# * LIST (\HasNoChildren \Drafts) "/" Drafts
+# * LIST (\Marked \HasNoChildren) "/" INBOX
+# * LIST (\HasNoChildren)         "/" Journal
+# * LIST (\HasNoChildren)         "/" Junk
+# * LIST (\HasNoChildren \Junk)   "/" "Junk Email"
+# * LIST (\HasNoChildren)         "/" Notes
+# * LIST (\HasNoChildren)         "/" Outbox
+# * LIST (\HasNoChildren)         "/" Queue
+# * LIST (\HasNoChildren)         "/" Sent
+# * LIST (\HasNoChildren \Sent)   "/" "Sent Items"
+# * LIST (\HasNoChildren)         "/" Tasks
+# * LIST (\HasNoChildren)         "/" Trash
+
 Channel leo-dot-idone-inbox
 Master :leo-dot-idone-remote:
 Slave :leo-dot-idone-local:
@@ -113,7 +166,13 @@ Master :leo-dot-idone-remote:"Deleted Items"
 Slave :leo-dot-idone-local:trash
 Create Slave
 
+Channel leo-dot-idone-junk
+Master :leo-dot-idone-remote:"Junk Email"
+Slave :leo-dot-idone-local:junk
+Create Slave
+
 Group leo-dot-idone
 Channel leo-dot-idone-inbox
 Channel leo-dot-idone-sent
 Channel leo-dot-idone-trash
+Channel leo-dot-idone-junk

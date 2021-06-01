@@ -125,3 +125,8 @@ tags
 
 # test files
 drdcp-test*/
+
+# GNU Global Tags
+GTAGS
+GRTAGS
+GPATH

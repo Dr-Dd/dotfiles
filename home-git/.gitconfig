@@ -1,6 +1,6 @@
 [user]
 	email = idone.leonardo@gmail.com
-	name = drd
+	name = Leonardo Idone
 [credential]
 	helper = cache --timeout 7200
 [filesystem "Oracle Corporation|1.8.0_222|/dev/sda3"]

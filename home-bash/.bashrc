@@ -65,7 +65,6 @@ alias grep='grep --color=auto'
 alias ip='ip -color=auto'
 alias fetch-mail='mbsync -a; notmuch new'
 alias button-down='systemctl --user stop emacs.service syncthing.service'
-alias restart-nitter='sudo systemctl restart nitter.service'
 
 
 export LESS=-R

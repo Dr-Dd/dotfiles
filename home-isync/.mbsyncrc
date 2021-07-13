@@ -30,24 +30,28 @@ SubFolders Verbatim
 # * LIST (\HasNoChildren \Trash)     "/" "[Gmail]/Trash"
 
 Channel idone-dot-leonardo-inbox
-Master :idone-dot-leonardo-remote:
-Slave :idone-dot-leonardo-local:
+Far :idone-dot-leonardo-remote:
+Near :idone-dot-leonardo-local:
 Patterns "INBOX"
+Expunge Both
 
 Channel idone-dot-leonardo-sent
-Master :idone-dot-leonardo-remote:"[Gmail]/Sent Mail"
-Slave :idone-dot-leonardo-local:sent
-Create Slave
+Far :idone-dot-leonardo-remote:"[Gmail]/Sent Mail"
+Near :idone-dot-leonardo-local:sent
+Create Near
+Expunge Both
 
 Channel idone-dot-leonardo-trash
-Master :idone-dot-leonardo-remote:"[Gmail]/Trash"
-Slave :idone-dot-leonardo-local:trash
-Create Slave
+Far :idone-dot-leonardo-remote:"[Gmail]/Trash"
+Near :idone-dot-leonardo-local:trash
+Create Near
+Expunge Both
 
 Channel idone-dot-leonardo-spam
-Master :idone-dot-leonardo-remote:"[Gmail]/Spam"
-Slave :idone-dot-leonardo-local:spam
-Create Slave
+Far :idone-dot-leonardo-remote:"[Gmail]/Spam"
+Near :idone-dot-leonardo-local:spam
+Create Near
+Expunge Both
 
 Group idone-dot-leonardo
 Channel idone-dot-leonardo-inbox
@@ -76,9 +80,10 @@ Inbox ~/.mail/abubu55/Inbox
 SubFolders Verbatim
 
 Channel abubu55-inbox
-Master :abubu55-remote:
-Slave :abubu55-local:
+Far :abubu55-remote:
+Near :abubu55-local:
 Patterns "INBOX"
+Expunge Both
 
 # GMAIL Folders
 # * LIST (\HasNoChildren)            "/" "INBOX"
@@ -92,19 +97,22 @@ Patterns "INBOX"
 # * LIST (\HasNoChildren \Trash)     "/" "[Gmail]/Trash"
 
 Channel abubu55-sent
-Master :abubu55-remote:"[Gmail]/Sent Mail"
-Slave :abubu55-local:sent
-Create Slave
+Far :abubu55-remote:"[Gmail]/Sent Mail"
+Near :abubu55-local:sent
+Create Near
+Expunge Both
 
 Channel abubu55-trash
-Master :abubu55-remote:"[Gmail]/Trash"
-Slave :abubu55-local:trash
-Create Slave
+Far :abubu55-remote:"[Gmail]/Trash"
+Near :abubu55-local:trash
+Create Near
+Expunge Both
 
 Channel abubu55-spam
-Master :abubu55-remote:"[Gmail]/Spam"
-Slave :abubu55-local:spam
-Create Slave
+Far :abubu55-remote:"[Gmail]/Spam"
+Near :abubu55-local:spam
+Create Near
+Expunge Both
 
 Group abubu55
 Channel abubu55-inbox
@@ -152,24 +160,28 @@ SubFolders Verbatim
 # * LIST (\HasNoChildren)         "/" Trash
 
 Channel leo-dot-idone-inbox
-Master :leo-dot-idone-remote:
-Slave :leo-dot-idone-local:
+Far :leo-dot-idone-remote:
+Near :leo-dot-idone-local:
 Patterns "INBOX"
+Expunge Both
 
 Channel leo-dot-idone-sent
-Master :leo-dot-idone-remote:"Sent Items"
-Slave :leo-dot-idone-local:sent
-Create Slave
+Far :leo-dot-idone-remote:"Sent Items"
+Near :leo-dot-idone-local:sent
+Create Near
+Expunge Both
 
 Channel leo-dot-idone-trash
-Master :leo-dot-idone-remote:"Deleted Items"
-Slave :leo-dot-idone-local:trash
-Create Slave
+Far :leo-dot-idone-remote:"Deleted Items"
+Near :leo-dot-idone-local:trash
+Create Near
+Expunge Both
 
 Channel leo-dot-idone-junk
-Master :leo-dot-idone-remote:"Junk Email"
-Slave :leo-dot-idone-local:junk
-Create Slave
+Far :leo-dot-idone-remote:"Junk Email"
+Near :leo-dot-idone-local:junk
+Create Near
+Expunge Both
 
 Group leo-dot-idone
 Channel leo-dot-idone-inbox

@@ -1,0 +1,8 @@
+[Unit]
+Description=KeepassXC background daemon
+
+[Service]
+ExecStart=/usr/bin/keepassxc
+
+[Install]
+WantedBy=default.target

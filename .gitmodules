@@ -1,0 +1,3 @@
+[submodule "dot-emacs"]
+	path = dot-emacs
+	url = git@github.com:Dr-Dd/dot-emacs.git

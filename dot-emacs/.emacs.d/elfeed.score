@@ -1,0 +1,73 @@
+;;; Elfeed score file                                     -*- lisp -*-
+((version 7)
+ ("title")
+ ("content")
+ ("title-or-content")
+ ("tag"
+  (:tags
+   (t . news)
+   :value 200 :date 1626092838.0702941 :hits 741)
+  (:tags
+   (t . italy)
+   :value 100 :date 1626092838.0330894 :hits 297)
+  (:tags
+   (t . tech)
+   :value 400 :date 1626092838.0714707 :hits 308)
+  (:tags
+   (t . reddit)
+   :value 500 )
+  (:tags
+   (t . podcast)
+   :value 100)
+  (:tags
+   (t . youtube)
+   :value 100)
+  (:tags
+   (t . 4chan)
+   :value 0 :date 1626092838.0764043 :hits 60))
+ ("authors")
+ ("feed"
+  (:text "LWN.net"
+         :value 1000
+         :type s
+         :attr t)
+  (:text "The Hacker News"
+         :value 1000
+         :type s
+         :attr t)
+  (:text "Phoronix"
+         :value 1000
+         :type s
+         :attr t)
+  (:text "Hackaday"
+         :value 1000
+         :type s
+         :attr t)
+  (:text "Latest Linux Kernel Versions"
+         :value 900
+         :type s
+         :attr t)
+  (:text "Recent RFCs"
+         :value 900
+         :type s
+         :attr t)
+  (:text "Dark Reading:"
+         :value 900
+         :type s
+         :attr t)
+  (:text "Lobsters"
+         :value 800
+         :type s
+         :attr t)
+  (:text "Hacker News: Front Page"
+         :value 800
+         :type s
+         :attr t)
+  (:text "Gamasutra News"
+         :value 700
+         :type s
+         :attr t)
+  )
+ ("link")
+ (mark nil)
+ ("adjust-tags"))

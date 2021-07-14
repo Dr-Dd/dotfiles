@@ -1,0 +1,14 @@
+# Ignore 'misc' folder
+misc
+
+# Ignore git file and folders
+\.git
+\.gitignore
+\.gitmodules
+README.*
+LICENSE.*
+
+# Misc
+GPATH
+GRTAGS
+GTAGS

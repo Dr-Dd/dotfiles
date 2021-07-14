@@ -1,7 +1,0 @@
-# This .xprofile is required by display managers to manage the autostart of application NOT CONCERNING THE GRAPHICAL LOOK OF THE SYSTEM
-# (those should be handled by the WM/DE, so refer to your WM/DE config file eg: .config/i3/config or .xmonad/xmonad.hs)
-# 
-# Also note that .Xresources, .Xkbmap and .Xmodmap get sourced by LXDM, LightDM (some of the display manager i could be currently using)
-# ** REMEMBER TO CHECK IF OTHER DISPLAY MANAGERS DO THE SAME THING TOO! **
-
-. ~/.initdrd

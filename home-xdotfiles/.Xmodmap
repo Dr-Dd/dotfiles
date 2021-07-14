@@ -1,3 +1,0 @@
-! Swap Caps_Lock with Escape
-clear Lock
-keycode 66 = Escape NoSymbol Escape

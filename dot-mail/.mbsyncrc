@@ -5,7 +5,7 @@ IMAPAccount idone-dot-leonardo
 Host imap.gmail.com
 User idone.leonardo@gmail.com
 SSLType IMAPS
-PassCmd "gpg2 --quiet --for-your-eyes-only --no-tty --decrypt ~/.idone-dot-leonardo.gpg"
+PassCmd "gpg2 --quiet --for-your-eyes-only --no-tty --decrypt ~/Sync/secrets/mail-secrets/.idone-dot-leonardo.gpg"
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 #CertificateFile ~/.cert/imap.gmail.com.pem
 #CertificateFile ~/.cert/Equifax_Secure_CA.pem
@@ -66,7 +66,7 @@ IMAPAccount abubu55
 Host imap.gmail.com
 User abubu55@gmail.com
 SSLType IMAPS
-PassCmd "gpg2 --quiet --for-your-eyes-only --no-tty --decrypt ~/.abubu55.gpg"
+PassCmd "gpg2 --quiet --for-your-eyes-only --no-tty --decrypt ~/Sync/secrets/mail-secrets/.abubu55.gpg"
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 #CertificateFile ~/.cert/imap.gmail.com.pem
 #CertificateFile ~/.cert/Equifax_Secure_CA.pem
@@ -127,7 +127,7 @@ IMAPAccount leo-dot-idone
 Host outlook.office365.com
 User leo.idone@stud.uniroma3.it
 SSLType IMAPS
-PassCmd "gpg2 --quiet --for-your-eyes-only --no-tty --decrypt ~/.leo-dot-idone.gpg"
+PassCmd "gpg2 --quiet --for-your-eyes-only --no-tty --decrypt ~/Sync/secrets/mail-secrets/.leo-dot-idone.gpg"
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 #CertificateFile ~/.cert/imap.stud.uniroma3.it.com.pem
 #CertificateFile ~/.cert/Equifax_Secure_CA.pem

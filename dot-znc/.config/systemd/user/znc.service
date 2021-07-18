@@ -6,4 +6,4 @@ After=network.target
 ExecStart=/usr/bin/znc -f
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target

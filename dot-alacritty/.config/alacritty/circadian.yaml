@@ -1,0 +1,42 @@
+# Theme files should be of the format:
+#
+# colors:
+#   primary:
+#     background: ...
+#     ...
+#
+#     normal: ...
+#     ...
+#     ...
+#
+# You can find many of them at:
+# https://github.com/eendroroy/alacritty-theme
+#
+# Choose whatever folder you like to store them
+# Remember to double escape chars for windows paths
+# theme folder:
+# theme-folder: "%APPDATA%\\alacritty\\themes"
+theme-folder: ~/.config/alacritty/themes
+# Insert you coordinates here (optional)
+coordinates: 
+  latitude: 41.890146
+  longitude: 12.492280 
+# Insert here your themes in the following format:
+# Theme names shouldn't use file extensions
+#
+# themes:
+#   - time: HH:MM
+#     name: theme-name-1
+#   - time: HH:MM
+#     name: theme-name-2
+#   - ...
+#
+# 'time' values can be either a HH:MM time format or one of the
+# following times of the sun:
+#   dawn, sunrise, noon, sunset, dusk
+# to use these keywords you'll need to set latitude and longitude
+themes:
+  - time: sunrise
+    name: pencil-light
+  - time: sunset
+    name: tokyo-night

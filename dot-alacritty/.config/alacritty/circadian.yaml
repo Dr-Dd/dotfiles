@@ -18,8 +18,8 @@
 # theme-folder: "%APPDATA%\\alacritty\\themes"
 theme-folder: ~/.config/alacritty/themes
 # Insert you coordinates here (optional)
-coordinates: 
-  latitude: 41.890146
+coordinates:
+  latitude: 41.890146 
   longitude: 12.492280 
 # Insert here your themes in the following format:
 # Theme names shouldn't use file extensions

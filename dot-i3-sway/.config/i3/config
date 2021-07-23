@@ -24,7 +24,6 @@ bindsym $sup+space exec rofi -show combi
 bindsym $sup+z exec rofi -show window -location 6
 
 ## Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
@@ -36,8 +35,8 @@ bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 ## brightness adjustment
-bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
+bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
 
 ## use Mouse+Super to drag floating windows to their wanted position
 floating_modifier $sup
@@ -75,6 +74,9 @@ bindsym $sup+Shift+Right move right
 
 ## enter fullscreen mode for the focused container
 bindsym $sup+f fullscreen toggle
+
+## Toggle split orientation
+bindsym $sup+s split toggle
 
 ## focus the parent container
 bindsym $sup+a focus parent
@@ -114,23 +116,26 @@ bindsym $sup+8 workspace number $ws8
 bindsym $sup+9 workspace number $ws9
 bindsym $sup+0 workspace number $ws10
 
-## Works but you are unable to move to still unspawned 
-## workspaces, which is a minor problem but...still 
-## is something to iron out
-##
-## move to workspace left/right
-bindsym $sup+Ctrl+Left workspace prev 
-bindsym $sup+Ctrl+Right workspace next
-# evil bindings
-bindsym $sup+Ctrl+h workspace prev
-bindsym $sup+Ctrl+l workspace next
+## step to workspace +/- 1
+bindsym $sup+Ctrl+Left exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -l
+bindsym $sup+Ctrl+Right exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -r
+## evil bindings
+bindsym $sup+Ctrl+h exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -l
+bindsym $sup+Ctrl+l exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -r
 
-## move to workspace left/right
-bindsym $sup+Ctrl+Shift+Left move container to workspace prev, workspace prev
-bindsym $sup+Ctrl+Shift+Right move container to workspace next, workspace next
-# evil bindings
-bindsym $sup+Ctrl+Shift+h move container to workspace prev, workspace prev 
-bindsym $sup+Ctrl+Shift+l move container to workspace next, workspace next
+## move container to workspace +/- 1
+bindsym $sup+Ctrl+Shift+Left exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -ml
+bindsym $sup+Ctrl+Shift+Right exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -mr
+## evil bindings
+bindsym $sup+Ctrl+Shift+h exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -ml
+bindsym $sup+Ctrl+Shift+l exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -mr
+
+## move to first active workspace
+bindsym Ctrl+Shift+Left workspace prev
+bindsym Ctrl+Shift+Right workspace next
+## evil bindings
+bindsym Ctrl+Shift+h workspace prev
+bindsym Ctrl+Shift+l workspace next
 
 ## move focused container to workspace
 bindsym $sup+Shift+1 move container to workspace number $ws1, workspace $ws1
@@ -154,6 +159,9 @@ bindsym $sup+Shift+r restart
 bindsym $sup+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 ## Modes
+# Default escape keybinding
+bindsym $sup+Escape mode default
+
 bindsym $sup+r mode "resize"
 ### resize window (you can also use the mouse for that)
 mode "resize" {
@@ -226,7 +234,7 @@ mode "$window" {
 bar {
 	position top
 	# Font
-	font pango:DejaVu Sans Mono 12
+	font pango:Terminus Bold 15
 	status_command i3status
 }
 
@@ -237,16 +245,16 @@ bar {
 # user services)
 
 ## Compositor
-exec --no-startup-id picom --vsync -CG --no-fading-openclose -m 1 -i 1 -D 0
+exec --no-startup-id picom --experimental-backends --vsync -CG --no-fading-openclose -m 1 -i 1 -D 0
+
+## xsettingsd
+exec --no-startup-id xsettingsd
 
 ## KeepassXC
 exec --no-startup-id keepassxc
 
 ## light-locker
 exec --no-startup-id light-locker
-
-## plank
-#exec --no-startup-id plank
 
 ## solaar
 exec --no-startup-id solaar -w hide -b solaar
@@ -262,3 +270,4 @@ exec --no-startup-id optimus-manager-qt
 
 ## NetworkManager
 exec --no-startup-id nm-applet
+

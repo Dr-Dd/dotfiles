@@ -1,0 +1,4 @@
+Net/IconThemeName "Arc"
+Net/ThemeName "Arc-Dark"
+Net/FallbackIconTheme "Adwaita"
+Gtk/DecorationLayout ""

@@ -1,0 +1,264 @@
+# i3 config file (v4)
+
+# Click to focus instead on hover
+focus_follows_mouse no
+
+# Font config:
+## Window decorator's font
+font pango:Terminus 13px
+# Defaults
+#font pango:monospace 8
+#font pango:DejaVu Sans Mono 8
+
+# Keybindings
+## Set Super modifier variable
+set $sup Mod4
+
+## Open terminal
+bindsym $sup+Return exec $TERM
+
+## Launcher
+bindsym $sup+space exec rofi -show combi
+
+## Select window a-la helm-mode, keybinding mimics M-x
+bindsym $sup+z exec rofi -show window -location 6
+
+## Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+## MPRIS media controls
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+
+## brightness adjustment
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
+
+## use Mouse+Super to drag floating windows to their wanted position
+floating_modifier $sup
+
+# kill focused window
+bindsym $sup+Shift+q kill
+
+## alt tab cycle
+bindsym $sup+Tab focus next
+bindsym $sup+Shift+Tab focus prev
+
+## change focus
+bindsym $sup+h focus left
+bindsym $sup+j focus down
+bindsym $sup+k focus up
+bindsym $sup+l focus right
+
+## alternatively, you can use the cursor keys:
+bindsym $sup+Left focus left
+bindsym $sup+Down focus down
+bindsym $sup+Up focus up
+bindsym $sup+Right focus right
+
+## move focused window
+bindsym $sup+Shift+h move left
+bindsym $sup+Shift+j move down
+bindsym $sup+Shift+k move up
+bindsym $sup+Shift+l move right
+
+## alternatively, you can use the cursor keys:
+bindsym $sup+Shift+Left move left
+bindsym $sup+Shift+Down move down
+bindsym $sup+Shift+Up move up
+bindsym $sup+Shift+Right move right
+
+## enter fullscreen mode for the focused container
+bindsym $sup+f fullscreen toggle
+
+## focus the parent container
+bindsym $sup+a focus parent
+
+## focus the child container
+##bindsym $sup+d focus child
+
+## move the currently focused window to the scratchpad
+bindsym $sup+Shift+minus move scratchpad
+
+## Show the next scratchpad window or hide the focused scratchpad window.
+## If there are multiple scratchpad windows, this command cycles through them.
+bindsym $sup+minus scratchpad show
+
+## Define names for default workspaces for which we configure key bindings later on.
+## We use variables to avoid repeating the names in multiple places.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+## switch to workspace
+bindsym $sup+1 workspace number $ws1
+bindsym $sup+2 workspace number $ws2
+bindsym $sup+3 workspace number $ws3
+bindsym $sup+4 workspace number $ws4
+bindsym $sup+5 workspace number $ws5
+bindsym $sup+6 workspace number $ws6
+bindsym $sup+7 workspace number $ws7
+bindsym $sup+8 workspace number $ws8
+bindsym $sup+9 workspace number $ws9
+bindsym $sup+0 workspace number $ws10
+
+## Works but you are unable to move to still unspawned 
+## workspaces, which is a minor problem but...still 
+## is something to iron out
+##
+## move to workspace left/right
+bindsym $sup+Ctrl+Left workspace prev 
+bindsym $sup+Ctrl+Right workspace next
+# evil bindings
+bindsym $sup+Ctrl+h workspace prev
+bindsym $sup+Ctrl+l workspace next
+
+## move to workspace left/right
+bindsym $sup+Ctrl+Shift+Left move container to workspace prev, workspace prev
+bindsym $sup+Ctrl+Shift+Right move container to workspace next, workspace next
+# evil bindings
+bindsym $sup+Ctrl+Shift+h move container to workspace prev, workspace prev 
+bindsym $sup+Ctrl+Shift+l move container to workspace next, workspace next
+
+## move focused container to workspace
+bindsym $sup+Shift+1 move container to workspace number $ws1, workspace $ws1
+bindsym $sup+Shift+2 move container to workspace number $ws2, workspace $ws2
+bindsym $sup+Shift+3 move container to workspace number $ws3, workspace $ws3
+bindsym $sup+Shift+4 move container to workspace number $ws4, workspace $ws4
+bindsym $sup+Shift+5 move container to workspace number $ws5, workspace $ws5
+bindsym $sup+Shift+6 move container to workspace number $ws6, workspace $ws6
+bindsym $sup+Shift+7 move container to workspace number $ws7, workspace $ws7
+bindsym $sup+Shift+8 move container to workspace number $ws8, workspace $ws8
+bindsym $sup+Shift+9 move container to workspace number $ws9, workspace $ws9
+bindsym $sup+Shift+0 move container to workspace number $ws10, workspace $ws10
+
+## move window to workspace left/right
+
+## reload the configuration file
+bindsym $sup+Shift+c reload
+## restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $sup+Shift+r restart
+## exit i3 (logs you out of your X session)
+bindsym $sup+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+## Modes
+bindsym $sup+r mode "resize"
+### resize window (you can also use the mouse for that)
+mode "resize" {
+        ## These bindings trigger as soon as you enter the resize mode
+
+        ## Pressing left will shrink the window’s width.
+        ## Pressing right will grow the window’s width.
+        ## Pressing up will shrink the window’s height.
+        ## Pressing down will grow the window’s height.
+        bindsym $left       resize shrink width 10 px or 10 ppt
+        bindsym $down       resize grow height 10 px or 10 ppt
+        bindsym $up         resize shrink height 10 px or 10 ppt
+        bindsym $right      resize grow width 10 px or 10 ppt
+
+        ## same bindings, but for the arrow keys
+        bindsym Left        resize shrink width 10 px or 10 ppt
+        bindsym Down        resize grow height 10 px or 10 ppt
+        bindsym Up          resize shrink height 10 px or 10 ppt
+        bindsym Right       resize grow width 10 px or 10 ppt
+
+        ## back to normal: Enter or Escape or $sup+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $sup+r mode "default"
+}
+
+## Emacs mode
+set $emacs Open Emacs: d[e]fault, [c]apture, [m]ail, [a]genda, [l]edger
+bindsym $sup+e mode "$emacs"
+mode "$emacs" {
+	bindsym e exec "emacsclient -c -a emacs", mode default
+	bindsym c exec "emacsclient -c -a emacs --eval '(org-capture)'", mode default
+	bindsym m exec "emacsclient -c -a emacs --eval '(notmuch-search \\"tag:unread and tag:inbox\\")'", mode default
+	bindsym a exec "emacsclient -c -a emacs --eval '(org-agenda nil \\"d\\")'", mode default
+	bindsym l exec "emacsclient -c -a emacs --eval '(find-file \\"~/Sync/ledger.git/ledger.dat\\")'", mode default
+	bindsym Return mode default
+	bindsym Escape mode default
+	bindsym $sup+e mode default
+}
+
+set $open Open Programs: file [e]xplorer, [f]irefox
+bindsym $sup+o mode "$open"
+mode "$open" {
+	bindsym e exec thunar, mode default
+	bindsym f exec firefox, mode default
+	bindsym Return mode default, mode default
+	bindsym Escape mode default, mode default
+	bindsym $sup+r mode default, mode default
+	bindsym Return mode default
+	bindsym Escape mode default
+	bindsym $sup+o mode default
+}
+
+set $window Manipulate window layout: s[p]lit, [s]tacking, [t]abbed, [f]loating
+bindsym $sup+w mode "$window"
+mode "$window" {
+	bindsym p layout toggle split, mode default
+	bindsym s layout toggle stacking, mode default
+	bindsym t layout toggle tabbed, mode default
+	bindsym f floating toggle, mode default
+	bindsym Return mode default, mode default
+	bindsym Escape mode default, mode default
+	bindsym $sup+w mode default, mode default
+}
+
+# Panel
+#
+# NOTE: it's unclear if it can be started after other apps that
+#       output in the tray, we'll try it anyway
+bar {
+	position top
+	# Font
+	font pango:DejaVu Sans Mono 12
+	status_command i3status
+}
+
+# Autostart:
+#
+# NOTE: Consider using a program to implement /etc/xdg/autostart
+# like, for example, dex (or even for a different approach systemd
+# user services)
+
+## Compositor
+exec --no-startup-id picom --vsync -CG --no-fading-openclose -m 1 -i 1 -D 0
+
+## KeepassXC
+exec --no-startup-id keepassxc
+
+## light-locker
+exec --no-startup-id light-locker
+
+## plank
+#exec --no-startup-id plank
+
+## solaar
+exec --no-startup-id solaar -w hide -b solaar
+
+## blueman-applet
+exec --no-startup-id blueman-applet
+
+## redshift-gtk
+exec --no-startup-id redshift-gtk -l 41.89193:12.51133 -m randr
+
+## optimus-manager-qt
+exec --no-startup-id optimus-manager-qt
+
+## NetworkManager
+exec --no-startup-id nm-applet

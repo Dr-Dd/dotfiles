@@ -7,7 +7,7 @@ configuration {
 	case-sensitive: false;
 	show-icons: true;
 	sort: true;
-	font: "Inconsolata Bold 13";
+	font: "Inconsolata Bold 20";
 	sorting-method: "levenshtein";
 	threads: 0;
 	terminal: "kitty";

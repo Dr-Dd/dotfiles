@@ -54,9 +54,6 @@ shopt -s expand_aliases
 
 set -o noclobber
 
-export VISUAL=vim
-export EDITOR=vim
-
 export PS1="\n╭\[\e[31m\]\`nonzero_return\`\[\e[m\]\[\e[32m\][\u@\h:\[\e[34m\]\w\[\e[32m\]]\[\e[m\]\[\e[33m\]\`parse_git_branch\`\[\e[m\]\n╰\[\e[34m\][λ]\[\e[m\] "
 
 alias ls='ls --color=auto'
@@ -91,11 +88,3 @@ man() {
 alias set-performance-governor='sudo cpupower -c all frequency-set -g performance'
 
 eval "$(thefuck --alias)"
-
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent >| "$XDG_RUNTIME_DIR/ssh-agent.env"
-fi
-if [[ ! "$SSH_AUTH_SOCK" ]]; then
-    eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")"
-fi
-

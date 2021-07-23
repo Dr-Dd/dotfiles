@@ -1,4 +1,6 @@
 Net/IconThemeName "Arc"
 Net/ThemeName "Arc-Dark"
 Net/FallbackIconTheme "Adwaita"
+Net/CursorBlink 1
+Net/CursorThemeName "capitaine-cursors"
 Gtk/DecorationLayout ""

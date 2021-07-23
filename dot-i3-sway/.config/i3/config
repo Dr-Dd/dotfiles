@@ -5,7 +5,7 @@ focus_follows_mouse no
 
 # Font config:
 ## Window decorator's font
-font pango:Terminus 13px
+font pango:Terminus Bold 15
 # Defaults
 #font pango:monospace 8
 #font pango:DejaVu Sans Mono 8
@@ -189,7 +189,7 @@ mode "resize" {
 }
 
 ## Emacs mode
-set $emacs Open Emacs: d[e]fault, [c]apture, [m]ail, [a]genda, [l]edger
+set $emacs Open Emacs: [a]genda, [c]apture ,d[e]fault, [l]edger, [m]ail, [r]ss
 bindsym $sup+e mode "$emacs"
 mode "$emacs" {
 	bindsym e exec "emacsclient -c -a emacs", mode default
@@ -197,6 +197,7 @@ mode "$emacs" {
 	bindsym m exec "emacsclient -c -a emacs --eval '(notmuch-search \\"tag:unread and tag:inbox\\")'", mode default
 	bindsym a exec "emacsclient -c -a emacs --eval '(org-agenda nil \\"d\\")'", mode default
 	bindsym l exec "emacsclient -c -a emacs --eval '(find-file \\"~/Sync/ledger.git/ledger.dat\\")'", mode default
+	bindsym r exec "emacsclient -c -a emacs --eval '(elfeed)'", mode default
 	bindsym Return mode default
 	bindsym Escape mode default
 	bindsym $sup+e mode default

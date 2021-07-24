@@ -82,7 +82,7 @@ bindsym $sup+s split toggle
 bindsym $sup+a focus parent
 
 ## focus the child container
-##bindsym $sup+d focus child
+bindsym $sup+d focus child
 
 ## move the currently focused window to the scratchpad
 bindsym $sup+Shift+minus move scratchpad
@@ -190,7 +190,7 @@ mode "resize" {
 }
 
 ## Emacs mode
-set $emacs Open Emacs: [a]genda, [c]apture ,d[e]fault, [l]edger, [m]ail, [r]ss
+set $emacs Open Emacs: [a]genda, [c]apture, d[e]fault, [l]edger, [m]ail, [r]ss
 bindsym $sup+e mode "$emacs", bar hidden_state show
 mode "$emacs" {
 	bindsym e exec "emacsclient -c -a emacs", mode default, bar gidden_state hide

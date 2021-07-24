@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # You can call this script like this:
 # $./volume.sh up
@@ -15,11 +15,8 @@ function is_mute {
 
 function send_notification {
 	volume=`get_volume`
-	# Make the bar with the special character ─ (it's not dash -)
-	# https://en.wikipedia.org/wiki/Box-drawing_character
-	bar=$(seq -s "─" $(($volume / 5)) | sed 's/[0-9]//g')
 	# Send the notification
-	dunstify -i audio-volume-muted-blocking -t 8 -r 2593 -u normal "    $bar"
+	dunstify -i null -r 1337 -t 1000 "Volume: $volume%"
 }
 
 case $1 in
@@ -39,9 +36,10 @@ case $1 in
 		# Toggle mute
 		amixer -D pulse set Master 1+ toggle > /dev/null
 		if is_mute ; then
-			dunstify -i audio-volume-muted -t 8 -r 2593 -u normal "Mute"
+			dunstify -i "null" -r 1337 "Volume: muted"
 		else
 			send_notification
 		fi
 		;;
 esac
+

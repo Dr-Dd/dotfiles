@@ -24,10 +24,10 @@ bindsym $sup+space exec rofi -show combi
 bindsym $sup+z exec rofi -show window -location 6
 
 ## Use pactl to adjust volume in PulseAudio.
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/utils/volume.sh up
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/utils/volume.sh down
+bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/utils/volume.sh mute
+#bindsym XF86AudioMicMute exec --no-startup-id ~/.config/i3/utils/volume.sh mute
 
 ## MPRIS media controls
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
@@ -35,8 +35,8 @@ bindsym XF86AudioNext exec --no-startup-id playerctl next
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 
 ## brightness adjustment
-bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5
-bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/utils/brightness.sh up
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/utils/brightness.sh down
 
 ## use Mouse+Super to drag floating windows to their wanted position
 floating_modifier $sup

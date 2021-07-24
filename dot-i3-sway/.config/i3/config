@@ -5,7 +5,7 @@ focus_follows_mouse no
 
 # Font config:
 ## Window decorator's font
-font pango:Terminus Bold 15
+font pango:Terminus Bold 12
 # Defaults
 #font pango:monospace 8
 #font pango:DejaVu Sans Mono 8
@@ -131,11 +131,12 @@ bindsym $sup+Ctrl+Shift+h exec --no-startup-id ~/.config/i3/utils/workspace-by-o
 bindsym $sup+Ctrl+Shift+l exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -mr
 
 ## move to first active workspace
-bindsym Ctrl+Shift+Left workspace prev
-bindsym Ctrl+Shift+Right workspace next
+# ALL i3wm KEYBINDINGS SHOULD USE $sup
+#bindsym Ctrl+Shift+Left workspace prev
+#bindsym Ctrl+Shift+Right workspace next
 ## evil bindings
-bindsym Ctrl+Shift+h workspace prev
-bindsym Ctrl+Shift+l workspace next
+#bindsym Ctrl+Shift+h workspace prev
+#bindsym Ctrl+Shift+l workspace next
 
 ## move focused container to workspace
 bindsym $sup+Shift+1 move container to workspace number $ws1, workspace $ws1
@@ -162,7 +163,7 @@ bindsym $sup+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # Default escape keybinding
 bindsym $sup+Escape mode default
 
-bindsym $sup+r mode "resize"
+bindsym $sup+r mode "resize", bar hidden_state show
 ### resize window (you can also use the mouse for that)
 mode "resize" {
         ## These bindings trigger as soon as you enter the resize mode
@@ -183,60 +184,65 @@ mode "resize" {
         bindsym Right       resize grow width 10 px or 10 ppt
 
         ## back to normal: Enter or Escape or $sup+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $sup+r mode "default"
+        bindsym Return mode "default", bar hidden_state hide
+        bindsym Escape mode "default", bar hidden_state hide
+        bindsym $sup+r mode "default", bar hidden_state hide
 }
 
 ## Emacs mode
 set $emacs Open Emacs: [a]genda, [c]apture ,d[e]fault, [l]edger, [m]ail, [r]ss
-bindsym $sup+e mode "$emacs"
+bindsym $sup+e mode "$emacs", bar hidden_state show
 mode "$emacs" {
-	bindsym e exec "emacsclient -c -a emacs", mode default
-	bindsym c exec "emacsclient -c -a emacs --eval '(org-capture)'", mode default
-	bindsym m exec "emacsclient -c -a emacs --eval '(notmuch-search \\"tag:unread and tag:inbox\\")'", mode default
-	bindsym a exec "emacsclient -c -a emacs --eval '(org-agenda nil \\"d\\")'", mode default
-	bindsym l exec "emacsclient -c -a emacs --eval '(find-file \\"~/Sync/ledger.git/ledger.dat\\")'", mode default
-	bindsym r exec "emacsclient -c -a emacs --eval '(elfeed)'", mode default
-	bindsym Return mode default
-	bindsym Escape mode default
-	bindsym $sup+e mode default
+	bindsym e exec "emacsclient -c -a emacs", mode default, bar gidden_state hide
+	bindsym c exec "emacsclient -c -a emacs --eval '(org-capture)'", mode default, bar hidden_state hide
+	bindsym m exec "emacsclient -c -a emacs --eval '(notmuch-search \\"tag:unread and tag:inbox\\")'", mode default, bar hidden_state hide
+	bindsym a exec "emacsclient -c -a emacs --eval '(org-agenda nil \\"d\\")'", mode default, bar hidden_state hide
+	bindsym l exec "emacsclient -c -a emacs --eval '(find-file \\"~/Sync/ledger.git/ledger.dat\\")'", mode default, bar hidden_state hide
+	bindsym r exec "emacsclient -c -a emacs --eval '(elfeed)'", mode default, bar hidden_state hide
+	bindsym Return mode default, bar hidden_state hide
+	bindsym Escape mode default, bar hidden_state hide
+	bindsym $sup+e mode default, bar hidden_state hide
 }
 
 set $open Open Programs: file [e]xplorer, [f]irefox
-bindsym $sup+o mode "$open"
+bindsym $sup+o mode "$open", bar hidden_state show
 mode "$open" {
-	bindsym e exec thunar, mode default
-	bindsym f exec firefox, mode default
-	bindsym Return mode default, mode default
-	bindsym Escape mode default, mode default
-	bindsym $sup+r mode default, mode default
-	bindsym Return mode default
-	bindsym Escape mode default
-	bindsym $sup+o mode default
+	bindsym e exec thunar, mode default, bar hidden_state hide
+	bindsym f exec firefox, mode default, bar hidden_state hide
+	bindsym Return mode default, mode default, bar hidden_state hide
+	bindsym Escape mode default, mode default, bar hidden_state hide
+	bindsym $sup+r mode default, mode default, bar hidden_state hide
+	bindsym Return mode default, bar hidden_state hide
+	bindsym Escape mode default, bar hidden_state hide
+	bindsym $sup+o mode default, bar hidden_state hide
 }
 
 set $window Manipulate window layout: s[p]lit, [s]tacking, [t]abbed, [f]loating
-bindsym $sup+w mode "$window"
+bindsym $sup+w mode "$window", bar hidden_state show
 mode "$window" {
-	bindsym p layout toggle split, mode default
-	bindsym s layout toggle stacking, mode default
-	bindsym t layout toggle tabbed, mode default
-	bindsym f floating toggle, mode default
-	bindsym Return mode default, mode default
-	bindsym Escape mode default, mode default
-	bindsym $sup+w mode default, mode default
+	bindsym p layout toggle split, mode default, bar hidden_state hide
+	bindsym s layout toggle stacking, mode default, bar hidden_state hide
+	bindsym t layout toggle tabbed, mode default, bar hidden_state hide
+	bindsym f floating toggle, mode default, bar hidden_state hide
+	bindsym Return mode default, bar hidden_state hide
+	bindsym Escape mode default, bar hidden_state hide
+	bindsym $sup+w mode default, bar hidden_state hide
 }
 
 # Panel
 #
 # NOTE: it's unclear if it can be started after other apps that
 #       output in the tray, we'll try it anyway
+## Status Bar
 bar {
+	mode hide
+	hidden_state hide
 	position top
 	# Font
 	font pango:Terminus Bold 15
-	status_command i3status
+	tray_output none
+	workspace_buttons no
+	modifier none
 }
 
 # Autostart:
@@ -246,10 +252,14 @@ bar {
 # user services)
 
 ## Compositor
-exec --no-startup-id picom --experimental-backends --vsync -CG --no-fading-openclose -m 1 -i 1 -D 0
+## null config to disable transparent tooltips
+exec --no-startup-id picom --config /dev/null --experimental-backends --vsync -CG --no-fading-openclose -m 1 -i 1 -e 1 -D 0
 
 ## xsettingsd
 exec --no-startup-id xsettingsd
+
+## bottom dock
+exec --no-startup-id xfce4-panel -d --sm-client-disable
 
 ## KeepassXC
 exec --no-startup-id keepassxc

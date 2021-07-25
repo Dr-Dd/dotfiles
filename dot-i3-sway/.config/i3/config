@@ -156,8 +156,6 @@ bindsym $sup+Shift+0 move container to workspace number $ws10, workspace $ws10
 bindsym $sup+Shift+c reload
 ## restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $sup+Shift+r restart
-## exit i3 (logs you out of your X session)
-bindsym $sup+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 ## Modes
 # Default escape keybinding
@@ -178,8 +176,8 @@ mode "resize" {
         bindsym $right      resize grow width 10 px or 10 ppt
 
         ## same bindings, but for the arrow keys
-        bindsym Left        resize shrink width 10 px or 10 ppt
-        bindsym Down        resize grow height 10 px or 10 ppt
+        bindsym Left        resize shrink width 10 px or 10 ppt 
+	bindsym Down        resize grow height 10 px or 10 ppt
         bindsym Up          resize shrink height 10 px or 10 ppt
         bindsym Right       resize grow width 10 px or 10 ppt
 
@@ -193,7 +191,7 @@ mode "resize" {
 set $emacs Open Emacs: [a]genda, [c]apture, d[e]fault, [l]edger, [m]ail, [r]ss
 bindsym $sup+e mode "$emacs", bar hidden_state show
 mode "$emacs" {
-	bindsym e exec "emacsclient -c -a emacs", mode default, bar gidden_state hide
+	bindsym e exec "emacsclient -c -a emacs", mode default, bar hidden_state hide
 	bindsym c exec "emacsclient -c -a emacs --eval '(org-capture)'", mode default, bar hidden_state hide
 	bindsym m exec "emacsclient -c -a emacs --eval '(notmuch-search \\"tag:unread and tag:inbox\\")'", mode default, bar hidden_state hide
 	bindsym a exec "emacsclient -c -a emacs --eval '(org-agenda nil \\"d\\")'", mode default, bar hidden_state hide
@@ -204,6 +202,7 @@ mode "$emacs" {
 	bindsym $sup+e mode default, bar hidden_state hide
 }
 
+## Useful programs mode
 set $open Open Programs: file [e]xplorer, [f]irefox
 bindsym $sup+o mode "$open", bar hidden_state show
 mode "$open" {
@@ -217,6 +216,7 @@ mode "$open" {
 	bindsym $sup+o mode default, bar hidden_state hide
 }
 
+## Window Layout mode
 set $window Manipulate window layout: s[p]lit, [s]tacking, [t]abbed, [f]loating
 bindsym $sup+w mode "$window", bar hidden_state show
 mode "$window" {
@@ -228,6 +228,23 @@ mode "$window" {
 	bindsym Escape mode default, bar hidden_state hide
 	bindsym $sup+w mode default, bar hidden_state hide
 }
+
+## Shutdown Mode
+set $shutdown Manipulate window layout: [s]hutdown, [r]eboot, [l]ogout, [h]ibernate, sus[p]end, switch [u]ser
+bindsym $sup+Shift+e mode "$shutdown", bar hidden_state show
+mode "$shutdown" {
+	bindsym s exec --no-startup-id systemctl poweroff, mode default, bar hidden_state hide
+	bindsym r exec --no-startup-id systemctl reboot, mode default, bar hidden_state hide
+	bindsym l exec --no-startup-id i3-msg exit, mode default, bar hidden_state hide
+	bindsym h exec --no-startup-id systemctl hibernate, mode default, bar hidden_state hide
+	bindsym p exec --no-startup-id systemctl suspend, mode default, bar hidden_state hide
+	bindsym u exec --no-startup-id dm-tool switch-to-greeter, mode default, bar hidden_state hide
+	bindsym Return mode default, bar hidden_state hide
+	bindsym Escape mode default, bar hidden_state hide
+	bindsym $sup+w mode default, bar hidden_state hide
+}
+
+#bindsym $sup+Shift+l exec --no-startup-id light-locker-command --lock
 
 # Panel
 #
@@ -258,14 +275,17 @@ exec --no-startup-id picom --config /dev/null --experimental-backends --vsync -C
 ## xsettingsd
 exec --no-startup-id xsettingsd
 
+## random wallpaper
+exec --no-startup-id feh --bg-fill --randomize ~/.wallpaper/*
+
 ## bottom dock
 exec --no-startup-id xfce4-panel -d --sm-client-disable
 
 ## KeepassXC
 exec --no-startup-id keepassxc
 
-## light-locker
-exec --no-startup-id light-locker
+## screen locking + power saving logic
+exec --no-startup-id ~/.config/i3/utils/lock-xorg-wayland.sh
 
 ## solaar
 exec --no-startup-id solaar -w hide -b solaar

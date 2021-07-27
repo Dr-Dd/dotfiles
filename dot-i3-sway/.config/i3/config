@@ -161,7 +161,7 @@ bindsym $sup+Shift+r restart
 # Default escape keybinding
 bindsym $sup+Escape mode default
 
-bindsym $sup+r mode "resize", bar hidden_state show
+bindsym $sup+r mode default, mode "resize", bar hidden_state show
 ### resize window (you can also use the mouse for that)
 mode "resize" {
         ## These bindings trigger as soon as you enter the resize mode
@@ -189,7 +189,7 @@ mode "resize" {
 
 ## Emacs mode
 set $emacs Open Emacs: [a]genda, [c]apture, d[e]fault, [l]edger, [m]ail, [r]ss
-bindsym $sup+e mode "$emacs", bar hidden_state show
+bindsym $sup+e mode default, mode "$emacs", bar hidden_state show
 mode "$emacs" {
 	bindsym e exec "emacsclient -c -a emacs", mode default, bar hidden_state hide
 	bindsym c exec "emacsclient -c -a emacs --eval '(org-capture)'", mode default, bar hidden_state hide
@@ -203,14 +203,12 @@ mode "$emacs" {
 }
 
 ## Useful programs mode
-set $open Open Programs: file [e]xplorer, [f]irefox
-bindsym $sup+o mode "$open", bar hidden_state show
+set $open Open Programs: file [e]xplorer, [f]irefox, [c]antata
+bindsym $sup+o mode default, mode "$open", bar hidden_state show
 mode "$open" {
 	bindsym e exec thunar, mode default, bar hidden_state hide
 	bindsym f exec firefox, mode default, bar hidden_state hide
-	bindsym Return mode default, mode default, bar hidden_state hide
-	bindsym Escape mode default, mode default, bar hidden_state hide
-	bindsym $sup+r mode default, mode default, bar hidden_state hide
+	bindsym c exec cantata, mode default, bar hidden_state hide
 	bindsym Return mode default, bar hidden_state hide
 	bindsym Escape mode default, bar hidden_state hide
 	bindsym $sup+o mode default, bar hidden_state hide
@@ -218,7 +216,7 @@ mode "$open" {
 
 ## Window Layout mode
 set $window Manipulate window layout: s[p]lit, [s]tacking, [t]abbed, [f]loating
-bindsym $sup+w mode "$window", bar hidden_state show
+bindsym $sup+w mode default, mode "$window", bar hidden_state show
 mode "$window" {
 	bindsym p layout toggle split, mode default, bar hidden_state hide
 	bindsym s layout toggle stacking, mode default, bar hidden_state hide
@@ -231,7 +229,7 @@ mode "$window" {
 
 ## Shutdown Mode
 set $shutdown Manipulate window layout: [s]hutdown, [r]eboot, [l]ogout, [h]ibernate, sus[p]end, switch [u]ser
-bindsym $sup+Shift+e mode "$shutdown", bar hidden_state show
+bindsym $sup+Shift+e mode default, mode "$shutdown", bar hidden_state show
 mode "$shutdown" {
 	bindsym s exec --no-startup-id systemctl poweroff, mode default, bar hidden_state hide
 	bindsym r exec --no-startup-id systemctl reboot, mode default, bar hidden_state hide
@@ -285,7 +283,7 @@ exec --no-startup-id xfce4-panel -d --sm-client-disable
 exec --no-startup-id keepassxc
 
 ## screen locking + power saving logic
-exec --no-startup-id ~/.config/i3/utils/lock-xorg-wayland.sh
+exec --no-startup-id ~/.config/i3/utils/lock-xorg-wayland.sh >> ~/i3.log 2>&1
 
 ## solaar
 exec --no-startup-id solaar -w hide -b solaar

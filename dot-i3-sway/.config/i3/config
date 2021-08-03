@@ -40,9 +40,11 @@ bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/utils/brightness
 
 ## use Mouse+Super to drag floating windows to their wanted position
 floating_modifier $sup
+bindsym button3 floating toggle
 
 # kill focused window
 bindsym $sup+Shift+q kill
+bindsym --release button2 kill
 
 ## alt tab cycle
 bindsym $sup+Tab focus next

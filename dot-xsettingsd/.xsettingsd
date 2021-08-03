@@ -1,5 +1,5 @@
 Net/IconThemeName "Arc"
-Net/ThemeName "Adapta-Nokto"
+Net/ThemeName "Adapta"
 Net/FallbackIconTheme "Adwaita"
 Net/CursorBlink 1
 Gtk/DecorationLayout ""

@@ -204,18 +204,6 @@ mode "$emacs" {
 	bindsym $sup+e mode default, bar hidden_state hide
 }
 
-## Useful programs mode
-set $open Open Programs: file [e]xplorer, [f]irefox, [c]antata
-bindsym $sup+o mode default, mode "$open", bar hidden_state show
-mode "$open" {
-	bindsym e exec thunar, mode default, bar hidden_state hide
-	bindsym f exec firefox, mode default, bar hidden_state hide
-	bindsym c exec cantata, mode default, bar hidden_state hide
-	bindsym Return mode default, bar hidden_state hide
-	bindsym Escape mode default, bar hidden_state hide
-	bindsym $sup+o mode default, bar hidden_state hide
-}
-
 ## Window Layout mode
 set $window Manipulate window layout: s[p]lit, [s]tacking, [t]abbed, [f]loating
 bindsym $sup+w mode default, mode "$window", bar hidden_state show

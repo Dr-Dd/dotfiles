@@ -218,7 +218,7 @@ mode "$window" {
 }
 
 ## Shutdown Mode
-set $shutdown Manipulate window layout: [s]hutdown, [r]eboot, [l]ogout, [h]ibernate, sus[p]end, switch [u]ser
+set $shutdown Shutdown: [s]hutdown, [r]eboot, [l]ogout, [h]ibernate, sus[p]end, switch [u]ser
 bindsym $sup+Shift+e mode default, mode "$shutdown", bar hidden_state show
 mode "$shutdown" {
 	bindsym s exec --no-startup-id systemctl poweroff, mode default, bar hidden_state hide

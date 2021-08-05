@@ -23,6 +23,10 @@ bindsym $sup+space exec rofi -show combi
 ## Select window a-la helm-mode, keybinding mimics M-x
 bindsym $sup+z exec rofi -show window -location 6
 
+## Screenshot
+#bindsym Print exec scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f /tmp/'
+bindsym --release Print exec scrot -s '%Y-%m-%d_$wx$h.png' -e 'mv $f /tmp/'
+
 ## Use pactl to adjust volume in PulseAudio.
 bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/utils/volume.sh up
 bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/utils/volume.sh down
@@ -40,11 +44,13 @@ bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/utils/brightness
 
 ## use Mouse+Super to drag floating windows to their wanted position
 floating_modifier $sup
-bindsym button3 floating toggle
 
 # kill focused window
 bindsym $sup+Shift+q kill
 bindsym --release button2 kill
+
+# "maximize" window on mouse click
+bindsym --release button3 exec ~/.config/i3/utils/maximize.sh
 
 ## alt tab cycle
 bindsym $sup+Tab focus next
@@ -205,17 +211,7 @@ mode "$emacs" {
 }
 
 ## Window Layout mode
-set $window Manipulate window layout: s[p]lit, [s]tacking, [t]abbed, [f]loating
-bindsym $sup+w mode default, mode "$window", bar hidden_state show
-mode "$window" {
-	bindsym p layout toggle split, mode default, bar hidden_state hide
-	bindsym s layout toggle stacking, mode default, bar hidden_state hide
-	bindsym t layout toggle tabbed, mode default, bar hidden_state hide
-	bindsym f floating toggle, mode default, bar hidden_state hide
-	bindsym Return mode default, bar hidden_state hide
-	bindsym Escape mode default, bar hidden_state hide
-	bindsym $sup+w mode default, bar hidden_state hide
-}
+bindsym $sup+x layout toggle
 
 ## Shutdown Mode
 set $shutdown Shutdown: [s]hutdown, [r]eboot, [l]ogout, [h]ibernate, sus[p]end, switch [u]ser

@@ -5,9 +5,19 @@ get_current_workspace() {
 		| grep -Po '(?<=name":")\w+(?=","visible":true,"focused":true)'
 }
 
+get_lowest_workspace() {
+	i3-msg -t get_workspaces | jq '.[] .name' | grep "[0-9]" | tail -1
+}
+
+get_highest_workspace() {
+	i3-msg -t get_workspaces | jq '.[] .name' | grep "[0-9]" | head -1
+}
+
 get_left_workspace() {
 	curr_ws=$(get_current_workspace)
-	if [[ $curr_ws -gt 1 ]] ; then 
+	if [[ $curr_ws =~ ^[a-zA-Z]+$ ]] ; then
+		echo $(get_lowest_workspace)
+	elif [[ $curr_ws -gt 1 ]] ; then 
 		echo "$((curr_ws-1))"; 
 	else 
 		echo 1 
@@ -16,7 +26,9 @@ get_left_workspace() {
 
 get_right_workspace() {
 	curr_ws=$(get_current_workspace)
-	if [[ $curr_ws -lt 10 ]] ; then 
+	if [[ $curr_ws =~ ^[a-zA-Z]+$ ]] ; then
+		echo $(get_highest_workspace)
+	elif [[ $curr_ws -lt 10 ]] ; then 
 		echo "$((curr_ws+1))"; 
 	else 
 		echo 10 

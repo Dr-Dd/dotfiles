@@ -123,6 +123,7 @@ bindsym $sup+7 workspace number $ws7
 bindsym $sup+8 workspace number $ws8
 bindsym $sup+9 workspace number $ws9
 bindsym $sup+0 workspace number $ws10
+bindsym $sup+m workspace m
 
 ## step to workspace +/- 1
 bindsym $sup+Ctrl+Left exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -l
@@ -137,6 +138,9 @@ bindsym $sup+Ctrl+Shift+Right exec --no-startup-id ~/.config/i3/utils/workspace-
 ## evil bindings
 bindsym $sup+Ctrl+Shift+h exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -ml
 bindsym $sup+Ctrl+Shift+l exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -mr
+## mouse side buttons (9 = forward, 8 = backward)
+bindsym button8 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -ml
+bindsym button9 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -mr
 
 ## move to first active workspace
 # ALL i3wm KEYBINDINGS SHOULD USE $sup

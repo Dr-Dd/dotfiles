@@ -93,3 +93,4 @@
 +spam -inbox -unread -- from:receipt@chess.com
 +spam -inbox -unread -- from:services06@aliexpress.com
 +spam -inbox -unread -- from:events@netlify.com
++spam -inbox -unread -- from:hello@massappeal.com

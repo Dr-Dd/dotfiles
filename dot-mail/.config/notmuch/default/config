@@ -9,7 +9,7 @@ path=.mail
 synchronize_flags=true
 
 [new]
-ignore=
+ignore=.uidvalidity
 tags=unread;inbox;
 
 [search]

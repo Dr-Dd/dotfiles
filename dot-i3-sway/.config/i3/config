@@ -13,6 +13,7 @@ font pango:Terminus Bold 12
 # Keybindings
 ## Set Super modifier variable
 set $sup Mod4
+set $alt Mod1
 
 ## Open terminal
 bindsym $sup+Return exec $TERM
@@ -48,6 +49,7 @@ floating_modifier $sup
 # kill focused window
 bindsym $sup+Shift+q kill
 bindsym --release button2 kill
+bindsym $alt+F4 kill
 
 # "maximize" window on mouse click
 bindsym --release button3 exec ~/.config/i3/utils/maximize.sh
@@ -123,7 +125,7 @@ bindsym $sup+7 workspace number $ws7
 bindsym $sup+8 workspace number $ws8
 bindsym $sup+9 workspace number $ws9
 bindsym $sup+0 workspace number $ws10
-bindsym $sup+m workspace m
+bindsym $sup+m workspace M
 
 ## step to workspace +/- 1
 bindsym $sup+Ctrl+Left exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -l

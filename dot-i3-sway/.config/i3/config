@@ -163,6 +163,7 @@ bindsym $sup+Shift+7 move container to workspace number $ws7, workspace $ws7
 bindsym $sup+Shift+8 move container to workspace number $ws8, workspace $ws8
 bindsym $sup+Shift+9 move container to workspace number $ws9, workspace $ws9
 bindsym $sup+Shift+0 move container to workspace number $ws10, workspace $ws10
+bindsym $sup+Shift+m move container to workspace M, workspace M
 
 ## move window to workspace left/right
 

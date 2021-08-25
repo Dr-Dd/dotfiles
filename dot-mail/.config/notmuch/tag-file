@@ -94,3 +94,8 @@
 +spam -inbox -unread -- from:services06@aliexpress.com
 +spam -inbox -unread -- from:events@netlify.com
 +spam -inbox -unread -- from:hello@massappeal.com
++spam -inbox -unread -- from:laserboost.info@gmail.com
++spam -inbox -unread -- from:test@baoviet.com.vn
++spam -inbox -unread -- from:adidas@it-news.adidas.com
++spam -inbox -unread -- from:info@news.runtastic.com
++spam -inbox -unread -- from:cartafreccia@info.trenitalia.it

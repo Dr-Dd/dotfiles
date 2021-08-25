@@ -26,7 +26,8 @@ bindsym $sup+z exec rofi -show window -location 6
 
 ## Screenshot
 #bindsym Print exec scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f /tmp/'
-bindsym --release Print exec scrot -s '%Y-%m-%d_$wx$h.png' -e 'mv $f /tmp/'
+bindsym --release $alt+Print exec scrot --select '%Y-%m-%d_$wx$h.png' -e 'mv $f /tmp/'
+bindsym --release Print exec scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f /tmp/'
 
 ## Use pactl to adjust volume in PulseAudio.
 bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/utils/volume.sh up
@@ -45,6 +46,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/utils/brightness
 
 ## use Mouse+Super to drag floating windows to their wanted position
 floating_modifier $sup
+bindsym --release $sup+button2 floating toggle
 
 # kill focused window
 bindsym $sup+Shift+q kill

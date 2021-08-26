@@ -99,3 +99,4 @@
 +spam -inbox -unread -- from:adidas@it-news.adidas.com
 +spam -inbox -unread -- from:info@news.runtastic.com
 +spam -inbox -unread -- from:cartafreccia@info.trenitalia.it
++spam -inbox -unread -- from:no-reply@fantacalcio.it

@@ -129,6 +129,7 @@ bindsym $sup+9 workspace number $ws9
 bindsym $sup+0 workspace number $ws10
 bindsym $sup+m workspace M
 
+
 ## step to workspace +/- 1
 bindsym $sup+Ctrl+Left exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -l
 bindsym $sup+Ctrl+Right exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -r
@@ -154,7 +155,20 @@ bindsym button9 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -mr
 #bindsym Ctrl+Shift+h workspace prev
 #bindsym Ctrl+Shift+l workspace next
 
-## move focused container to workspace
+## move window to workspace
+bindsym $sup+Ctrl+Shift+1 move container to workspace number $ws1
+bindsym $sup+Ctrl+Shift+2 move container to workspace number $ws2
+bindsym $sup+Ctrl+Shift+3 move container to workspace number $ws3
+bindsym $sup+Ctrl+Shift+4 move container to workspace number $ws4
+bindsym $sup+Ctrl+Shift+5 move container to workspace number $ws5
+bindsym $sup+Ctrl+Shift+6 move container to workspace number $ws6
+bindsym $sup+Ctrl+Shift+7 move container to workspace number $ws7
+bindsym $sup+Ctrl+Shift+8 move container to workspace number $ws8
+bindsym $sup+Ctrl+Shift+9 move container to workspace number $ws9
+bindsym $sup+Ctrl+Shift+0 move container to workspace number $ws10
+bindsym $sup+Ctrl+Shift+m move container to workspace M
+
+## move focused container to workspace and follow
 bindsym $sup+Shift+1 move container to workspace number $ws1, workspace $ws1
 bindsym $sup+Shift+2 move container to workspace number $ws2, workspace $ws2
 bindsym $sup+Shift+3 move container to workspace number $ws3, workspace $ws3

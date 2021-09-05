@@ -25,6 +25,9 @@ export TERMINAL="/usr/bin/alacritty"
 export VISUAL="/usr/bin/vim"
 export EDITOR="/usr/bin/vim"
 export QT_STYLE_OVERRIDE="kvantum"
+export GTK_IM_MODULE="fcitx"
+export QT_IM_MODULE="fcitx"
+export XMODIFIERS="@im=fcitx"
 
 # Start ssh-agent session wide
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
@@ -33,3 +36,4 @@ fi
 if [[ ! "$SSH_AUTH_SOCK" ]]; then
 	    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
 fi
+

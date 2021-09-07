@@ -101,3 +101,4 @@
 +spam -inbox -unread -- from:cartafreccia@info.trenitalia.it
 +spam -inbox -unread -- from:no-reply@fantacalcio.it
 +spam -inbox -unread -- from:starkrxvte76@gmail.com
++spam -inbox -unread -- from:uber@uber.com

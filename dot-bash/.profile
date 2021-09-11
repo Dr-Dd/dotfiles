@@ -28,6 +28,7 @@ export QT_STYLE_OVERRIDE="kvantum"
 export GTK_IM_MODULE="fcitx"
 export QT_IM_MODULE="fcitx"
 export XMODIFIERS="@im=fcitx"
+export DICPATH="/usr/share/hunspell"
 
 # Start ssh-agent session wide
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then

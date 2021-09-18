@@ -297,7 +297,7 @@ exec --no-startup-id keepassxc
 ## screen locking + power saving logic
 exec --no-startup-id ~/.config/i3/utils/lock-xorg-wayland.sh >> ~/i3.log 2>&1
 
-exec --no-startup-id ~/.config/i3/utils/bat-percent-actions.sh --interval '5m' --battery-action '<=20,dunstify -u normal "WARNING" "Battery level below 20%"' --battery-action '<=15,dunstify -u critical "WARNING" "Battery level below 15%\nHibernation imminent"' --battery-action '<=10,systemctl hibernate'  --ac-action '>=87,dunstify -u low "WARNING" "Battery charge over 87%\nYou can safely remove the ac adapter"'
+exec --no-startup-id ~/.config/i3/utils/bat-percent-actions.sh --interval '5m' --battery-action '<=20,dunstify -u normal -t 0 "WARNING" "Battery level below 20%"' --battery-action '<=15,dunstify -u critical -t 0 "WARNING" "Battery level below 15%\nHibernation imminent"' --battery-action '<=10,systemctl hibernate'  --ac-action '>=87,dunstify -u low -t 0 "WARNING" "Battery charge over 87%\nYou can safely remove the ac adapter"'
 
 ## solaar
 exec --no-startup-id solaar -w hide -b solaar

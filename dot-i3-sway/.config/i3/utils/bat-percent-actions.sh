@@ -2,7 +2,7 @@
 
 # TODO: remove repeated code snippets.
 #	right now i didn't since creating a function that accepts a map as
-#	argument in bash is terribly unclean, so unclean that it's more 
+#	argument in bash is terribly unclean, so unclean that it's more
 #	easily readable to have long portions of code repeated.
 
 # AKA Suicide
@@ -14,8 +14,7 @@ self_kill() {
 # Initialize vars
 _percent=
 _comparator=
-_battery_action=
-_ac_action=
+_action=
 declare -A _battery_action_map
 declare -A _ac_action_map
 _interval=
@@ -23,21 +22,53 @@ _suffix=
 _prefix=
 _curr_perc=
 
+# $1 -> action string
+action_str_to_vars () {
+	_percent="${1%%,*}"
+	if [ -z "$_percent" ] ; then
+		self_kill "ERROR: Invalid percentage provided."
+	fi
+	_action="${1#*,}"
+	if [ -z "$_action" ] ; then
+		self_kill "ERROR: Invalid action provided."
+	fi
+}
+
+# $1 -> percentage with comparator
+# $2 -> action
+# $3 -> current percentage
+exec_action() {
+	# Strip correct stuff
+	_percent=`echo $1 | grep -Eo "[[:digit:]]*"`
+	if [ -z "$_percent" ] ; then
+		self_kill "ERROR: missing percentage"
+	fi
+	_comparator=`echo $1 | grep -Eo "(>|>=|<|<=|=)"`
+	if [ -z "$_comparator" ] ; then
+		self_kill "ERROR: missing comparator operator"
+	fi
+	# Run comparator command
+	if [ "$_comparator" = ">" ] && [ "$3" -gt "$_percent" ] ; then
+		sh -c "$2"
+	elif [ "$_comparator" = ">=" ] && [ "$3" -ge "$_percent" ] ; then
+		sh -c "$2"
+	elif [ "$_comparator" = "<" ] && [ "$3" -lt "$_percent" ] ; then
+		sh -c "$2"
+	elif [ "$_comparator" = "<=" ] && [ "$3" -le "$_percent" ] ; then
+		sh -c "$2"
+	elif [ "$_comparator" = "=" ] && [ "$3" -eq "$_percent" ] ; then
+		sh -c "$2"
+	fi
+}
+
 # Parse opts
 while :
 do
 	case $1 in
 		-ba|--battery-action)
 			if [ "$2" ] ; then
-				_percent="${2%%,*}"
-				if [ -z "$_percent" ] ; then
-					self_kill "ERROR: Invalid percentage provided."
-				fi
-				_battery_action="${2#*,}"
-				if [ -z "$_battery_action" ] ; then
-					self_kill "ERROR: Invalid action provided."
-				fi
-				_battery_action_map[$_percent]="$_battery_action"
+				action_str_to_vars "$2"
+				_battery_action_map[$_percent]="$_action"
 				shift
 			else
 				self_kill 'ERROR: invalid "--battery-action" provided.'
@@ -45,15 +76,8 @@ do
 			;;
 		-ac|--ac-action)
 			if [ "$2" ] ; then
-				_percent="${2%%,*}"
-				if [ -z "$_percent" ] ; then
-					self_kill "ERROR: Invalid percentage provided."
-				fi
-				_ac_action="${2#*,}"
-				if [ -z "$_ac_action" ] ; then
-					self_kill "ERROR: Invalid action provided."
-				fi
-				_ac_action_map[$_percent]="$_ac_action"
+				action_str_to_vars "$2"
+				_ac_action_map[$_percent]="$_action"
 				shift
 			else
 				self_kill 'ERROR: invalid "--ac-action" provided.'
@@ -90,60 +114,24 @@ if [ -z "$_interval" ]; then
 fi
 
 # Main loop
-while : 
+while :
 do
 	# Refresh bat percentage
-	_curr_perc=`upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep percentage | grep -Eo "[[:digit:]]{,3}"`
-	_ac_state=`upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep state | grep -Eo "(charging|discharging)"`
+	_curr_perc=`upower -i /org/freedesktop/UPower/devices/battery_BAT0 \
+		| grep percentage \
+		| grep -Eo "[[:digit:]]{,3}"`
+	_ac_state=`upower -i /org/freedesktop/UPower/devices/battery_BAT0 \
+		| grep state \
+		| grep -Eo "(charging|discharging)"`
 	if [ "$_ac_state" = "charging" ] ; then
 		for i in "${!_ac_action_map[@]}"
 		do
-			# Strip correct stuff
-			_percent=`echo $i | grep -Eo "[[:digit:]]*"`
-			if [ -z "$_percent" ] ; then
-				self_kill "ERROR: missing percentage"
-			fi
-			_comparator=`echo $i | grep -Eo "(>|>=|<|<=|=)"`
-			if [ -z "$_comparator" ] ; then
-				self_kill "ERROR: missing comparator operator"
-			fi
-			# Run comparator command	
-			if [ "$_comparator" = ">" ] && [ "$_curr_perc" -gt "$_percent" ] ; then
-				sh -c "${_ac_action_map[$i]}"
-			elif [ "$_comparator" = ">=" ] && [ "$_curr_perc" -ge "$_percent" ] ; then
-				sh -c "${_ac_action_map[$i]}"
-			elif [ "$_comparator" = "<" ] && [ "$_curr_perc" -lt "$_percent" ] ; then
-				sh -c "${_ac_action_map[$i]}"
-			elif [ "$_comparator" = "<=" ] && [ "$_curr_perc" -le "$_percent" ] ; then
-				sh -c "${_ac_action_map[$i]}"
-			elif [ "$_comparator" = "=" ] && [ "$_curr_perc" -eq "$_percent" ] ; then
-				sh -c "${_ac_action_map[$i]}"
-			fi
+			exec_action "$i" "${_ac_action_map[$i]}" "$_curr_perc"
 		done
 	elif [ "$_ac_state" = "discharging" ] ; then
 		for i in "${!_battery_action_map[@]}"
 		do
-			# Strip correct stuff
-			_percent=`echo $i | grep -Eo "[[:digit:]]*"`
-			if [ -z "$_percent" ] ; then
-				self_kill "ERROR: missing percentage"
-			fi
-			_comparator=`echo $i | grep -Eo "(>|>=|<|<=|=)"`
-			if [ -z "$_comparator" ] ; then
-				self_kill "ERROR: missing comparator operator"
-			fi
-			# Run comparator command	
-			if [ "$_comparator" = ">" ] && [ "$_curr_perc" -gt "$_percent" ] ; then
-				sh -c "${_battery_action_map[$i]}"
-			elif [ "$_comparator" = ">=" ] && [ "$_curr_perc" -ge "$_percent" ] ; then
-				sh -c "${_battery_action_map[$i]}"
-			elif [ "$_comparator" = "<" ] && [ "$_curr_perc" -lt "$_percent" ] ; then
-				sh -c "${_battery_action_map[$i]}"
-			elif [ "$_comparator" = "<=" ] && [ "$_curr_perc" -le "$_percent" ] ; then
-				sh -c "${_battery_action_map[$i]}"
-			elif [ "$_comparator" = "=" ] && [ "$_curr_perc" -eq "$_percent" ] ; then
-				sh -c "${_battery_action_map[$i]}"
-			fi
+			exec_action "$i" "${_battery_action_map[$i]}" "$_curr_perc"
 		done
 	fi
 	sleep "$_interval"

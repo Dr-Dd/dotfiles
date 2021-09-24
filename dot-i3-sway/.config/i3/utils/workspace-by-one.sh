@@ -6,32 +6,32 @@ get_current_workspace() {
 }
 
 get_lowest_workspace() {
-	i3-msg -t get_workspaces | jq '.[] .name' | grep "[0-9]" | tail -1
+	i3-msg -t get_workspaces | jq '.[] .name' | grep "^\"[0-9]\"$" | head -1
 }
 
 get_highest_workspace() {
-	i3-msg -t get_workspaces | jq '.[] .name' | grep "[0-9]" | head -1
-}
-
-get_left_workspace() {
-	curr_ws=$(get_current_workspace)
-	if [[ $curr_ws =~ ^[a-zA-Z]+$ ]] ; then
-		echo $(get_lowest_workspace)
-	elif [[ $curr_ws -gt 1 ]] ; then 
-		echo "$((curr_ws-1))"; 
-	else 
-		echo 1 
-	fi 
+	i3-msg -t get_workspaces | jq '.[] .name' | grep "^\"[0-9]\"$" | tail -1
 }
 
 get_right_workspace() {
 	curr_ws=$(get_current_workspace)
-	if [[ $curr_ws =~ ^[a-zA-Z]+$ ]] ; then
-		echo $(get_highest_workspace)
+	if [[ $curr_ws =~ ^[a-zA-Z]+ ]] ; then
+		echo $(get_lowest_workspace)
 	elif [[ $curr_ws -lt 10 ]] ; then 
 		echo "$((curr_ws+1))"; 
 	else 
 		echo 10 
+	fi 
+}
+
+get_left_workspace() {
+	curr_ws=$(get_current_workspace)
+	if [[ $curr_ws =~ ^[a-zA-Z]+ ]] ; then
+		echo $(get_highest_workspace)
+	elif [[ $curr_ws -gt 1 ]] ; then 
+		echo "$((curr_ws-1))"; 
+	else 
+		echo 1 
 	fi 
 }
 

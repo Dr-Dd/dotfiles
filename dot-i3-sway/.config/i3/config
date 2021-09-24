@@ -127,7 +127,6 @@ bindsym $sup+7 workspace number $ws7
 bindsym $sup+8 workspace number $ws8
 bindsym $sup+9 workspace number $ws9
 bindsym $sup+0 workspace number $ws10
-bindsym $sup+m workspace M
 
 
 ## step to workspace +/- 1
@@ -179,7 +178,27 @@ bindsym $sup+Shift+7 move container to workspace number $ws7, workspace $ws7
 bindsym $sup+Shift+8 move container to workspace number $ws8, workspace $ws8
 bindsym $sup+Shift+9 move container to workspace number $ws9, workspace $ws9
 bindsym $sup+Shift+0 move container to workspace number $ws10, workspace $ws10
-bindsym $sup+Shift+m move container to workspace M, workspace M
+
+bindsym $sup+Shift+m exec ~/.config/i3/utils/maximize.sh
+set $go_to_maximize go to maximize: M[1-10]
+bindsym $sup+m mode default, mode "$go_to_maximize"
+mode "$go_to_maximize" {
+	bindsym "1" workspace "M1", mode default
+	bindsym "2" workspace "M2", mode default
+	bindsym "3" workspace "M3", mode default
+	bindsym "4" workspace "M4", mode default
+	bindsym "5" workspace "M5", mode default
+	bindsym "6" workspace "M6", mode default
+	bindsym "7" workspace "M7", mode default
+	bindsym "8" workspace "M8", mode default
+	bindsym "9" workspace "M9", mode default
+	bindsym "0" workspace "M10", mode default
+
+        ## back to normal: Enter or Escape or $sup+r
+        bindsym Return mode "default", bar hidden_state hide
+        bindsym Escape mode "default", bar hidden_state hide
+        bindsym $sup+r mode "default", bar hidden_state hide
+}
 
 ## move window to workspace left/right
 
@@ -297,7 +316,7 @@ exec --no-startup-id keepassxc
 ## screen locking + power saving logic
 exec --no-startup-id ~/.config/i3/utils/lock-xorg-wayland.sh >> ~/i3.log 2>&1
 
-exec --no-startup-id ~/.config/i3/utils/bat-percent-actions.sh --interval '5m' --battery-action '<=20,dunstify -u normal -t 0 "WARNING" "Battery level below 20%"' --battery-action '<=15,dunstify -u critical -t 0 "WARNING" "Battery level below 15%\nHibernation imminent"' --battery-action '<=10,systemctl hibernate'  --ac-action '>=87,dunstify -u low -t 0 "WARNING" "Battery charge over 87%\nYou can safely remove the ac adapter"'
+exec --no-startup-id ~/.config/i3/utils/bat-percent-actions.sh --interval '5m' --battery-action '<=20,dunstify -u normal -t 0 -b "WARNING" "Battery level below 20%"' --battery-action '<=15,dunstify -u critical -t 0 -b "WARNING" "Battery level below 15%\nHibernation imminent"' --battery-action '<=10,systemctl hibernate'  --ac-action '>=87,dunstify -u low -t 0 -b "WARNING" "Battery charge over 87%\nYou can safely remove the ac adapter"'
 
 ## solaar
 exec --no-startup-id solaar -w hide -b solaar

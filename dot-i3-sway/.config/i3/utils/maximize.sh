@@ -2,11 +2,18 @@
 
 get_current_workspace() {
 	i3-msg -t get_workspaces \
-		| grep -Po '(?<=name":")\w+(?=","visible":true,"focused":true)'
+		| grep --perl-regexp --only-matching \
+		'(?<=name":")\w+(?=","visible":true,"focused":true)'
 }
 
-if [[ $(get_current_workspace) = "M" ]] ; then
-	i3-msg move window to workspace back_and_forth, workspace back_and_forth
+_ws_num=`echo $(get_current_workspace) | grep -Eo '[[:digit:]]+'`
+_ws_max=`echo $(get_current_workspace) | grep -Eo 'M'`
+
+if [ -z "$_ws_max" ] ; then
+	_ws_dest="M${_ws_num}"
 else
-	i3-msg move window to workspace "M", workspace "M"
+	_ws_dest="$_ws_num"
 fi
+
+i3-msg move window to workspace "$_ws_dest", workspace "$_ws_dest"
+

@@ -46,7 +46,8 @@ bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/utils/brightness
 
 ## use Mouse+Super to drag floating windows to their wanted position
 floating_modifier $sup
-bindsym --release $sup+button2 floating toggle
+bindsym --release button1 floating toggle
+bindsym $sup+Shift+space floating toggle
 
 # kill focused window
 bindsym $sup+Shift+q kill
@@ -127,7 +128,6 @@ bindsym $sup+7 workspace number $ws7
 bindsym $sup+8 workspace number $ws8
 bindsym $sup+9 workspace number $ws9
 bindsym $sup+0 workspace number $ws10
-
 
 ## step to workspace +/- 1
 bindsym $sup+Ctrl+Left exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -l
@@ -332,4 +332,3 @@ exec --no-startup-id optimus-manager-qt
 
 ## NetworkManager
 exec --no-startup-id nm-applet
-

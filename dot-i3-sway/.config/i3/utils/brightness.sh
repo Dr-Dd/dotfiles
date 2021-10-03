@@ -8,7 +8,7 @@ function get_brightness {
 
 function brightness_notification {
 	brightness=`get_brightness`
-	dunstify -i "null" -r 1337 -t 1000 "Brightness: $brightness%" 
+	dunstify -i "sunny" -t 1000 -h string:x-dunst-stack-tag:brightness -h int:value:$brightness "Brightness:" 
 }
 
 case $1 in

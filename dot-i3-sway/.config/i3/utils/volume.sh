@@ -16,7 +16,7 @@ function is_mute {
 function send_notification {
 	volume=`get_volume`
 	# Send the notification
-	dunstify -i null -r 1337 -t 1000 "Volume: $volume%"
+	dunstify -i stock_volume -t 1000 -h string:x-dunst-stack-tag:volume -h int:value:$volume "Volume:"
 }
 
 case $1 in
@@ -36,7 +36,7 @@ case $1 in
 		# Toggle mute
 		amixer -D pulse set Master 1+ toggle > /dev/null
 		if is_mute ; then
-			dunstify -i "null" -r 1337 "Volume: muted"
+			dunstify -i "audio-volume-muted" -h string:x-dunst-stack-tag:volume "Volume: muted"
 		else
 			send_notification
 		fi

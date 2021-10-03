@@ -1,3 +1,11 @@
 #!/bin/bash
 
+# Hide spam
 notmuch tag --batch --input=$HOME/.config/notmuch/tag-file
+
+# Notify for new messages
+_new_msgs=`notmuch search tag:unread and tag:inbox`
+
+if [ ! -z "$_new_msgs" ] ; then
+	dunstify -i mail-unread -u normal -t 0 -h string:x-dunst-stack-tag:mail "MAILBOX" "New Mail has arrived"
+fi

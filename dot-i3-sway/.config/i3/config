@@ -10,6 +10,9 @@ font pango:Terminus Bold 12
 #font pango:monospace 8
 #font pango:DejaVu Sans Mono 8
 
+# Force client side decorations even for gtk3 windows
+for_window [class=.*] border normal 1
+
 # Keybindings
 ## Set Super modifier variable
 set $sup Mod4
@@ -25,9 +28,8 @@ bindsym $sup+space exec rofi -show combi
 bindsym $sup+z exec rofi -show window -location 6
 
 ## Screenshot
-#bindsym Print exec scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f /tmp/'
-bindsym --release $alt+Print exec scrot --select '%Y-%m-%d_$wx$h.png' -e 'mv $f /tmp/'
-bindsym --release Print exec scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f /tmp/'
+bindsym --release $sup+Print exec dunstify -i /dev/null -t 3000 Scrot "Screenshot mode activated" && scrot --select '%Y-%m-%d_$wx$h.png' -e 'mv $f /tmp/'
+bindsym --release Print exec scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f /tmp/' && dunstify -i /dev/null -t 3000 Scrot 'Screenshot taken'
 
 ## Use pactl to adjust volume in PulseAudio.
 bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/utils/volume.sh up
@@ -56,6 +58,9 @@ bindsym $alt+F4 kill
 
 # "maximize" window on mouse click
 bindsym --release button3 exec ~/.config/i3/utils/maximize.sh
+
+# interact with dunst notifications
+bindsym Ctrl+Shift+space exec --no-startup-id dunstctl context
 
 ## alt tab cycle
 bindsym $sup+Tab focus next
@@ -145,6 +150,10 @@ bindsym $sup+Ctrl+Shift+l exec --no-startup-id ~/.config/i3/utils/workspace-by-o
 ## mouse side buttons (9 = forward, 8 = backward)
 bindsym button8 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -ml
 bindsym button9 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -mr
+## mousescroll 
+bindsym button5 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -l
+bindsym button4 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -r
+
 
 ## move to first active workspace
 # ALL i3wm KEYBINDINGS SHOULD USE $sup
@@ -316,7 +325,7 @@ exec --no-startup-id keepassxc
 ## screen locking + power saving logic
 exec --no-startup-id ~/.config/i3/utils/lock-xorg-wayland.sh >> ~/i3.log 2>&1
 
-exec --no-startup-id ~/.config/i3/utils/bat-percent-actions.sh --interval '5m' --battery-action '<=20,dunstify -u normal -t 0 -h string:x-dunst-stack-tag:power "WARNING" "Battery level below 20%"' --battery-action '<=15,dunstify -u critical -t 0 -h string:x-dunst-stack-tag:power "WARNING" "Battery level below 15%\nHibernation imminent"' --battery-action '<=10,systemctl hibernate'  --ac-action '>=87,dunstify -u low -t 0 -h string:x-dunst-stack-tag:power "WARNING" "Battery charge over 87%\nYou can safely remove the ac adapter"'
+exec --no-startup-id ~/.config/i3/utils/bat-percent-actions.sh --interval '5m' --battery-action '<=20,dunstify -i battery-low -u normal -t 0 -h string:x-dunst-stack-tag:power "WARNING" "Battery level below 20%"' --battery-action '<=15,dunstify -i battery-empty -u critical -t 0 -h string:x-dunst-stack-tag:power "WARNING" "Battery level below 15%\nHibernation imminent"' --battery-action '<=10,systemctl hibernate'  --ac-action '>=87,dunstify -i battery-full -u low -t 0 -h string:x-dunst-stack-tag:power "WARNING" "Battery charge over 87%\nYou can safely remove the ac adapter"'
 
 ## solaar
 exec --no-startup-id solaar -w hide -b solaar
@@ -332,3 +341,6 @@ exec --no-startup-id optimus-manager-qt
 
 ## NetworkManager
 exec --no-startup-id nm-applet
+
+## Graphical syncthing daemon
+exec --no-startup-id syncthing-gtk

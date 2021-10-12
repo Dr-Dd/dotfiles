@@ -17,7 +17,11 @@ case $1 in
 		brightness_notification
 		;;
 	down)
-		light -U 5
+		if [ $(get_brightness) -le 5 ] ; then
+			light -S 1
+		else
+			light -U 5
+		fi
 		brightness_notification
 		;;
 	*)

@@ -7,5 +7,5 @@ notmuch tag --batch --input=$HOME/.config/notmuch/tag-file
 _new_msgs=`notmuch search tag:unread and tag:inbox`
 
 if [ ! -z "$_new_msgs" ] ; then
-	dunstify -i mail-unread -u normal -t 0 -h string:x-dunst-stack-tag:mail "MAILBOX" "New Mail has arrived"
+	notify-send -i mail-unread -u normal -t 0 -h string:x-dunst-stack-tag:mail "MAILBOX" "New Mail has arrived"
 fi

@@ -86,7 +86,7 @@
 
     ### Text ###
 
-    font = Terminus Bold 15
+    font = Hack Regular 15
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
@@ -289,28 +289,35 @@
     # Context menu.
     context = ctrl+shift+period
 
+Lighthaus Color theme for Dunst
+# GIT: https://github.com/lighthaus-theme/dunst
+# Author: Adhiraj Sirohi (https://github.com/brutuski)
+#         Vasundhara Sharma (https://github.com/vasundhasauras)
+
+# Copyright © 2020-Present Lighthaus Theme
+# Copyright © 2020-Present Adhiraj Sirohi
+# Copyright © 2020-Present Vasundhara Sharma
+
+
 [urgency_low]
-    # IMPORTANT: colors have to be defined in quotation marks.
-    # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#000000"
-    foreground = "#FFFFFF"
-    timeout = 10
-    # Icon for notifications with low urgency, uncomment to enable
-    #icon = /path/to/icon
+# IMPORTANT: colors have to be defined in quotation marks.
+# Otherwise the "#" and following would be interpreted as a comment.
+frame_color = "#1D918B"
+foreground = "#FFEE79"
+background = "#18191E"
+timeout = 5
 
 [urgency_normal]
-    background = "#000000"
-    foreground = "#FFFFFF"
-    timeout = 10
-    # Icon for notifications with normal urgency, uncomment to enable
-    #icon = /path/to/icon
+frame_color = "#D16BB7"
+foreground = "#FFEE79"
+background = "#18191E"
+timeout = 10
 
 [urgency_critical]
-    background = "#ff5555"
-    foreground = "#f8f8f2"
-    timeout = 0
-    # Icon for notifications with critical urgency, uncomment to enable
-    #icon = /path/to/icon
+frame_color = "#FC2929"
+foreground = "#FFFF00"
+background = "#18191E"
+timeout = 10
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.

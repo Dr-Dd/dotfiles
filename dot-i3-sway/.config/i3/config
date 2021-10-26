@@ -1,5 +1,16 @@
 # i3 config file (v4)
 
+# Configured because it is used as a nagbar
+bar {
+    mode hide # Enables ability to control hidden_state
+    modifier off # Disable popup with $sup
+
+    position top
+    workspace_buttons no # Disable workspace buttons
+    tray_output none # Disable tray output
+    font pango:Terminus Bold 12 # Nice font
+}
+
 # Click to focus instead on hover
 focus_follows_mouse no
 
@@ -28,8 +39,8 @@ bindsym $sup+space exec rofi -show combi
 bindsym $sup+z exec rofi -show window -location 6
 
 ## Screenshot
-bindsym --release $sup+Print exec dunstify -i /dev/null -t 3000 Scrot "Screenshot mode activated" && scrot --select '%Y-%m-%d_$wx$h.png' -e 'mv $f /tmp/'
-bindsym --release Print exec scrot '%Y-%m-%d_$wx$h.png' -e 'mv $f /tmp/' && dunstify -i /dev/null -t 3000 Scrot 'Screenshot taken'
+bindsym --release $sup+Print exec notify-send -i /dev/null -t 3000 Scrot "Screenshot mode activated" && scrot --select '%Y-%m-%d_%Hh.%Mm.%Ss_$wx$h.png' -e 'mv $f /tmp/'
+bindsym --release Print exec scrot '%Y-%m-%d_%Hh.%Mm.%Ss_$wx$h.png' -e 'mv $f /tmp/' && notify-send -i /dev/null -t 3000 Scrot 'Screenshot taken'
 
 ## Use pactl to adjust volume in PulseAudio.
 bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/utils/volume.sh up
@@ -65,6 +76,7 @@ bindsym Ctrl+Shift+space exec --no-startup-id dunstctl context
 ## alt tab cycle
 bindsym $sup+Tab focus next
 bindsym $sup+Shift+Tab focus prev
+
 
 ## change focus
 bindsym $sup+h focus left
@@ -151,8 +163,8 @@ bindsym $sup+Ctrl+Shift+l exec --no-startup-id ~/.config/i3/utils/workspace-by-o
 bindsym button8 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -ml
 bindsym button9 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -mr
 ## mousescroll 
-bindsym button5 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -l
-bindsym button4 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -r
+bindsym button4 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -l
+bindsym button5 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -r
 
 
 ## move to first active workspace
@@ -190,23 +202,23 @@ bindsym $sup+Shift+0 move container to workspace number $ws10, workspace $ws10
 
 bindsym $sup+Shift+m exec ~/.config/i3/utils/maximize.sh
 set $go_to_maximize go to maximize: M[1-10]
-bindsym $sup+m mode default, mode "$go_to_maximize"
+bindsym $sup+m mode "$go_to_maximize"
 mode "$go_to_maximize" {
-	bindsym "1" workspace "M1", mode default
-	bindsym "2" workspace "M2", mode default
-	bindsym "3" workspace "M3", mode default
-	bindsym "4" workspace "M4", mode default
-	bindsym "5" workspace "M5", mode default
-	bindsym "6" workspace "M6", mode default
-	bindsym "7" workspace "M7", mode default
-	bindsym "8" workspace "M8", mode default
-	bindsym "9" workspace "M9", mode default
-	bindsym "0" workspace "M10", mode default
+	bindsym "1" workspace "M1", mode "default"
+	bindsym "2" workspace "M2", mode "default"
+	bindsym "3" workspace "M3", mode "default"
+	bindsym "4" workspace "M4", mode "default"
+	bindsym "5" workspace "M5", mode "default"
+	bindsym "6" workspace "M6", mode "default"
+	bindsym "7" workspace "M7", mode "default"
+	bindsym "8" workspace "M8", mode "default"
+	bindsym "9" workspace "M9", mode "default"
+	bindsym "0" workspace "M10", mode "default"
 
         ## back to normal: Enter or Escape or $sup+r
-        bindsym Return mode "default", bar hidden_state hide
-        bindsym Escape mode "default", bar hidden_state hide
-        bindsym $sup+r mode "default", bar hidden_state hide
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $sup+r mode "default"
 }
 
 ## move window to workspace left/right
@@ -216,11 +228,8 @@ bindsym $sup+Shift+c reload
 ## restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $sup+Shift+r restart
 
-## Modes
-# Default escape keybinding
-bindsym $sup+Escape mode default
-
-bindsym $sup+r mode default, mode "resize", bar hidden_state show
+set $resize Resize: use motion keys to resize
+bindsym $sup+r mode "$resize"
 ### resize window (you can also use the mouse for that)
 mode "resize" {
         ## These bindings trigger as soon as you enter the resize mode
@@ -241,24 +250,25 @@ mode "resize" {
         bindsym Right       resize grow width 10 px or 10 ppt
 
         ## back to normal: Enter or Escape or $sup+r
-        bindsym Return mode "default", bar hidden_state hide
-        bindsym Escape mode "default", bar hidden_state hide
-        bindsym $sup+r mode "default", bar hidden_state hide
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $sup+r mode "default"
 }
 
 ## Emacs mode
 set $emacs Open Emacs: [a]genda, [c]apture, d[e]fault, [l]edger, [m]ail, [r]ss
-bindsym $sup+e mode default, mode "$emacs", bar hidden_state show
+bindsym $sup+e mode "$emacs"
 mode "$emacs" {
-	bindsym e exec "emacsclient -c -a emacs", mode default, bar hidden_state hide
-	bindsym c exec "emacsclient -c -a emacs --eval '(org-capture)'", mode default, bar hidden_state hide
-	bindsym m exec "emacsclient -c -a emacs --eval '(notmuch-search \\"tag:unread and tag:inbox\\")'", mode default, bar hidden_state hide
-	bindsym a exec "emacsclient -c -a emacs --eval '(org-agenda nil \\"d\\")'", mode default, bar hidden_state hide
-	bindsym l exec "emacsclient -c -a emacs --eval '(find-file \\"~/Sync/ledger.git/ledger.dat\\")'", mode default, bar hidden_state hide
-	bindsym r exec "emacsclient -c -a emacs --eval '(elfeed)'", mode default, bar hidden_state hide
-	bindsym Return mode default, bar hidden_state hide
-	bindsym Escape mode default, bar hidden_state hide
-	bindsym $sup+e mode default, bar hidden_state hide
+	bindsym e exec "emacsclient -c -a emacs", mode "default"
+	bindsym c exec "emacsclient -c -a emacs --eval '(org-capture)'", mode "default"
+	bindsym m exec "emacsclient -c -a emacs --eval '(notmuch)'", mode "default"
+	bindsym a exec "emacsclient -c -a emacs --eval '(org-agenda nil \\"d\\")'", mode "default"
+	bindsym l exec "emacsclient -c -a emacs --eval '(find-file \\"~/Sync/ledger.git/ledger.dat\\")'", mode "default"
+	bindsym r exec "emacsclient -c -a emacs --eval '(elfeed)'", mode "default"
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $sup+e mode "default"
 }
 
 ## Window Layout mode
@@ -266,36 +276,21 @@ bindsym $sup+x layout toggle
 
 ## Shutdown Mode
 set $shutdown Shutdown: [s]hutdown, [r]eboot, [l]ogout, [h]ibernate, sus[p]end, switch [u]ser
-bindsym $sup+Shift+e mode default, mode "$shutdown", bar hidden_state show
+bindsym $sup+Shift+e mode "$shutdown"
 mode "$shutdown" {
-	bindsym s exec --no-startup-id systemctl poweroff, mode default, bar hidden_state hide
-	bindsym r exec --no-startup-id systemctl reboot, mode default, bar hidden_state hide
-	bindsym l exec --no-startup-id i3-msg exit, mode default, bar hidden_state hide
-	bindsym h exec --no-startup-id systemctl hibernate, mode default, bar hidden_state hide
-	bindsym p exec --no-startup-id systemctl suspend, mode default, bar hidden_state hide
-	bindsym u exec --no-startup-id dm-tool switch-to-greeter, mode default, bar hidden_state hide
-	bindsym Return mode default, bar hidden_state hide
-	bindsym Escape mode default, bar hidden_state hide
-	bindsym $sup+w mode default, bar hidden_state hide
+	bindsym s exec --no-startup-id systemctl poweroff, mode "default"
+	bindsym r exec --no-startup-id systemctl reboot, mode "default"
+	bindsym l exec --no-startup-id i3-msg exit, mode "default"
+	bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+	bindsym p exec --no-startup-id systemctl suspend, mode "default"
+	bindsym u exec --no-startup-id dm-tool switch-to-greeter, mode "default"
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $sup+w mode "default"
 }
 
 #bindsym $sup+Shift+l exec --no-startup-id light-locker-command --lock
-
-# Panel
-#
-# NOTE: it's unclear if it can be started after other apps that
-#       output in the tray, we'll try it anyway
-## Status Bar
-bar {
-	mode hide
-	hidden_state hide
-	position top
-	# Font
-	font pango:Terminus Bold 15
-	tray_output none
-	workspace_buttons no
-	modifier none
-}
 
 # Autostart:
 #
@@ -317,7 +312,7 @@ exec --no-startup-id xsettingsd
 exec --no-startup-id feh --bg-fill --randomize ~/.wallpaper/*
 
 ## bottom dock
-exec --no-startup-id xfce4-panel -d --sm-client-disable
+exec --no-startup-id xfce4-panel --disable-wm-check --sm-client-disable
 
 ## KeepassXC
 exec --no-startup-id keepassxc
@@ -325,7 +320,7 @@ exec --no-startup-id keepassxc
 ## screen locking + power saving logic
 exec --no-startup-id ~/.config/i3/utils/lock-xorg-wayland.sh >> ~/i3.log 2>&1
 
-exec --no-startup-id ~/.config/i3/utils/bat-percent-actions.sh --interval '5m' --battery-action '<=20,dunstify -i battery-low -u normal -t 0 -h string:x-dunst-stack-tag:power "WARNING" "Battery level below 20%"' --battery-action '<=15,dunstify -i battery-empty -u critical -t 0 -h string:x-dunst-stack-tag:power "WARNING" "Battery level below 15%\nHibernation imminent"' --battery-action '<=10,systemctl hibernate'  --ac-action '>=87,dunstify -i battery-full -u low -t 0 -h string:x-dunst-stack-tag:power "WARNING" "Battery charge over 87%\nYou can safely remove the ac adapter"'
+exec --no-startup-id ~/.config/i3/utils/bat-percent-actions.sh --interval '5m' --battery-action '<=20,notify-send -i battery-low -u normal -t 0 -h string:x-dunst-stack-tag:power "WARNING" "Battery level below 20%"' --battery-action '<=15,notify-send -i battery-empty -u critical -t 0 -h string:x-dunst-stack-tag:power "WARNING" "Battery level below 15%\nHibernation imminent"' --battery-action '<=10,systemctl hibernate'  --ac-action '>=87,notify-send -i battery-full -u low -t 0 -h string:x-dunst-stack-tag:power "WARNING" "Battery charge over 87%\nYou can safely remove the ac adapter"'
 
 ## solaar
 exec --no-startup-id solaar -w hide -b solaar

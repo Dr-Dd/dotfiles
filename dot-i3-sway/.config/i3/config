@@ -8,7 +8,7 @@ bar {
     position top
     workspace_buttons no # Disable workspace buttons
     tray_output none # Disable tray output
-    font pango:Terminus Bold 12 # Nice font
+    font pango:Terminus Bold 15
 }
 
 # Click to focus instead on hover

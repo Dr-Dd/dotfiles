@@ -38,6 +38,9 @@ bindsym $sup+space exec rofi -show combi
 ## Select window a-la helm-mode, keybinding mimics M-x
 bindsym $sup+z exec rofi -show window -location 6
 
+## Oper file manager
+bindsym $sup+Shift+f exec --no-startup-id thunar
+
 ## Screenshot
 bindsym --release $sup+Print exec notify-send -i /dev/null -t 3000 Scrot "Screenshot mode activated" && scrot --select '%Y-%m-%d_%Hh.%Mm.%Ss_$wx$h.png' -e 'mv $f /tmp/'
 bindsym --release Print exec scrot '%Y-%m-%d_%Hh.%Mm.%Ss_$wx$h.png' -e 'mv $f /tmp/' && notify-send -i /dev/null -t 3000 Scrot 'Screenshot taken'
@@ -72,6 +75,7 @@ bindsym --release button3 exec ~/.config/i3/utils/maximize.sh
 
 # interact with dunst notifications
 bindsym Ctrl+Shift+space exec --no-startup-id dunstctl context
+bindsym Ctrl+space exec --no-startup-id dunstctl close
 
 ## alt tab cycle
 bindsym $sup+Tab focus next
@@ -160,8 +164,8 @@ bindsym $sup+Ctrl+Shift+Right exec --no-startup-id ~/.config/i3/utils/workspace-
 bindsym $sup+Ctrl+Shift+h exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -ml
 bindsym $sup+Ctrl+Shift+l exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -mr
 ## mouse side buttons (9 = forward, 8 = backward)
-bindsym button8 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -ml
-bindsym button9 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -mr
+bindsym --release button8 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -ml
+bindsym --release button9 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -mr
 ## mousescroll 
 bindsym button4 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -l
 bindsym button5 exec --no-startup-id ~/.config/i3/utils/workspace-by-one.sh -r
@@ -256,7 +260,7 @@ mode "resize" {
 }
 
 ## Emacs mode
-set $emacs Open Emacs: [a]genda, [c]apture, d[e]fault, [l]edger, [m]ail, [r]ss
+set $emacs Open Emacs: [A]genda, [C]apture, d[E]fault, [L]edger, [M]ail, [R]ss
 bindsym $sup+e mode "$emacs"
 mode "$emacs" {
 	bindsym e exec "emacsclient -c -a emacs", mode "default"
@@ -275,15 +279,16 @@ mode "$emacs" {
 bindsym $sup+x layout toggle
 
 ## Shutdown Mode
-set $shutdown Shutdown: [s]hutdown, [r]eboot, [l]ogout, [h]ibernate, sus[p]end, switch [u]ser
+set $shutdown Shutdown: [S]hutdown, [R]eboot, log[O]ut, [H]ibernate, sus[P]end, switch [U]ser, [L]ock
 bindsym $sup+Shift+e mode "$shutdown"
 mode "$shutdown" {
 	bindsym s exec --no-startup-id systemctl poweroff, mode "default"
 	bindsym r exec --no-startup-id systemctl reboot, mode "default"
-	bindsym l exec --no-startup-id i3-msg exit, mode "default"
+	bindsym o exec --no-startup-id i3-msg exit, mode "default"
 	bindsym h exec --no-startup-id systemctl hibernate, mode "default"
 	bindsym p exec --no-startup-id systemctl suspend, mode "default"
 	bindsym u exec --no-startup-id dm-tool switch-to-greeter, mode "default"
+	bindsym l exec --no-startup-id loginctl lock-session, mode "default"
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
@@ -300,7 +305,7 @@ mode "$shutdown" {
 
 ## Compositor
 ## null config to disable transparent tooltips
-exec --no-startup-id picom --config /dev/null --experimental-backends --vsync -CG --no-fading-openclose -m 1 -i 1 -e 1 -D 0
+exec --no-startup-id picom --config /dev/null --experimental-backends --vsync --no-dock-shadow --no-dnd-shadow --no-fading-openclose --menu-opacity=1 --fade-in-step=1 --frame-opacity=1 --fade-delta=0
 
 ## Random lightdm background
 exec --no-startup-id ~/.config/i3/utils/lightdm-background.sh
@@ -311,9 +316,6 @@ exec --no-startup-id xsettingsd
 ## random wallpaper
 exec --no-startup-id feh --bg-fill --randomize ~/.wallpaper/*
 
-## bottom dock
-exec --no-startup-id xfce4-panel --disable-wm-check --sm-client-disable
-
 ## KeepassXC
 exec --no-startup-id keepassxc
 
@@ -321,6 +323,9 @@ exec --no-startup-id keepassxc
 exec --no-startup-id ~/.config/i3/utils/lock-xorg-wayland.sh >> ~/i3.log 2>&1
 
 exec --no-startup-id ~/.config/i3/utils/bat-percent-actions.sh --interval '5m' --battery-action '<=20,notify-send -i battery-low -u normal -t 0 -h string:x-dunst-stack-tag:power "WARNING" "Battery level below 20%"' --battery-action '<=15,notify-send -i battery-empty -u critical -t 0 -h string:x-dunst-stack-tag:power "WARNING" "Battery level below 15%\nHibernation imminent"' --battery-action '<=10,systemctl hibernate'  --ac-action '>=87,notify-send -i battery-full -u low -t 0 -h string:x-dunst-stack-tag:power "WARNING" "Battery charge over 87%\nYou can safely remove the ac adapter"'
+
+## dock (launch as last one to have a visual cue for a complete boot
+exec --no-startup-id xfce4-panel --disable-wm-check --sm-client-disable
 
 ## solaar
 exec --no-startup-id solaar -w hide -b solaar
@@ -339,3 +344,13 @@ exec --no-startup-id nm-applet
 
 ## Graphical syncthing daemon
 exec --no-startup-id syncthing-gtk
+
+## Sleep state prevention
+# FIXME: Currently broken build
+#exec --no-startup-id caffeine
+
+## Thunar volume and file manager
+exec --no-startup-id thunar --daemon
+
+## Pulseaudio volume control
+exec --no-startup-id pasystray

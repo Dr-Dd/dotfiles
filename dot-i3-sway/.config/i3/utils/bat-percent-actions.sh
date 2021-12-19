@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# AKA Suicide
+# TODO: convert to a full python utility with config files and stuff
+
+# AKA Suicide ;-)
 self_kill() {
 	printf '%s\n' "$1" >&2
 	exit 1

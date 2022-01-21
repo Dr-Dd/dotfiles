@@ -15,6 +15,9 @@ configuration {
 	threads: 0;
 	terminal: "alacritty";
 	location: 2;
+	prime-run {
+		display-name: "prime-run";
+	}
 }
 
 @theme "Adapta-Nokto.rasi"

@@ -1,6 +1,6 @@
 # System
 export LANG="en_US.UTF-8"
-export PATH="${HOME}/.local/bin:${PATH}:$(ruby -e 'puts Gem.user_dir')/bin"
+export PATH="${HOME}/.local/bin:${PATH}:$(ruby -e 'puts Gem.user_dir')/bin:${HOME}/.cargo/bin"
 export CHROOT="$HOME/chroot"
 export COUNTRY="IT"
 export COMP_KNOWN_HOSTS_WITH_HOSTFILE=""

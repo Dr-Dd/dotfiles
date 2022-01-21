@@ -35,6 +35,9 @@ bindsym $sup+Return exec $TERM
 ## Launcher
 bindsym $sup+space exec rofi -show combi
 
+## Launcher for prime-run desktop programs
+bindsym $sup+p exec "j4-dmenu-desktop --dmenu='dmenu -i -p prime-run' --no-exec | xargs prime-run"
+
 ## Select window a-la helm-mode, keybinding mimics M-x
 bindsym $sup+z exec rofi -show window -location 6
 
@@ -337,7 +340,8 @@ exec --no-startup-id blueman-applet
 exec --no-startup-id redshift-gtk -l 41.89193:12.51133 -m randr
 
 ## optimus-manager-qt
-exec --no-startup-id optimus-manager-qt
+# FIXME: Now using rofi's prime-run script (custom)
+#exec --no-startup-id optimus-manager-qt
 
 ## NetworkManager
 exec --no-startup-id nm-applet
